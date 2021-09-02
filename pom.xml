@@ -11,8 +11,8 @@
     <modules>
         <module>platform</module>
         <module>admin</module>
-        <module>library</module>
-        <module>application</module>
+        <module>batch</module>
+        <module>engine</module>
     </modules>
 
 </project>
