@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/jdbc/spring-tx.xsd
+       http://www.springframework.org/schema/batch http://www.springframework.org/schema/jdbc/spring-batch-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/jdbc/spring-context.xsd
+       ">
+    <context:annotation-config/>
+
+    <bean id="yamlProperties" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean">
+        <property name="resources" value="application.yml"/>
+    </bean>
+
+    <context:property-placeholder properties-ref="yamlProperties"/>
+
+    <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository"/>
+    </bean>
+
+    <batch:job-repository id="jobRepository" data-source="hsqldbDataSource"/>
+
+    <bean id="hsqldbJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="hsqldbDataSource"/>
+    </bean>
+
+    <!-- connect to SQLite database -->
+    <bean id="hsqldbDataSource" class="org.apache.commons.dbcp2.BasicDataSource" primary="true">
+        <property name="driverClassName" value="${spring.hsqldb.datasource.driver-class-name}"/>
+        <property name="url" value="${spring.hsqldb.datasource.url}"/>
+        <property name="username" value="${spring.hsqldb.datasource.username"/>
+        <property name="password" value="${spring.hsqldb.datasource.password}"/>
+    </bean>
+
+    <!-- create job-meta tables automatically -->
+    <jdbc:initialize-database data-source="hsqldbDataSource">
+        <jdbc:script location="org/springframework/batch/core/schema-drop-hsqldb.sql"/>
+        <jdbc:script location="org/springframework/batch/core/schema-hsqldb.sql"/>
+    </jdbc:initialize-database>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="hsqldbDataSource"/>
+    </bean>
+
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" rollback-for="Exception"/>
+            <tx:method name="select*" read-only="true" rollback-for="Exception"/>
+            <tx:method name="insert*" read-only="true" rollback-for="Exception"/>
+            <tx:method name="update*" read-only="true" rollback-for="Exception"/>
+            <tx:method name="delete*" read-only="true" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <bean id="mainSqlDataSource" class="org.apache.commons.dbcp2.BasicDataSource" primary="true">
+        <property name="driverClassName" value="${spring.main.datasource.driver-class-name}"/>
+        <property name="url" value="${spring.main.datasource.url}"/>
+        <property name="username" value="${spring.main.datasource.username"/>
+        <property name="password" value="${spring.main.datasource.password}"/>
+    </bean>
+
+    <bean id="mainJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="mainSqlDataSource"/>
+    </bean>
+
+    <bean id="mainSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="mainSqlSessionFactory"/>
+        <constructor-arg value="BATCH"/>
+    </bean>
+
+    <bean id="mainSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="mainSqlDataSource"/>
+        <property name="configLocation" value="classpath:/mappers/mybatis-config.xml"/>
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:mappers/**/*.xml</value>
+            </array>
+        </property>
+    </bean>
+
+
+
+</beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/batch http://www.springframework.org/schema/jdbc/spring-batch-3.0.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="S002-tasklet" class="com.jsoftware.batch.biz.S002.S002Tasklet"/>
+
+    <batch:job id="S002-tasklet-job">
+        <batch:step id="S002-tasklet-step">
+            <batch:tasklet ref="S002-tasklet" transaction-manager="transactionManager"/>
+        </batch:step>
+    </batch:job>
+</beans>

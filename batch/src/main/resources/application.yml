@@ -1,0 +1,52 @@
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari: error
+        hikari.HikariConfig: error
+      lettuce: error
+      netty: error
+    org:
+      hibernate: error
+      springframework: error
+    root: info
+  pattern:
+    console: '%-5level %d{yyyy-MM-dd HH:mm:ss} [%F] [%logger{0}:%line] - %msg%n'
+    file: '%-5level %d{yyyy-MM-dd HH:mm:ss} [%F] [%logger{0}:%line] - %msg%n'
+redis:
+  default:
+    ttl: 7200000
+  host: localhost
+  port: 6379
+
+spring:
+  batch:
+    job:
+      enabled: true
+    jdbc:
+      initialize-schema: embedded
+  main:
+    web-application-type: NONE
+  datasource:
+    hikari:
+      name: primaryDataSource
+      jdbc-url: jdbc:mysql://localhost:3306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      maximum-pool-size: 4
+  secondary:
+    datasource:
+      name: secondaryDataSource
+      jdbc-url: jdbc:mysql://localhost:3306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      maximum-pool-size: 4
+  hsqldb:
+    datasource:
+      name: hsqldbDataSource
+      url: jdbc:hsqldb:mem:test;DB_CLOSE_DELAY=-1
+      username: sa
+      password:
+      driver-class-name: org.hsqldb.jdbc.JDBCDriver

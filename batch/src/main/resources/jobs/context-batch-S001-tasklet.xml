@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/batch http://www.springframework.org/schema/jdbc/spring-batch-3.0.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="S001Reader" class="com.jsoftware.batch.biz.S001.S001Reader">
+        <property name="sqlSessionFactory" ref="mainSqlSessionFactory"/>
+        <property name="queryId" ref="S001.select1"/>
+    </bean>
+
+    <bean id="S001Processor" class="com.jsoftware.batch.biz.S001.S001Processor"/>
+
+    <bean id="S001Writer" class="com.jsoftware.batch.biz.S001.S001Writer">
+        <property name="dataSource" ref="mainSqlDataSource"/>
+    </bean>
+
+    <batch:job id="S001-tasklet-job">
+        <batch:step id="S001-tasklet-step">
+            <batch:tasklet transaction-manager="transactionManager">
+                <batch:chunk reader="S001Reader" processor="S001Processor" writer="S001Writer" commit-interval="100" skip-limit="10000000">
+                    <batch:skippable-exception-classes/>
+                </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+</beans>

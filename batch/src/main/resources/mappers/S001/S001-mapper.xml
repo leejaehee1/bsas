@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="S001">
+    <select id="select1" resultType="String">
+        select 1;
+    </select>
+    <select id="select2" resultType="String">
+        select 2;
+    </select>
+    <select id="select3" resultType="String">
+        select 3;
+    </select>
+
+</mapper>

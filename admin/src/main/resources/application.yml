@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: ERP Basic Management Module
+  security:
+    user:
+      name: sergey
+      password: sergey
+      roles: manager
+  boot:
+    admin:
+      notify:
+        hipchat:
+          auth-token: <generated_token>
+          room-id: <room-id>
+          url: https://yourcompany.hipchat.com/v2/

@@ -1,0 +1,181 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "loginID": "ID",
+  "@loginID": {
+    "description": "Login ID."
+  },
+  "loginPW": "Password",
+  "@loginPW": {
+    "description": "Login Password."
+  },
+  "loginDialogText": "Check your ID or Password",
+  "@loginDialogText": {
+    "description": "Login Fail Text."
+  },
+  "loginDialogButton": "Ok",
+  "@loginDialogButton": {
+    "description": "Login Fail Button."
+  },
+
+
+  "signIn": "Sign In",
+  "@signIn": {
+    "description": "Login Button."
+  },
+  "signUp": "Sign Up",
+  "@signUp": {
+    "description": "Sign up Button."
+  },
+  "signUpText": "Forgot Your Username or Password?",
+  "@signUpText": {
+    "description": "Explain Sign up Button."
+  },
+  "signUpHeader": "User Registration",
+  "@signUpHeader": {
+    "description": "signUpHeader"
+  },
+  "signUpcheckPage1": "프로그램 서비스 이용약관",
+  "@signUpcheckPage1": {
+    "description": "check page1 title"
+  },
+  "signUpcheckPage2": "개인정보 수집 및 활동 동의",
+  "@signUpcheckPage2": {
+    "description": "checkpage2 title"
+  },
+  "signUpbottomButton1": "Cancel",
+  "@signUpbottomButton1": {
+    "description": "botton button1 title"
+  },
+  "signUpbottomButton2": "Registation",
+  "@signUpbottomButton2": {
+    "description": "botton button2 title"
+  },
+  "signUpID": "User ID",
+  "@signUpID": {
+    "description": "first page texttitle"
+  },
+  "signUpPW": "Password",
+  "@signUpPW": {
+    "description": "first page texttitle"
+  },
+  "signUprepw": "Retry Pasword",
+  "@signUprepw": {
+    "description": "first page texttitle"
+  },
+  "signUpmail": "E-mail",
+  "@signUpmail": {
+    "description": "first page texttitle"
+  },
+  "signUpcom": "Company",
+  "@signUpcom": {
+    "description": "first page texttitle"
+  },
+  "signUpname": "User Name",
+  "@signUpname": {
+    "description": "first page texttitle"
+  },
+  "signUppersonal": "Personal ID",
+  "@signUppersonal": {
+    "description": "first page texttitle"
+  },
+  "signUpdept": "Department",
+  "@signUpdept": {
+    "description": "first page texttitle"
+  },
+  "signUpdeptselect": "Select Department",
+  "@signUpdeptselect": {
+    "description": "first page texttitle"
+  },
+  "signUpcheckbox": "Yes, I agree",
+  "@signUpcheckbox": {
+    "description": "signUpcheckbox text"
+  },
+  "signUppwForm1": "비밀번호",
+  "@signUppwForm1": {
+    "description": "signUppwForm1"
+  },
+  "signUppwForm2": "특수문자, 대소문자, 숫자 포함 8자 이상 15자 이내로 입력하세요.",
+  "@signUppwForm2": {
+    "description": "signUppwForm2"
+  },
+  "signUpmailForm1": "이메일",
+  "@signUpmailForm1": {
+    "description": "signUpmailForm1"
+  },
+  "signUpmailForm2": "이메일을 입력해주세요",
+  "@signUpmailForm2": {
+    "description": "signUpmailForm2"
+  },
+
+  
+
+  "appTitle": "My Punch List",
+  "@appTitle": {
+    "description": "This is app title and some texts."
+  },
+  "tile1": "All",
+  "@tile1": {
+    "description": "one of the state of the punch list."
+  },
+  "tile2": "Draft",
+  "@tile2": {
+    "description": "one of the state of the punch list."
+  },
+  "tile3": "Open",
+  "@tile3": {
+    "description": "one of the state of the punch list."
+  },
+  "tile4": "Req for Close",
+  "@tile4": {
+    "description": "one of the state of the punch list."
+  },
+  "tile5": "Close",
+  "@tile5": {
+    "description": "one of the state of the punch list."
+  },
+  "pListbutton1": "Add Punch Issue",
+  "@pListbutton1": {
+    "description": "punch list bottom button."
+  },
+  "pListbutton2": "Upload Photos",
+  "@pListbutton2": {
+    "description": "punch list bottom button."
+  },
+
+
+  "completeButton": "Complete",
+  "@completeButton": {
+    "description": "Complete button."
+  },
+  "completeTitle": "Punch Complete",
+  "@completeTitle": {
+    "description": "Complete title."
+  },
+  "completeText": "Comment of Not Accepted",
+  "@completeText": {
+    "description": "Complete text."
+  },
+  "completePageTitle": "Attachment",
+  "@completePageTitle": {
+    "description": "Complete page title."
+  },
+  "completePageButton1": "Cancel",
+  "@completePageButton1": {
+    "description": "Complete Page button1."
+  },
+  "completePageButton2": "Complete Punch",
+  "@completePageButton2": {
+    "description": "Complete Page button2."
+  },
+  "completePageDescription": "Description",
+  "@completePageDescription": {
+    "description": "Complete Page Description."
+  },
+  "completePageDescriptionLabel": "Valve changed",
+  "@completePageDescriptionLabel": {
+    "description": "Complete Page Description Label."
+  }
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/batch http://www.springframework.org/schema/jdbc/spring-batch-3.0.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="S002Tasklet" class="com.jsoftware.batch.biz.S002.S002Tasklet">
+        <property name="S002Task" ref="S002Task"/>
+    </bean>
+    <bean id="S002Task" class="com.jsoftware.batch.biz.S002.S002Task"/>
+
+    <bean id="S003Reader" class="com.jsoftware.batch.biz.S003.S003Reader">
+        <property name="sqlSessionFactory" ref="mainSqlSessionFactory"/>
+        <property name="queryId" ref="S003.select1"/>
+    </bean>
+
+    <bean id="S003Processor" class="com.jsoftware.batch.biz.S003.S003Processor"/>
+
+    <bean id="S003Writer" class="com.jsoftware.batch.biz.S003.S003Writer">
+        <property name="dataSource" ref="mainSqlDataSource"/>
+    </bean>
+
+    <bean id="S003JobListener" class="com.jsoftware.batch.biz.S003.S003JobListener"/>
+
+    <bean id="S003StepListener" class="com.jsoftware.batch.biz.S003.S003StepListener"/>
+
+    <bean id="S003Partitioner" class="com.jsoftware.batch.biz.S003.S003Partitioner"/>
+
+    <bean id="S003Decision" class="com.jsoftware.batch.biz.S003.S003Decision"/>
+
+    <batch:job id="S003-tasklet-job">
+        <batch:step id="S003-tasklet-step-etl" next="S003-decision">
+            <batch:tasklet ref="S002Tasklet" transaction-manager="transactionManager"/>
+        </batch:step>
+
+        <batch:decision id="S003-decision" decider="S003Decision">
+            <batch:next on="COMPLETED" to="S003-tasklet-step1"/>
+            <batch:next on="FAILED" to="S003-tasklet-step2"/>
+            <batch:next on="STOPPED" to="S003-tasklet-step3"/>
+        </batch:decision>
+
+        <batch:step id="S003-tasklet-step1" next="S003-tasklet-step2">
+            <batch:partition step="S003-tasklet-step2" partitioner="S003Partitioner">
+                <batch:handler grid-size="3" task-executor="taskExecutor"/>
+            </batch:partition>
+            <batch:listeners>
+                <batch:listener ref="S003StepListener"/>
+            </batch:listeners>
+        </batch:step>
+
+        <batch:step id="S003-tasklet-step2" next="S003-tasklet-step3">
+            <batch:tasklet transaction-manager="transactionManager">
+                <batch:chunk reader="S003Reader" processor="S003Processor"
+                             writer="S003Writer" commit-interval="100" skip-limit="100000000">
+                    <batch:skippable-exception-classes/>
+                </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+
+        <batch:step id="S003-tasklet-step3">
+            <batch:tasklet transaction-manager="transactionManager">
+                <batch:chunk reader="S003Reader" processor="S003Processor"
+                             writer="S003Writer" commit-interval="100" skip-limit="100000000">
+                    <batch:skippable-exception-classes/>
+                </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+</beans>
