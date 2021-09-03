@@ -10,10 +10,10 @@ void main() async {
 // test
 
 MaterialColor MyGreen = const MaterialColor(0xFF43aa8b, {
-  50: Color(0xFF64DD17),
-  100: Color(0xFFAA00FF),
+  50: Color(0xffEAECC6),
+  100: Color(0xff2BC0E4),
   200: Color(0xFF00C853), //메인으로 했던 컬러
-  300: Color(0xFF00695C), //
+  300: Color(0xFFDCEDC8), //
   400: Color(0xFF009688), ////
   500: Color(0xFF43aa8b), //// good
   600: Color(0xFFD500F9),
@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
         '/page2': (context) => HomeScreen(), //지인등록페이지
       },
       theme: ThemeData(
-        // primarySwatch: Colors.blue,
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: HomeScreen(),
     );
