@@ -1,5 +1,7 @@
 package com.jsoftware.platform.model;
 
+import javax.persistence.Table;
+
 import lombok.*;
 
 @Setter
@@ -7,12 +9,14 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Table(name="user")
 public class User {
     @NonNull
-    private String userId;
+    private long id;
     @NonNull
-    private String userPwd;
+    private String pw;
     @NonNull
     private String name;
-    private String authType;
+    private String phone;
+    private String email;
 }
