@@ -1,6 +1,6 @@
 ## :flipper:Flutter
 
-> 펀치 프로젝트(PLMS) FE_Flutter 앱 코드 입니다.
+> 뇌졸중 알람 시스템 
 >
 > J SoftWare
 
@@ -22,21 +22,15 @@ $ code .
 
 ### Todo
 
-- sliverListView 
-- Tab 
-- Custom Scroll Action
-- Image Picker Gallery, Camera
-- Draft Upload
-- Draft Pixel Print
-
+- 백엔드와 프론트엔드 협업
 
 
 ### Developer
 
 | 이름  | 직책 | 담당       |
 | ----- | ---- | ---------- |
-| Waler | 대리 | FE_Flutter |
-
+| Sherry | 연구원 | BE_Flutter |
+| Mark | 연구원 | FE_Flutter |
 
 
 

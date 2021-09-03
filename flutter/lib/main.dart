@@ -1,3 +1,4 @@
+import 'package:final_js/start.dart';
 import 'package:flutter/material.dart';
 import 'User/user_home_screen.dart';
 import 'navigate_page.dart';
@@ -29,11 +30,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: '/',
       routes: {
-        '/': (context) => NavigatorPage(),
-        '/page1': (context) => HomeScreen(), //지인등록페이지
+        '/': (context) => StartPage(),
+        '/page1' : (context) => NavigatorPage(),
+        '/page2': (context) => HomeScreen(), //지인등록페이지
       },
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
       ),
       // home: HomeScreen(),
     );
