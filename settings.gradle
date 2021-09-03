@@ -1,5 +1,6 @@
-rootProject.name = 'gs-multi-module'
+rootProject.name = 'brain stroke alarm system'
 
-include 'library'
 include 'admin'
-include 'application'
+include 'batch'
+include 'engine'
+include 'flutter'
