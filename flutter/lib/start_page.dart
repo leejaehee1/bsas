@@ -52,9 +52,20 @@ class _StartPageState extends State<StartPage> {
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 80),
+                      fontSize: 60),
                 ),
               ),
+              SizedBox(height: 0.5),
+              Container(
+                child: Text(
+                  'brain stroke alarm',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white
+                  ),
+                ),
+              )
             ],
           ),
         ),

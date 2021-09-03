@@ -226,7 +226,7 @@ class PersonPage extends StatelessWidget {
                   child: Card(
                     child: ListTile(
                       //leading: Icon(Icons.add),
-                      title: Text('동지에는 좋은 음식을 먹고 좋은 활동을 하면 \n 좋은 건강을 유지한다고 믿었기에  \n 좋은 장소에서 사람들과 함께 좋은 음식을 먹으면 좋습니다.'),
+                      // title: Text(),
                     ),
                     elevation: 2,
                     margin: EdgeInsets.all(15),
@@ -259,7 +259,7 @@ class PersonPage extends StatelessWidget {
                   child: Card(
                     child: ListTile(
                       //leading: Icon(Icons.add),
-                      title: Text('동지에는 좋은 음식을 먹고 좋은 활동을 하면 \n 좋은 건강을 유지한다고 믿었기에  \n 좋은 장소에서 사람들과 함께 좋은 음식을 먹으면 좋습니다.'),
+                      // title: Text('동지에는 좋은 음식을 먹고 좋은 활동을 하면 \n 좋은 건강을 유지한다고 믿었기에  \n 좋은 장소에서 사람들과 함께 좋은 음식을 먹으면 좋습니다.'),
                     ),
                     elevation: 2,
                     margin: EdgeInsets.all(15),
@@ -279,16 +279,16 @@ class PersonPage extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (builder) => EmergencyPage()));
                 },
                 child: Container(
-                  padding: EdgeInsets.only(left: 30),
-                  width: 300,
+                  // width: 300,
                   height: 60,
+                  margin:EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(5,5)
+                        color: Colors.grey.withOpacity(0.4),
+                        offset: Offset(2,5)
                       ),
                     ]
                   ),
@@ -304,6 +304,7 @@ class PersonPage extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 10)
             ],
           ),
         )
