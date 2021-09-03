@@ -1,9 +1,9 @@
-import 'package:final_js/user/user_add_screen.dart';
-import 'package:final_js/user/user_data_detail.dart';
+import 'package:bsas/user/user_add_screen.dart';
+import 'package:bsas/user/user_data_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../db/database.dart';
-import 'package:final_js/model/data_model.dart';
+import 'package:bsas/model/data_model.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../db/database.dart';
 import 'hospital_add_screen.dart';
-import 'package:final_js/db/database.dart';
+import 'package:bsas/db/database.dart';
 
 import 'hospital_data_detail.dart';
 

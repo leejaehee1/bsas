@@ -1,4 +1,4 @@
-import 'package:final_js/db/database.dart';
+import 'package:bsas/db/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../model/data_model.dart';

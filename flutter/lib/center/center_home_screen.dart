@@ -1,5 +1,5 @@
-import 'package:final_js/db/database.dart';
-import 'package:final_js/user/user_data_detail.dart';
+import 'package:bsas/db/database.dart';
+import 'package:bsas/user/user_data_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../navigate_page.dart';

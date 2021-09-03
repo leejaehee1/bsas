@@ -1,8 +1,8 @@
-import 'package:final_js/db/database.dart';
+import 'package:bsas/db/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../model/data_model.dart';
-import 'package:final_js/hospital/hospital_home_screen.dart';
+import 'package:bsas/hospital/hospital_home_screen.dart';
 
 class AddHospital extends StatefulWidget {
   @override

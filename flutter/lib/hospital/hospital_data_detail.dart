@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:final_js/db/database.dart';
-import 'package:final_js/model/data_model.dart';
+import 'package:bsas/db/database.dart';
+import 'package:bsas/model/data_model.dart';
 
 class HosDataDetail extends StatefulWidget {
   Data data;

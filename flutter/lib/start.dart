@@ -1,9 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'navigate_page.dart';
-
 
 class StartPage extends StatefulWidget {
   @override
@@ -19,7 +17,10 @@ class _StartPageState extends State<StartPage> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF43aa8b), Colors.teal[200],],// 그라데이션 색상 수정
+            colors: [
+              Color(0xFF43aa8b),
+              Colors.teal,
+            ], // 그라데이션 색상 수정
           ),
         ),
         child: Center(
@@ -27,14 +28,21 @@ class _StartPageState extends State<StartPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               // SizedBox(height: 100),
-              Container(child: Image.asset("image/icon_first.png", width: 400,
-              height: 300, )),
+              Container(
+                  child: Image.asset(
+                "image/icon_first.png",
+                width: 400,
+                height: 300,
+              )),
               SizedBox(height: 10),
               Container(
-                child: Text('BSAS', //글자 색상 및 폰트 수정
-                style: TextStyle(color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 80),),
+                child: Text(
+                  'BSAS', //글자 색상 및 폰트 수정
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 80),
+                ),
               ),
               SizedBox(height: 10),
               Container(
@@ -53,7 +61,7 @@ class _StartPageState extends State<StartPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
-                  onPressed: (){
+                  onPressed: () {
                     NavigatorPage(); //회원가입 페이지로 이동 //회원가입 페이지 만들기
                   },
                 ),
@@ -64,5 +72,4 @@ class _StartPageState extends State<StartPage> {
       ),
     );
   }
-
 }

@@ -1,8 +1,8 @@
-import 'package:final_js/center/center_home_screen.dart';
-import 'package:final_js/hospital/hospital_home_screen.dart';
+import 'package:bsas/center/center_home_screen.dart';
+import 'package:bsas/hospital/hospital_home_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:final_js/User/user_home_screen.dart';
+import 'package:bsas/User/user_home_screen.dart';
 
 class TalkPage_first extends StatelessWidget {
   @override
