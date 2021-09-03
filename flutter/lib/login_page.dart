@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 10),
                   Container(
                     child: Text(
-                      'Login', //글자 색상 및 폰트 수정
+                      'Login',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -100,35 +100,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            // decoration: BoxDecoration(
-            //   gradient: LinearGradient(
-            //     begin: Alignment.topLeft,
-            //     end: Alignment.bottomRight,
-            //     colors: [
-            //       Color(0xFF43aa8b),
-            //       Color(0xFFDCEDC8),
-            //     ]
-            //   ),
-            //   borderRadius: BorderRadius.circular(15.0),
-            // ),
-            // child: ElevatedButton(
-            //   child: Text("sign in",
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.w700,
-            //     fontSize: 30,
-            //   ),
-            //   ),
-            //   style: ElevatedButton.styleFrom(
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(15),
-            //     ),
-            //     primary: Color(0xFF43aa8b),
-            //   ),
-            //   onPressed: () {
-            //     Navigator.push(context,
-            //         MaterialPageRoute(builder: (context) => NavigatorPage()));
-            //   },
-            // ),
           ),
         ],
       ),
