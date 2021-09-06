@@ -88,6 +88,7 @@ public class BoardController {
         return "board";
     }
 
+    // http://localhost:18080/contents?idx=1
     @PostMapping("/board")
     public String saveContent(@RequestBody Board board) {
         // db select

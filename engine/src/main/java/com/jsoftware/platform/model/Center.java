@@ -2,15 +2,20 @@ package com.jsoftware.platform.model;
 
 import javax.persistence.Table;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
 @ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Table(name="user")
-public class User {
+@Table(name="center")
+public class Center {
     @NonNull
     private long id;
     @NonNull
@@ -18,5 +23,6 @@ public class User {
     @NonNull
     private String name;
     private String phone;
+    private String publicPhone;
     private String email;
 }
