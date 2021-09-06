@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StarPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class StarPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 25),
                 child: Text(
-                  "내용 입력",
+                  "스마트 맵",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -44,10 +45,11 @@ class StarPage extends StatelessWidget {
                   ),
                 ),
               ),
+              //커뮤니티
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 25),
                 child: Text(
-                  "내용 입력",
+                  "커뮤니티",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -56,27 +58,37 @@ class StarPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 3),
-              Container(
-                height: 180,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Card(
-                    child: ListTile(
-                      //leading: Icon(Icons.add),
-                      title: Text('title'),
-                      subtitle: Text('subtitle'),
+              Expanded(
+                  child: InkWell(
+                    onTap: (){},//설문투표
+                    child: Stack(
+                      children: <Widget>[
+                        Image.asset('image/market.jpg'),
+                        Text('설문투표')
+                      ],
                     ),
-                    elevation: 2,
-                    margin: EdgeInsets.all(15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.2),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+                  )),
+              // Container(
+              //   height: 180,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(5.0),
+              //     child: Card(
+              //       child: ListTile(
+              //         //leading: Icon(Icons.add),
+              //         title: Text('title'),
+              //         subtitle: Text('subtitle'),
+              //       ),
+              //       elevation: 2,
+              //       margin: EdgeInsets.all(15),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(20),
+              //         side: BorderSide(
+              //           color: Colors.grey.withOpacity(0.2),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 25),
                 child: Text(

@@ -35,6 +35,8 @@ dependencies:
   path_provider:
   bottom_navy_bar:
   http:
+  fl_chart:
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

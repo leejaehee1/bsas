@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'pages/star_page.dart';
 import 'pages/person_page.dart';
 import 'pages/talk_first.dart';
-import 'pages/talk_second.dart';
+import 'pages/search.dart';
 import 'pages/talk_third.dart';
 
 class NavigatorPage extends StatefulWidget {
@@ -67,8 +67,8 @@ class _NavigatorPageState extends State<NavigatorPage>
               Tab(icon: Icon(Icons.people_rounded,),), // icon color -> white or color: Color(0xFF43aa8b)
               Tab(icon: Icon(Icons.chat_rounded, ),),
               Tab(icon: Icon(Icons.star_rounded,  ),),
-              Tab(icon: Icon(Icons.chat_rounded, ),),
-              Tab(icon: Icon(Icons.chat_rounded,),)
+              Tab(icon: Icon(Icons.search_rounded, ),),
+              Tab(icon: Icon(Icons.person_pin_rounded,),)
             ],
           ),
           backgroundColor: Color(0xFF43aa8b), // or white
