@@ -14,7 +14,7 @@ import lombok.*;
 @Table(name="user")
 public class User {
     @NonNull
-    private long id;
+    private int id;
     @NonNull
     private String pw;
     @NonNull
@@ -26,7 +26,7 @@ public class User {
 
     }
 
-    public User(long id, String pw, String name, String phone, String email) {
+    public User(int id, String pw, String name, String phone, String email) {
         this.id = id;
         this.pw = pw;
         this.name = name;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,8 +34,10 @@ public class ActivityConfigController {
     // user, hospital, center read
     @GetMapping("/api/users")
     public List<User> getUsers() {
+        System.out.printf("aaaa");
         return activityConfigService.readUsers();
     }
+
     @GetMapping("/api/hospitals")
     public List<Hospital> getHospitals() {
         return activityConfigService.readHospitals();
@@ -43,6 +46,36 @@ public class ActivityConfigController {
     @GetMapping("/api/centers")
     public List<Center> getCenters() {
         return activityConfigService.readCenters();
+    }
+
+
+//    @GetMapping("/api/users/{id}")
+//    public User readUser(@PathVariable("id") String id) {
+//        System.out.println(id);
+//        int variable = Integer.parseInt(id);
+//        System.out.println(variable);
+//        User userTest = activityConfigService.readUser(variable);
+//        System.out.println(userTest);
+//        return userTest;
+//    }
+
+    // user, hopital, center read one
+    @GetMapping("/api/users/{id}")
+    public User readUser(@PathVariable("id") int id) {
+        System.out.println(id);
+        return activityConfigService.readUser(id);
+    }
+
+    @GetMapping("/api/hospitals/{id}")
+    public Hospital readHospital(@PathVariable("id") int id) {
+        System.out.println(id);
+        return activityConfigService.readHospital(id);
+    }
+
+    @GetMapping("/api/centers/{id}")
+    public Center readCenter(@PathVariable("id") int id) {
+        System.out.println(id);
+        return activityConfigService.readCenter(id);
     }
 
     // user, hospital, center post
@@ -62,10 +95,10 @@ public class ActivityConfigController {
     }
 
     // user, hospital, center put
-    @PutMapping("/api/users/{id}")
-    public User putUser(@PathVariable("id") Long id, @RequestBody User user) {
-        return activityConfigService.updateUser(user);
-    }
+//    @PutMapping("/api/users/{id}")
+//    public User putUser(@PathVariable("id") Long id, @RequestBody User user) {
+//        return activityConfigService.updateUser(user);
+//    }
 
     @PutMapping("/api/hospitals/{id}")
     public Hospital putHospital(@PathVariable("id") Long id, @RequestBody Hospital hospital) {

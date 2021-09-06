@@ -41,8 +41,8 @@ public class ActivityConfigService {
 
     // one user
     @Transactional
-    public User readUser(User user) {
-        return repository.selectUserById(user);
+    public User readUser(int id) {
+        return repository.selectUserById(id);
     }
 
     @Transactional
@@ -64,8 +64,8 @@ public class ActivityConfigService {
 
     // 병원 등록
     @Transactional
-    public Hospital readHospital(Hospital hospital) {
-        return repository.selectHospitalById(hospital);
+    public Hospital readHospital(int id) {
+        return repository.selectHospitalById(id);
     }
 
     @Transactional
@@ -92,8 +92,8 @@ public class ActivityConfigService {
 
     // 센터 등록
     @Transactional
-    public Center readCenter(Center center) {
-        return repository.selectCenterById(center);
+    public Center readCenter(int id) {
+        return repository.selectCenterById(id);
     }
 
     @Transactional
