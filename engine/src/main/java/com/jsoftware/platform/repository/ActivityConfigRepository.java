@@ -12,7 +12,7 @@ import java.util.List;
 public interface ActivityConfigRepository {
 
     // 지인 등록
-    User selectUserById(User user);
+    User selectUserById(int id);
 
     List<User> selectAllUsers();
 
@@ -23,7 +23,7 @@ public interface ActivityConfigRepository {
     void deleteUser(User user);
 
     // 병원 등록
-    Hospital selectHospitalById(Hospital hospital);
+    Hospital selectHospitalById(int id);
 
     List<Hospital> selectAllHospitals();
 
@@ -34,7 +34,7 @@ public interface ActivityConfigRepository {
     void deleteHospital(Hospital hospital);
 
     // 센터 등록
-    Center selectCenterById(Center center);
+    Center selectCenterById(int id);
 
     List<Center> selectAllCenters();
 
