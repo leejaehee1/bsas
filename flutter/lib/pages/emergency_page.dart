@@ -1,7 +1,10 @@
+import 'package:bsas/pages/person_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+
+import '../navigate_page.dart';
 
 class EmergencyPage extends StatefulWidget {
   @override
@@ -117,7 +120,9 @@ class _EmergencyPageState extends State<EmergencyPage> {
                       height: 30,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=> NavigatorPage()));
+                      },
                       child: Text('알람 종료'),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(300, 40),

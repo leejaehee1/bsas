@@ -1,3 +1,9 @@
+import 'package:bsas/user_info_page/activity_page.dart';
+import 'package:bsas/user_info_page/addFriends_page.dart';
+import 'package:bsas/user_info_page/notice_page.dart';
+import 'package:bsas/user_info_page/question_page.dart';
+import 'package:bsas/user_info_page/setting_page.dart';
+import 'package:bsas/user_info_page/user_info_edit.dart';
 import 'package:flutter/material.dart';
 
 
@@ -78,7 +84,9 @@ class _UserInformationState extends State<UserInformation> {
                     elevation: 0.0,
                     color: Colors.white,
                     // // shape: ShapeBorder,
-                    onPressed: () {  }, // 프로필 편집 페이지로 연결
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => UserInfoEdit()));
+                    }, // 프로필 편집 페이지로 연결
                     child: Text(
                       '프로필 편집',
                       style: TextStyle(
@@ -102,7 +110,9 @@ class _UserInformationState extends State<UserInformation> {
                       children: [
                         // 활동 내역
                         GestureDetector(
-                          onTap : (){},
+                          onTap : (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=> ActivityPage()));
+                          },
                         child: ListTile(
                           leading: Icon(Icons.assignment_outlined),
                           title: _text('활동내역'),
@@ -110,7 +120,9 @@ class _UserInformationState extends State<UserInformation> {
                       ),
                         // 문의사항
                         GestureDetector(
-                          onTap : (){},
+                          onTap : (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=> QuestionPage()));
+                          },
                           child: ListTile(
                             leading: Icon(Icons.question_answer_outlined),
                             title: _text('문의사항'),
@@ -118,7 +130,9 @@ class _UserInformationState extends State<UserInformation> {
                         ),
                         // 공지사항
                         GestureDetector(
-                          onTap : (){},
+                          onTap : (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=> NoticePage()));
+                          },
                           child: ListTile(
                             leading: Icon(Icons.keyboard_voice_outlined),
                             title: _text('공지사항'),
@@ -141,14 +155,18 @@ class _UserInformationState extends State<UserInformation> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
-                          onTap : (){},
+                          onTap : (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=> AddFriendsPage()));
+                          },
                           child: ListTile(
                             leading: Icon(Icons.person_add_alt_1_rounded),
                             title: _text('친구초대'),
                           ),
                         ),
                         GestureDetector(
-                          onTap : (){},
+                          onTap : (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=> SettingPage()));
+                          },
                           child: ListTile(
                             leading: Icon(Icons.settings),
                             title: _text('앱 설정'),

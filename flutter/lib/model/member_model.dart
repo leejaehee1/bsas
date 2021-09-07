@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 
 class MemberViewModel {
   Future<String> fetchLogin(String id, String pw) async {
-    print("http://127.0.0.1:18080/member/login?id=" + id + "&pw=" +pw);
-    final response = await http.get(Uri.parse("http://127.0.0.1:18080/member/login?id=" + id + "&pw=" +pw), headers: {
+    print("http://172.30.1.39:18080/member/login?id=" + id + "&pw=" +pw);
+    final response = await http.get(Uri.parse("http://172.30.1.39:18080/member/login?id=" + id + "&pw=" +pw), headers: {
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
       "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
       "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
@@ -16,9 +16,9 @@ class MemberViewModel {
 
     if (response.statusCode == 200) {
       // 만약 서버가 OK 응답을 반환하면, JSON을 파싱합니다.
-      List responseJson = json.decode(response.body);
+      var responseJson = json.decode(response.body);
 
-      return response.body;
+      return responseJson;
     } else {
       // 만약 응답이 OK가 아니면, 에러를 던집니다.
       throw Exception('Failed to load post');

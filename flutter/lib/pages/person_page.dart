@@ -28,7 +28,7 @@ class _PersonPageState extends State<PersonPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           padding: EdgeInsets.all(8.0),
           // scrollDirection: Axis.vertical,
@@ -37,17 +37,17 @@ class _PersonPageState extends State<PersonPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 20, left: 25),
+                padding: const EdgeInsets.only(top: 20, left: 10),
                 child: Text(
                   "현재 활동",
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.black
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.black
                   ),
                 ),
               ),
-              SizedBox(height: 3),
+              SizedBox(height: 10),
               //차트
               AspectRatio(
                 aspectRatio: 1.70,
@@ -82,8 +82,7 @@ class _PersonPageState extends State<PersonPage> {
                 ),
               ),
               // SizedBox(height: 2),
-              Container(
-                margin: EdgeInsets.only(left: 130),
+              Center(
                 child: Text(
                   "심박수/혈압 그래프",
                   style: TextStyle(
@@ -96,7 +95,7 @@ class _PersonPageState extends State<PersonPage> {
               SizedBox(height: 50),
               //차트
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 25),
+                padding: const EdgeInsets.only(top: 10, left: 10),
                 child: Text(
                   "오늘의 위험 지수",
                   style: TextStyle(
@@ -106,7 +105,7 @@ class _PersonPageState extends State<PersonPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 3),
+              SizedBox(height: 10),
               AspectRatio(
                 aspectRatio: 1.70,
                 child: Container(
@@ -140,8 +139,7 @@ class _PersonPageState extends State<PersonPage> {
                 ),
               ),
               SizedBox(height: 2),
-              Container(
-                margin: EdgeInsets.only(left: 170),
+              Center(
                 child: Text(
                   "발병확률",
                   style: TextStyle(
@@ -151,9 +149,9 @@ class _PersonPageState extends State<PersonPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 30),
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 25),
+                padding: const EdgeInsets.only(top: 10, left: 10),
                 child: Text(
                   "오늘의 이벤트",
                   style: TextStyle(
@@ -163,34 +161,35 @@ class _PersonPageState extends State<PersonPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 3),
               Container(
-                height: 180,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Card(
-                    child: ListTile(
-                      title: Text("1. 건강 목표 도달 이벤트 \n "
-                          "2. 건강 체크 이벤트 \n"
-                          "3. 사전 예약 이벤트",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),),
-                    ),
-                    elevation: 2,
-                    margin: EdgeInsets.all(15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.2),
-                      ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // 활동 내역
+                        ListTile(
+                          leading: Icon(Icons.run_circle_rounded, color: Colors.blueAccent),
+                          title: Text('건강 목표 도달 이벤트'),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.check_box_rounded, color: Colors.blueAccent),
+                          title: Text('건강 체크 이벤트'),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.assignment_rounded, color: Colors.blueAccent),
+                          title: Text('사전 예약 이벤트'),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
+              SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 25),
+                padding: const EdgeInsets.only(top: 10, left: 10),
                 child: Text(
                   "오늘의 헤드라인",
                   style: TextStyle(
@@ -202,27 +201,34 @@ class _PersonPageState extends State<PersonPage> {
               ),
               SizedBox(height: 3),
               Container(
-                height: 180,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Card(
-                    child: ListTile(
-                      //leading: Icon(Icons.add),
-                      title: Text('1. 강추위에 뇌졸중 환자 급증\n 2. 뇌졸중에 좋은 보양 음식 추천 \n 3. 최근 10년간 뇌졸중 발병 추이 분석'),
-                    ),
-                    elevation: 2,
-                    margin: EdgeInsets.all(15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.2),
-                      ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // 활동 내역
+                        ListTile(
+                          leading: Icon(Icons.sick_rounded, color: Colors.red),
+                          title: Text('강추위에 뇌졸중 환자 급증'),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.zoom_in_rounded, color: Colors.red),
+                          title: Text('뇌졸중에 좋은 보양 음식 추천'),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.fact_check, color: Colors.red),
+                          title: Text('최근 10년간 뇌졸중 발병 추이 분석'),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
+              SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 25),
+                padding: const EdgeInsets.only(top: 10, left: 10),
                 child: Text(
                   "추천 활동",
                   style: TextStyle(
@@ -233,41 +239,31 @@ class _PersonPageState extends State<PersonPage> {
                 ),
               ),
               SizedBox(height: 3),
-              Container(
-                height: 180,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Card(
-                    child: ListTile(
-                      //leading: Icon(Icons.add),
-                      title: Text('동지에는 좋은 음식을 먹고 좋은 활동을 하면 \n 좋은 건강을 유지한다고 믿었기에  \n 좋은 장소에서 사람들과 함께 좋은 음식을 먹으면 좋습니다.'),
+              Card(
+                child: Column(
+                  children: [
+                    // 활동 내역
+                    ListTile(
+                      title: Center(child: Text('동지에는 좋은 음식을 먹고 좋은 활동을 하면 \n좋은 건강을 유지한다고 믿었기에  \n좋은 장소에서 사람들과 함께 좋은 음식을 드셔보세요!')),
                     ),
-                    elevation: 2,
-                    margin: EdgeInsets.all(15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.2),
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
               ),
+              SizedBox(height: 10),
               //유튜브 채널
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 25),
+                padding: const EdgeInsets.only(top: 10, left: 10),
                 child: Text(
-                  "YOUTUBE 인기채널", //TEXT간 색상 다르게, YOUTUBE는 빨간색으로 강조
+                  "YOUTUBE 인기채널",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.black
+                      color: Colors.black,
                   ),
                 ),
               ),
               SizedBox(height: 3),
               Container(
-                // height: 180,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Card(
@@ -298,7 +294,7 @@ class _PersonPageState extends State<PersonPage> {
                                     height: 8,
                                   ),
                                   Text(
-                                    '[인사이트 인터뷰] #18 \n‘뇌졸중’..',
+                                    '[인사이트 인터뷰] #18 \n‘뇌졸중’',
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
@@ -338,7 +334,7 @@ class _PersonPageState extends State<PersonPage> {
                                     height: 8,
                                   ),
                                   Text(
-                                    '뇌졸중 전조증상 알면,\n골든..',
+                                    '뇌졸중 전조증상\n알면,골든..',
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
@@ -395,39 +391,29 @@ class _PersonPageState extends State<PersonPage> {
                         ],
                       ),
                     ),
-                    elevation: 2,
-                    margin: EdgeInsets.all(15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.2),
-                      ),
-                    ),
                   ),
-
                 ),
               ),
               // 긴급 호출 버튼 및 페이지 연결
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (builder) => EmergencyPage()));
                 },
                 child: Container(
-                  // width: 300,
                   height: 60,
-                  margin:const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                  margin:EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        offset: const Offset(2,5)
-                      ),
-                    ]
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //       color: Colors.grey.withOpacity(0.4),
+                      //       offset: Offset(2,5)
+                      //   ),
+                      // ]
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       "긴급호출",
                       style: TextStyle(
@@ -439,7 +425,7 @@ class _PersonPageState extends State<PersonPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10)
+              // SizedBox(height: 10)
             ],
           ),
         )
@@ -499,7 +485,7 @@ class _PersonPageState extends State<PersonPage> {
           ),
           getTitles: (value) {
             switch (value.toInt()) {
-              //bpm
+            //bpm
               case 50:
                 return '50';
               case 100:
@@ -632,16 +618,16 @@ class _PersonPageState extends State<PersonPage> {
         LineChartBarData(
           spots: [
             FlSpot(0, 81),
-            FlSpot(2.6, 90),
-            FlSpot(4.9, 77),
-            FlSpot(6.8, 98),
-            FlSpot(8, 78),
-            FlSpot(9.5, 100),
-            FlSpot(11, 65),
-            FlSpot(13, 90),
-            FlSpot(14.2, 77),
-            FlSpot(15.6, 98),
-            FlSpot(16.5, 100),
+            FlSpot(2, 90),
+            FlSpot(3, 77),
+            FlSpot(4, 98),
+            FlSpot(5, 78),
+            FlSpot(6, 100),
+            FlSpot(7, 65),
+            FlSpot(8, 90),
+            FlSpot(9, 77),
+            FlSpot(10, 98),
+            FlSpot(11, 100),
             FlSpot(18, 78),
             FlSpot(19, 180),
           ],

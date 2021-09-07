@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class StarPage extends StatefulWidget {
   @override
@@ -8,27 +10,46 @@ class StarPage extends StatefulWidget {
 }
 
 class _StarPageState extends State<StarPage> {
-  Widget _contanier(String text, String url){
+  Completer<GoogleMapController> _controller = Completer();
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  late CameraPosition _googleMapCamera;
+  Marker? marker;
+  LocationData? currentLocation;
+
+  // currentLocation.latitude = 37.66809443;
+  // currentLocation.longitude = 126.74454984;
+
+  void _currentLocation() async {
+    var location = new Location();
+    Map<String, double> dataMap = {
+      'latitude': 37.66809443,
+      'longitude': 126.74454984
+    };
+    currentLocation = LocationData.fromMap(dataMap);
+
+    currentLocation = await location.getLocation();
+
+    // Map<String, double>();
+    // dataMap.putIfAbsent("latitude", 37.66809443);
+    // dataMap.putIfAbsent("longitude", 126.74454984);
+  }
+
+  Widget _contanier(String text, String url) {
     return Container(
       padding: const EdgeInsets.all(8),
       child: Align(
-        alignment: Alignment.bottomCenter,
-          child: Text(text,
-            style: TextStyle(color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
-          )
-      ),
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            text,
+            style: TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          )),
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(url),
-          fit: BoxFit.fill
-        )
-      ),
+          image: DecorationImage(image: AssetImage(url), fit: BoxFit.fill)),
     );
   }
 
-  Widget _text(String text){
+  Widget _text(String text) {
     return Text(
       text,
       style: TextStyle(
@@ -39,7 +60,7 @@ class _StarPageState extends State<StarPage> {
     );
   }
 
-  Widget _subTitle(String text){
+  Widget _subTitle(String text) {
     return Text(
       text,
       style: TextStyle(
@@ -50,9 +71,11 @@ class _StarPageState extends State<StarPage> {
     );
   }
 
-  Widget _button(){
-    return ElevatedButton(onPressed: (){},
-      child: Text('Label',
+  Widget _button() {
+    return ElevatedButton(
+      onPressed: () {},
+      child: Text(
+        'Label',
         style: TextStyle(
           color: Colors.white,
         ),
@@ -62,6 +85,7 @@ class _StarPageState extends State<StarPage> {
 
   @override
   Widget build(BuildContext context) {
+    _currentLocation();
     return Scaffold(
         body: SingleChildScrollView(
           padding: EdgeInsets.all(8.0),
@@ -69,6 +93,37 @@ class _StarPageState extends State<StarPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //google map
+              Container(
+                padding: EdgeInsets.only(left: 16, top: 25),
+                child: Text(
+                  '스마트 맵',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              SizedBox(height: 5),
+              Container(
+                height: MediaQuery.of(context).size.height * 3.5 / 7,
+                child: GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                        currentLocation!.latitude!, currentLocation!.longitude!),
+                    // LatLng(37.66809443, 126.74454984),
+                    zoom: 16,
+                  ),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  markers: Set<Marker>.of(markers.values),
+                ),
+              ),
+              //////////////////////Googlemap end
           // 커뮤니티
               Container(
                 padding: EdgeInsets.only(left: 16, top: 25),

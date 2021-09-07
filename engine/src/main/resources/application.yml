@@ -1,6 +1,7 @@
 server:
-  address: localhost
-  port: 18080
+  address: 172.30.1.39
+  port: 35413
+#  18080
 
 spring:
   application:

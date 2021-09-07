@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'create_account_page.dart';
 import 'navigate_page.dart';
 import '/model/member_model.dart';
 
@@ -11,19 +12,22 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final MemberViewModel viewModel = MemberViewModel();
 
-  late TextEditingController _idController;
-  late TextEditingController _pwController;
+  String _id = "";
+  String _pw = "";
+
+  final _idController = TextEditingController();
+  final _pwController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _idController = new TextEditingController();
-    TextEditingController _pwController = new TextEditingController();
+    // TextEditingController _idController = new TextEditingController();
+    // TextEditingController _pwController = new TextEditingController();
 
     @override
     void dispose() {
       super.initState();
       _idController.dispose();
-      _pwController.dispose();
+      _pwController.dispose(); //입력 끊어주는 역할
       super.dispose();
     }
 
@@ -108,10 +112,11 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextFormField(
                     controller: _idController,
                     decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'id',
-                      prefixIcon: Icon(Icons.person),
-                    ),
+                        border: InputBorder.none,
+                        hintText: 'id',
+                        prefixIcon: Icon(Icons.person),),
+                    onSaved: (input) => _id = input!,
+
                   ),
                 ),
                 Container(
@@ -124,16 +129,41 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextFormField(
                     controller: _pwController,
                     decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'password',
-                      prefixIcon: Icon(Icons.vpn_key_rounded),
-                    ),
+                        border: InputBorder.none,
+                        hintText: 'password',
+                        prefixIcon: Icon(Icons.vpn_key_rounded),
+                        ),
+                    onSaved: (input) => _pw = input!,
+
                   ),
                 ),
+                GestureDetector(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    alignment: Alignment.bottomCenter,
+                    child: Text('id/password 찾기'),
+                  ),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=> NavigatorPage()));
+                  },
+                ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  // margin: EdgeInsets.only(top: 0.1),
                   alignment: Alignment.bottomCenter,
-                  child: Text('id/password 찾기'),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => CreateAccountPage()));
+                    },
+                    child: Text(
+                      '회원가입',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -141,26 +171,28 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(height: 20),
           GestureDetector(
             onTap: () async {
-              var fetchLogin = await viewModel.fetchLogin(_idController.value.text, _pwController.value.text);
 
-              if(fetchLogin == "true") {
-                Navigator.push(context, MaterialPageRoute(builder: (builder) => NavigatorPage()));
-              }else{
+              var fetchLogin = await viewModel.fetchLogin(
+                  _idController.value.text, _pwController.value.text);
+
+              if (fetchLogin == "true") {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (builder) => NavigatorPage()));
+              } else {
                 _showDialog();
               }
             },
             child: Container(
-              width: 360,
+              width: MediaQuery.of(context).size.width * 0.9,
               height: 60,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF43aa8b),
-                    Color(0xFFDCEDC8),
-                  ]
-                ),
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF43aa8b),
+                      Color(0xFFDCEDC8),
+                    ]),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
