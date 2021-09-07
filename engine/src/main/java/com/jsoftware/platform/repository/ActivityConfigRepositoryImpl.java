@@ -28,7 +28,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
 
-    // 지인 등록
+    // 지인
     @Override
     public User selectUserById(int id) {
         return sqlSessionTemplate.selectOne("selectUserById", id);
@@ -55,7 +55,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
 
-    // 병원 등록
+    // 병원
     @Override
     public Hospital selectHospitalById(int id) {
         return sqlSessionTemplate.selectOne("selectHospitalById", id);
@@ -83,7 +83,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
 
 
 
-    // 센터 등록
+    // 센터
     @Override
     public Center selectCenterById(int id) {
         return sqlSessionTemplate.selectOne("selectCenterById", id);

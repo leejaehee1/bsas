@@ -47,23 +47,13 @@ public class ActivityConfigController {
     }
 
 
-//    @GetMapping("/api/users/{id}")
-//    public User readUser(@PathVariable("id") String id) {
-//        System.out.println(id);
-//        int variable = Integer.parseInt(id);
-//        System.out.println(variable);
-//        User userTest = activityConfigService.readUser(variable);
-//        System.out.println(userTest);
-//        return userTest;
-//    }
-
     // user, hospital, center read one
 
     // id 값으로 하나씩 불러오기
     // @PathVariable는 해당 url 뒤로 /슬러시 및 ""안 값을 넘기는데,
     // @RequestParam은 해당 url 뒤로 /가 아니라 ? 뒤로 값을 넣는다.
-    // Restfull api에서 값을 호출할 때에는,
-    // 값을 호출하여 url에 맞춰서 binding하는 @PathVariable 쓰는 게 맞다.
+    // Restfull api에서 id 값으로 호출할 때에는,
+    // id 값을 호출하여 url에 맞춰서 binding하는 @PathVariable 쓰는 게 맞다.
 
     @GetMapping("/api/users/{id}")
     public User readUser(@PathVariable("id") int id) {
@@ -104,6 +94,7 @@ public class ActivityConfigController {
     }
 
     // user, hospital, center put
+
     @PutMapping("/api/users/{id}")
     public User putUser(@PathVariable("id") int id, @RequestBody User user) {
         return activityConfigService.updateUser(user);
@@ -135,11 +126,4 @@ public class ActivityConfigController {
     public Center deleteCenter(@PathVariable int id, Center center) {
         return activityConfigService.deleteCenter(center);
     }
-
-    // ----------------test
-//    @DeleteMapping("/api/users/{id}")
-//    public void deleteUser(@PathVariable long id, @RequestBody User user) {
-//        activityConfigService.deleteUser(user);
-//    }
-// -------------------------------------------------------------------------------------------o
 }

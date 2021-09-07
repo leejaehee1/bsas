@@ -20,19 +20,7 @@ public class ActivityConfigService {
         this.repository = repository;
     }
 
-
-    // 지인 등록
-//    @Transactional
-//    public User readUser(User user) {
-//        return repository.selectUserById(user);
-//    }
-//
-//    public User getUserById(Long id) {
-//        User user = new User();
-//        user.setId(id);
-//        return repository.selectUserById(user);
-//    }
-
+    // 지인
     // all users
     @Transactional
     public List<User> readUsers() {
@@ -63,7 +51,7 @@ public class ActivityConfigService {
         return user;
     }
 
-    // 병원 등록
+    // 병원
     @Transactional
     public Hospital readHospital(int id) {
         return repository.selectHospitalById(id);
@@ -92,7 +80,7 @@ public class ActivityConfigService {
         return hospital;
     }
 
-    // 센터 등록
+    // 센터
     @Transactional
     public Center readCenter(int id) {
         return repository.selectCenterById(id);
