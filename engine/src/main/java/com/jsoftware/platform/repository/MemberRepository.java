@@ -21,16 +21,3 @@ public interface MemberRepository {
 
     void deleteMember(Member member);
 }
-
-//public interface MemberRepository extends JpaRepository<Member, Long> {
-//
-//    Member selectMemberById(int id);
-//
-//    List<Member> selectAllMembers();
-//
-//    void insertMember(Member member);
-//
-//    void updateMember(Member member);
-//
-//    void deleteMember(Member member);
-//}

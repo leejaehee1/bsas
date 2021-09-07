@@ -3,8 +3,10 @@ package com.jsoftware.platform.controller;
 import com.jsoftware.platform.model.Member;
 import com.jsoftware.platform.service.MemberService;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,13 +37,18 @@ public class MemberController {
                 return true;
             }
         }
-
         return false;
     }
 
     //회원가입 페이지
     @GetMapping("/member/signup")
-    public String signpage() {
-        return "signup_page";
+    public String sign() {
+        return "signup";
+    }
+
+    @GetMapping("/member/signup/{id}")
+    public Member readMember(@PathVariable("id") int id) {
+        System.out.println(id);
+        return memberService.readMember(id);
     }
 }
