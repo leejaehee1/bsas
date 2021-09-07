@@ -408,7 +408,7 @@ class _PersonPageState extends State<PersonPage> {
                 ),
               ),
               // 긴급 호출 버튼 및 페이지 연결
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (builder) => EmergencyPage()));
@@ -416,18 +416,18 @@ class _PersonPageState extends State<PersonPage> {
                 child: Container(
                   // width: 300,
                   height: 60,
-                  margin:EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                  margin:const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.4),
-                        offset: Offset(2,5)
+                        offset: const Offset(2,5)
                       ),
                     ]
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "긴급호출",
                       style: TextStyle(
@@ -439,7 +439,7 @@ class _PersonPageState extends State<PersonPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 10)
+              const SizedBox(height: 10)
             ],
           ),
         )

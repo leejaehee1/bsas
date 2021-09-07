@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'navigate_page.dart';
+import '/model/member_model.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,8 +9,45 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final MemberViewModel viewModel = MemberViewModel();
+
+  late TextEditingController _idController;
+  late TextEditingController _pwController;
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController _idController = new TextEditingController();
+    TextEditingController _pwController = new TextEditingController();
+
+    @override
+    void dispose() {
+      super.initState();
+      _idController.dispose();
+      _pwController.dispose();
+      super.dispose();
+    }
+
+    void _showDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("로그인 실패"),
+            content: new Text("아이디와 패스워드를 확인하세요."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -60,8 +98,38 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                _textInformation(hint: 'id', icon: Icons.person),
-                _textInformation(hint: 'password', icon: Icons.vpn_key_rounded),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.only(left: 10),
+                  child: TextFormField(
+                    controller: _idController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'id',
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.only(left: 10),
+                  child: TextFormField(
+                    controller: _pwController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'password',
+                      prefixIcon: Icon(Icons.vpn_key_rounded),
+                    ),
+                  ),
+                ),
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment.bottomCenter,
@@ -72,8 +140,14 @@ class _LoginPageState extends State<LoginPage> {
           ),
           SizedBox(height: 20),
           GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (builder) => NavigatorPage()));
+            onTap: () async {
+              var fetchLogin = await viewModel.fetchLogin(_idController.value.text, _pwController.value.text);
+
+              if(fetchLogin == "true") {
+                Navigator.push(context, MaterialPageRoute(builder: (builder) => NavigatorPage()));
+              }else{
+                _showDialog();
+              }
             },
             child: Container(
               width: 360,
@@ -102,25 +176,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _textInformation({Controller, hint, icon}) {
-    return Container(
-      margin: EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        color: Colors.white,
-      ),
-      padding: EdgeInsets.only(left: 10),
-      child: TextFormField(
-        controller: Controller,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hint,
-          prefixIcon: Icon(icon),
-        ),
       ),
     );
   }
