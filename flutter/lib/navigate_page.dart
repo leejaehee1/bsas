@@ -4,7 +4,7 @@ import 'pages/star_page.dart';
 import 'pages/person_page.dart';
 import 'pages/talk_first.dart';
 import 'pages/search.dart';
-import 'pages/talk_third.dart';
+import 'pages/user_infomation.dart';
 
 class NavigatorPage extends StatefulWidget {
   @override
@@ -77,10 +77,10 @@ class _NavigatorPageState extends State<NavigatorPage>
           controller: controller,
           children: <Widget>[
             PersonPage(), //TAB1
-            TalkPage_first(), //TAB2
+            TalkPageFirst(), //TAB2
             StarPage(),//TAB3
             TalkPageSecond(),//TAB4
-            TalkPageThird(),//TAB5
+            UserInformation(),//TAB5
           ],
         ),
       )
