@@ -77,7 +77,7 @@ class TalkPage_first extends StatelessWidget {
                           },
                           color: Color(0xFFDCEDC8),
                           child: Icon(
-                            Icons.add_alert, color: Colors.red,
+                            Icons.apartment_rounded, color: Colors.pink,
                             size: 30,
                           ),
                           padding: EdgeInsets.all(16),
@@ -112,7 +112,7 @@ class TalkPage_first extends StatelessWidget {
                           },
                           color: Color(0xFFDCEDC8),
                           child: Icon(
-                            Icons.mark_chat_unread_rounded, color: Colors.blueAccent,
+                            Icons.local_hospital_rounded, color: Colors.deepOrangeAccent,
                             size: 30,
                           ),
                           padding: EdgeInsets.all(16),
@@ -145,7 +145,7 @@ class TalkPage_first extends StatelessWidget {
                           onPressed: (){},
                           color: Color(0xFFDCEDC8),
                           child: Icon(
-                            Icons.alarm_add_rounded, color: Colors.orange,
+                            Icons.alarm_add_rounded, color: Colors.indigo,
                             size: 30,
                           ),
                           padding: EdgeInsets.all(16),

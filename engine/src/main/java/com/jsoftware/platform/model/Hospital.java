@@ -17,7 +17,7 @@ import lombok.ToString;
 @Table(name="hospital")
 public class Hospital {
     @NonNull
-    private long id;
+    private int id;
     @NonNull
     private String pw;
     @NonNull

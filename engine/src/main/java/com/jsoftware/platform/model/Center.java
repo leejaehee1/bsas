@@ -17,7 +17,7 @@ import lombok.ToString;
 @Table(name="center")
 public class Center {
     @NonNull
-    private long id;
+    private int id;
     @NonNull
     private String pw;
     @NonNull

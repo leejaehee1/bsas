@@ -36,6 +36,8 @@ dependencies:
   bottom_navy_bar:
   http:
   fl_chart:
+  google_maps_flutter:
+  youtube_player_flutter:
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,6 +71,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - image/
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
