@@ -45,8 +45,8 @@ spring:
     store-type: redis
   redis:
     host: localhost
-    password:
-#    password: password
+#    password:
+    password: password
     port: 6379
   security:
     user:
