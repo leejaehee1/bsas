@@ -118,7 +118,7 @@ class _PersonPageState extends State<PersonPage> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
                     child: LineChart(
-                      showAvg ? avgData() : mainData(),
+                      showAvg ? subAvgData() : subData(),
                     ),
                   ),
                 ),
@@ -298,7 +298,7 @@ class _PersonPageState extends State<PersonPage> {
                                     height: 8,
                                   ),
                                   Text(
-                                    '[인사이트 인터뷰] #18 ‘뇌졸중’..',
+                                    '[인사이트 인터뷰] #18 \n‘뇌졸중’..',
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
@@ -338,7 +338,7 @@ class _PersonPageState extends State<PersonPage> {
                                     height: 8,
                                   ),
                                   Text(
-                                    '뇌졸중 전조증상 알면, 골든..',
+                                    '뇌졸중 전조증상 알면,\n골든..',
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
@@ -407,39 +407,6 @@ class _PersonPageState extends State<PersonPage> {
 
                 ),
               ),
-              // 검색
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 10, left: 25),
-              //   child: Text(
-              //     "검색",
-              //     style: TextStyle(
-              //         fontWeight: FontWeight.bold,
-              //         fontSize: 20,
-              //         color: Colors.black
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 3),
-              // Container(
-              //   height: 180,
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(5.0),
-              //     child: Card(
-              //       child: ListTile(
-              //         //leading: Icon(Icons.add),
-              //         // title: Text('동지에는 좋은 음식을 먹고 좋은 활동을 하면 \n 좋은 건강을 유지한다고 믿었기에  \n 좋은 장소에서 사람들과 함께 좋은 음식을 먹으면 좋습니다.'),
-              //       ),
-              //       elevation: 2,
-              //       margin: EdgeInsets.all(15),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(20),
-              //         side: BorderSide(
-              //           color: Colors.grey.withOpacity(0.2),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               // 긴급 호출 버튼 및 페이지 연결
               SizedBox(height: 20),
               GestureDetector(
@@ -478,6 +445,9 @@ class _PersonPageState extends State<PersonPage> {
         )
     );
   }
+
+
+  // 차트
   LineChartData mainData() {
     return LineChartData(
       gridData: FlGridData(
@@ -508,12 +478,12 @@ class _PersonPageState extends State<PersonPage> {
           const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
           getTitles: (value) {
             switch (value.toInt()) {
-              case 2:
-                return 'MAR';
               case 5:
-                return 'JUN';
-              case 8:
-                return 'SEP';
+                return '5min';
+              case 10:
+                return '10min';
+              case 15:
+                return '15min';
             }
             return '';
           },
@@ -529,12 +499,15 @@ class _PersonPageState extends State<PersonPage> {
           ),
           getTitles: (value) {
             switch (value.toInt()) {
-              case 1:
-                return '10k';
-              case 3:
-                return '30k';
-              case 5:
-                return '50k';
+              //bpm
+              case 50:
+                return '50';
+              case 100:
+                return '100';
+              case 150:
+                return '150';
+              case 200:
+                return '200';
             }
             return '';
           },
@@ -545,19 +518,26 @@ class _PersonPageState extends State<PersonPage> {
       borderData:
       FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
       minX: 0,
-      maxX: 11,
+      maxX: 20,
       minY: 0,
-      maxY: 6,
+      maxY: 220,
       lineBarsData: [
         LineChartBarData(
+          // 데이터 넣기
           spots: [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
+            FlSpot(0, 81),
+            FlSpot(2.6, 90),
+            FlSpot(4.9, 77),
+            FlSpot(6.8, 98),
+            FlSpot(8, 78),
+            FlSpot(9.5, 100),
+            FlSpot(11, 65),
+            FlSpot(13, 90),
+            FlSpot(14.2, 77),
+            FlSpot(15.6, 98),
+            FlSpot(16.5, 100),
+            FlSpot(18, 78),
+            FlSpot(19, 180),
           ],
           isCurved: true,
           colors: gradientColors,
@@ -574,7 +554,6 @@ class _PersonPageState extends State<PersonPage> {
       ],
     );
   }
-
   LineChartData avgData() {
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
@@ -603,12 +582,12 @@ class _PersonPageState extends State<PersonPage> {
           const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
           getTitles: (value) {
             switch (value.toInt()) {
-              case 2:
-                return 'MAR';
               case 5:
-                return 'JUN';
-              case 8:
-                return 'SEP';
+                return '5min';
+              case 10:
+                return '10min';
+              case 15:
+                return '15min';
             }
             return '';
           },
@@ -624,12 +603,14 @@ class _PersonPageState extends State<PersonPage> {
           ),
           getTitles: (value) {
             switch (value.toInt()) {
-              case 1:
-                return '10k';
-              case 3:
-                return '30k';
-              case 5:
-                return '50k';
+              case 50:
+                return '50';
+              case 100:
+                return '100';
+              case 150:
+                return '150';
+              case 200:
+                return '200';
             }
             return '';
           },
@@ -642,6 +623,7 @@ class _PersonPageState extends State<PersonPage> {
       ),
       borderData:
       FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
+      // 분 단위로 나눔 x, 심박수 y
       minX: 0,
       maxX: 11,
       minY: 0,
@@ -649,13 +631,252 @@ class _PersonPageState extends State<PersonPage> {
       lineBarsData: [
         LineChartBarData(
           spots: [
-            FlSpot(0, 3.44),
-            FlSpot(2.6, 3.44),
-            FlSpot(4.9, 3.44),
-            FlSpot(6.8, 3.44),
-            FlSpot(8, 3.44),
-            FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
+            FlSpot(0, 81),
+            FlSpot(2.6, 90),
+            FlSpot(4.9, 77),
+            FlSpot(6.8, 98),
+            FlSpot(8, 78),
+            FlSpot(9.5, 100),
+            FlSpot(11, 65),
+            FlSpot(13, 90),
+            FlSpot(14.2, 77),
+            FlSpot(15.6, 98),
+            FlSpot(16.5, 100),
+            FlSpot(18, 78),
+            FlSpot(19, 180),
+          ],
+          isCurved: true,
+          colors: [
+            ColorTween(begin: gradientColors[0], end: gradientColors[1]).lerp(0.2)!,
+            ColorTween(begin: gradientColors[0], end: gradientColors[1]).lerp(0.2)!,
+          ],
+          barWidth: 5,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: false,
+          ),
+          belowBarData: BarAreaData(show: true, colors: [
+            ColorTween(begin: gradientColors[0], end: gradientColors[1])
+                .lerp(0.2)!
+                .withOpacity(0.1),
+            ColorTween(begin: gradientColors[0], end: gradientColors[1])
+                .lerp(0.2)!
+                .withOpacity(0.1),
+          ]),
+        ),
+      ],
+    );
+  }
+  LineChartData subData() {
+    return LineChartData(
+      gridData: FlGridData(
+        show: true,
+        drawVerticalLine: true,
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
+            color: const Color(0xff37434d),
+            strokeWidth: 1,
+          );
+        },
+        getDrawingVerticalLine: (value) {
+          return FlLine(
+            color: const Color(0xff37434d),
+            strokeWidth: 1,
+          );
+        },
+      ),
+      titlesData: FlTitlesData(
+        show: true,
+        rightTitles: SideTitles(showTitles: false),
+        topTitles: SideTitles(showTitles: false),
+        bottomTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 22,
+          interval: 1,
+          getTextStyles: (context, value) =>
+          const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
+          getTitles: (value) {
+            switch (value.toInt()) {
+              case 5:
+                return '5min';
+              case 10:
+                return '10min';
+              case 15:
+                return '15min';
+            }
+            return '';
+          },
+          margin: 8,
+        ),
+        leftTitles: SideTitles(
+          showTitles: true,
+          interval: 1,
+          getTextStyles: (context, value) => const TextStyle(
+            color: Color(0xff67727d),
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+          getTitles: (value) {
+            switch (value.toInt()) {
+            //bpm
+              case 50:
+                return '50';
+              case 100:
+                return '100';
+              case 150:
+                return '150';
+              case 200:
+                return '200';
+            }
+            return '';
+          },
+          reservedSize: 32,
+          margin: 12,
+        ),
+      ),
+      borderData:
+      FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
+      minX: 0,
+      maxX: 20,
+      minY: 0,
+      maxY: 220,
+      lineBarsData: [
+        LineChartBarData(
+          // 데이터 넣기
+          spots: [
+            FlSpot(0, 47),
+            FlSpot(1, 50),
+            FlSpot(2, 55),
+            FlSpot(3, 64),
+            FlSpot(4, 75),
+            FlSpot(5, 88),
+            FlSpot(6, 92),
+            FlSpot(7, 97),
+            FlSpot(8, 105),
+            FlSpot(9, 112),
+            FlSpot(10, 117),
+            FlSpot(11, 125),
+            FlSpot(12, 124),
+            FlSpot(13, 120),
+            FlSpot(14, 128),
+            FlSpot(15, 131),
+            FlSpot(16, 141),
+            FlSpot(17, 149),
+            FlSpot(18, 151),
+            FlSpot(19, 142),
+          ],
+          isCurved: true,
+          colors: gradientColors,
+          barWidth: 5,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: false,
+          ),
+          belowBarData: BarAreaData(
+            show: true,
+            colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+  LineChartData subAvgData() {
+    return LineChartData(
+      lineTouchData: LineTouchData(enabled: false),
+      gridData: FlGridData(
+        show: true,
+        drawHorizontalLine: true,
+        getDrawingVerticalLine: (value) {
+          return FlLine(
+            color: const Color(0xff37434d),
+            strokeWidth: 1,
+          );
+        },
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
+            color: const Color(0xff37434d),
+            strokeWidth: 1,
+          );
+        },
+      ),
+      titlesData: FlTitlesData(
+        show: true,
+        bottomTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 22,
+          getTextStyles: (context, value) =>
+          const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
+          getTitles: (value) {
+            switch (value.toInt()) {
+              case 5:
+                return '5min';
+              case 10:
+                return '10min';
+              case 15:
+                return '15min';
+            }
+            return '';
+          },
+          margin: 8,
+          interval: 1,
+        ),
+        leftTitles: SideTitles(
+          showTitles: true,
+          getTextStyles: (context, value) => const TextStyle(
+            color: Color(0xff67727d),
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+          getTitles: (value) {
+            switch (value.toInt()) {
+              case 50:
+                return '50';
+              case 100:
+                return '100';
+              case 150:
+                return '150';
+              case 200:
+                return '200';
+            }
+            return '';
+          },
+          reservedSize: 32,
+          interval: 1,
+          margin: 12,
+        ),
+        topTitles: SideTitles(showTitles: false),
+        rightTitles: SideTitles(showTitles: false),
+      ),
+      borderData:
+      FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
+      // 분 단위로 나눔 x, 심박수 y
+      minX: 0,
+      maxX: 11,
+      minY: 0,
+      maxY: 6,
+      lineBarsData: [
+        LineChartBarData(
+          spots: [
+            FlSpot(0, 47),
+            FlSpot(1, 50),
+            FlSpot(2, 55),
+            FlSpot(3, 64),
+            FlSpot(4, 75),
+            FlSpot(5, 88),
+            FlSpot(6, 92),
+            FlSpot(7, 97),
+            FlSpot(8, 105),
+            FlSpot(9, 112),
+            FlSpot(10, 117),
+            FlSpot(11, 125),
+            FlSpot(12, 124),
+            FlSpot(13, 120),
+            FlSpot(14, 128),
+            FlSpot(15, 131),
+            FlSpot(16, 141),
+            FlSpot(17, 149),
+            FlSpot(18, 151),
+            FlSpot(19, 142),
           ],
           isCurved: true,
           colors: [
