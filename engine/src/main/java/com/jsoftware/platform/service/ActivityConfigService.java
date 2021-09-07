@@ -58,8 +58,9 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public void deleteUser(User user) {
+    public User deleteUser(User user) {
         repository.deleteUser(user);
+        return user;
     }
 
     // 병원 등록
@@ -86,8 +87,9 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public void deleteHospital(Hospital hospital) {
+    public Hospital deleteHospital(Hospital hospital) {
         repository.deleteHospital(hospital);
+        return hospital;
     }
 
     // 센터 등록
@@ -114,7 +116,8 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public void deleteCenter(Center center) {
+    public Center deleteCenter(Center center) {
         repository.deleteCenter(center);
+        return center;
     }
 }

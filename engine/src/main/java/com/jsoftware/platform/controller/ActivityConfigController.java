@@ -4,7 +4,6 @@ import com.jsoftware.platform.model.Center;
 import com.jsoftware.platform.model.Hospital;
 import com.jsoftware.platform.model.User;
 import com.jsoftware.platform.service.ActivityConfigService;
-import com.jsoftware.platform.service.BoardService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class ActivityConfigController {
@@ -108,7 +104,6 @@ public class ActivityConfigController {
     }
 
     // user, hospital, center put
-
     @PutMapping("/api/users/{id}")
     public User putUser(@PathVariable("id") int id, @RequestBody User user) {
         return activityConfigService.updateUser(user);
@@ -125,20 +120,20 @@ public class ActivityConfigController {
     }
 
     // user, hospital, center delete
-    // 수정
+
     @DeleteMapping("/api/users/{id}")
-    public void deleteUser(@PathVariable int id, @RequestBody User user) {
-        activityConfigService.deleteUser(user);
+    public User deleteUser(@PathVariable int id, User user) {
+        return activityConfigService.deleteUser(user);
     }
 
     @DeleteMapping("/api/hospitals/{id}")
-    public void deleteHospital(@PathVariable int id, @RequestBody Hospital hospital) {
-        activityConfigService.deleteHospital(hospital);
+    public Hospital deleteHospital(@PathVariable int id, Hospital hospital) {
+        return activityConfigService.deleteHospital(hospital);
     }
 
     @DeleteMapping("/api/centers/{id}")
-    public void deleteCenter(@PathVariable int id, @RequestBody Center center) {
-        activityConfigService.deleteCenter(center);
+    public Center deleteCenter(@PathVariable int id, Center center) {
+        return activityConfigService.deleteCenter(center);
     }
 
     // ----------------test

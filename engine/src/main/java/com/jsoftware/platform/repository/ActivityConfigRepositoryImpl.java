@@ -1,5 +1,6 @@
 package com.jsoftware.platform.repository;
 
+import com.jsoftware.platform.model.Board;
 import com.jsoftware.platform.model.Center;
 import com.jsoftware.platform.model.Hospital;
 import com.jsoftware.platform.model.User;
