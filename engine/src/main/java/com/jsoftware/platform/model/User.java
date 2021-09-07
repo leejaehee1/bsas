@@ -22,6 +22,7 @@ public class User {
     private String phone;
     private String email;
 
+    // postman에서 json 넣기 위해 만듬
     public User() {
 
     }
