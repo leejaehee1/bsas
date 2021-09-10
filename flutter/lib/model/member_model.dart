@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 
 class MemberViewModel {
   Future<String> fetchLogin(String id, String pw) async {
-    print("http://172.30.1.39:18080/member/login?id=" + id + "&pw=" +pw);
-    final response = await http.get(Uri.parse("http://172.30.1.39:18080/member/login?id=" + id + "&pw=" +pw), headers: {
+    print("http://192.168.213.206:18080/member/login?id=" + id + "&pw=" +pw);
+    final response = await http.get(Uri.parse("http://192.168.213.206:18080/member/login?id=" + id + "&pw=" +pw), headers: {
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
       "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
       "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",

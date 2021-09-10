@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:bsas/model/acount_model.dart';
 import 'package:bsas/model/data_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -14,11 +15,14 @@ class DatabaseHelper{
   String userDataTable = 'user_data_table';
   String hospitalDataTable = 'hospital_data_table';
   String centerDataTable = 'center_data_table';
+  String accountDataTable = 'acount_data_table';
+  String signDataTable = 'sign_data_table';
   String colId = 'id';
   String colName = 'name';
   String colPhone = 'publicPhone';
   String colPerson = 'personPhone';
   String colMail = 'mail';
+  String colPassword = 'password';
 
 
   Future<Database> get db async{
@@ -30,7 +34,7 @@ class DatabaseHelper{
 
   Future<Database> _initDb() async{
     Directory dir = await getApplicationDocumentsDirectory();
-    String path = dir.path + 'enroll_data_list.db';
+    String path = dir.path + 'enroll_data.db'; //enroll_data_list
     final dataListDB = await openDatabase(path, version: 1, onCreate: _createDb);
     return dataListDB;
 
@@ -58,6 +62,18 @@ class DatabaseHelper{
             '$colPhone TEXT, '
             '$colPerson TEXT, '
             '$colMail TEXT )'
+    );
+    await db.execute(
+        'CREATE TABLE $accountDataTable('
+            '$colId INTEGER PRIMARY KEY AUTOINCREMENT,'
+            '$colName TEXT, '
+            '$colPassword TEXT )'
+    );
+    await db.execute(
+        'CREATE TABLE $signDataTable('
+            '$colId INTEGER PRIMARY KEY AUTOINCREMENT,'
+            '$colName TEXT, '
+            '$colPassword TEXT )'
     );
   }
 
@@ -87,6 +103,23 @@ class DatabaseHelper{
       return Data.fromJson(result[i]);
     });
   }
+  Future<List> getAcountData() async {
+    Database db = await this.db;
+    var result = await db.query(accountDataTable);
+    //return result;
+    return List.generate(result.length, (i) {
+      return Data.fromJson(result[i]);
+    });
+  }
+  Future<List> getSignData() async {
+    Database db = await this.db;
+    var result = await db.query(signDataTable);
+    //return result;
+    return List.generate(result.length, (i) {
+      return Data.fromJson(result[i]);
+    });
+  }
+
 
 
 
@@ -122,6 +155,23 @@ class DatabaseHelper{
     );
     return result;
   }
+  Future<int> insertAccountData(accountData data) async{
+    Database db = await this.db;
+    final int result = await db.insert(
+      accountDataTable,
+      data.toJson(),
+    );
+    return result;
+  }
+  Future<int> insertSignData(accountData data) async{
+    Database db = await this.db;
+    final int result = await db.insert(
+      signDataTable,
+      data.toJson(),
+    );
+    return result;
+  }
+
 
 
   //<update>
@@ -155,6 +205,26 @@ class DatabaseHelper{
     );
     return result;
   }
+  Future<int> updateAccountData(accountData data) async{
+    Database db = await this.db;
+    final int result = await db.update(
+      accountDataTable,
+      data.toJson(),
+      where: '$colId = ?',
+      whereArgs: [data.id],
+    );
+    return result;
+  }
+  Future<int> updateSignData(accountData data) async{
+    Database db = await this.db;
+    final int result = await db.update(
+      signDataTable,
+      data.toJson(),
+      where: '$colId = ?',
+      whereArgs: [data.id],
+    );
+    return result;
+  }
 
 
   //<delete>
@@ -180,6 +250,24 @@ class DatabaseHelper{
     Database db = await this.db;
     final int result = await db.delete(
       centerDataTable,
+      where: '$colId = ?',
+      whereArgs: [id],
+    );
+    return result;
+  }
+  Future<int> deleteAccountData(int id) async{
+    Database db = await this.db;
+    final int result = await db.delete(
+      accountDataTable,
+      where: '$colId = ?',
+      whereArgs: [id],
+    );
+    return result;
+  }
+  Future<int> deleteSignData(int id) async{
+    Database db = await this.db;
+    final int result = await db.delete(
+      signDataTable,
       where: '$colId = ?',
       whereArgs: [id],
     );

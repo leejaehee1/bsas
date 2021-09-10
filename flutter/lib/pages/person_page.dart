@@ -367,21 +367,21 @@ class _PersonPageState extends State<PersonPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '카테고리',
+                                    '서울아산병원',
                                     style: TextStyle(color: Colors.black45),
                                   ),
                                   SizedBox(
                                     height: 8,
                                   ),
                                   Text(
-                                    '동영상 제목',
+                                    '뇌졸중의 예방과 치료',
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
                                     height: 8,
                                   ),
                                   Text(
-                                    '일자',
+                                    '2019.06.25',
                                     style: TextStyle(color: Colors.black26),
                                   ),
                                 ],
@@ -395,36 +395,36 @@ class _PersonPageState extends State<PersonPage> {
                 ),
               ),
               // 긴급 호출 버튼 및 페이지 연결
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (builder) => EmergencyPage()));
-                },
-                child: Container(
-                  height: 60,
-                  margin:EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(10),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //       color: Colors.grey.withOpacity(0.4),
-                      //       offset: Offset(2,5)
-                      //   ),
-                      // ]
-                  ),
-                  child: Center(
-                    child: Text(
-                      "긴급호출",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // SizedBox(height: 20),
+              // GestureDetector(
+              //   onTap: (){
+              //     Navigator.push(context, MaterialPageRoute(builder: (builder) => EmergencyPage()));
+              //   },
+              //   child: Container(
+              //     height: 60,
+              //     margin:EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              //     decoration: BoxDecoration(
+              //         color: Colors.red,
+              //         borderRadius: BorderRadius.circular(10),
+              //         // boxShadow: [
+              //         //   BoxShadow(
+              //         //       color: Colors.grey.withOpacity(0.4),
+              //         //       offset: Offset(2,5)
+              //         //   ),
+              //         // ]
+              //     ),
+              //     child: Center(
+              //       child: Text(
+              //         "긴급호출",
+              //         style: TextStyle(
+              //           fontWeight: FontWeight.bold,
+              //           fontSize: 30,
+              //           color: Colors.white,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               // SizedBox(height: 10)
             ],
           ),

@@ -1,5 +1,9 @@
 import 'package:bsas/center/center_home_screen.dart';
 import 'package:bsas/hospital/hospital_home_screen.dart';
+import 'package:bsas/pages/search_center_page.dart';
+import 'package:bsas/pages/setting_alarm_page.dart';
+import 'package:bsas/pages/setting_message_page.dart';
+import 'package:bsas/pages/siren_example_page.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:bsas/User/user_home_screen.dart';
@@ -258,7 +262,9 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                           children: [
                             MaterialButton(
                               elevation: 0.0,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (_)=> SettingAlarmPage()));
+                              },
                               color: Color(0xFFDCEDC8),
                               child: Icon(
                                 Icons.alarm_add_rounded,
@@ -297,7 +303,9 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                           children: [
                             MaterialButton(
                               elevation: 0.0,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (_) => SearchCenterPage()));
+                              },
                               color: Color(0xFFDCEDC8),
                               child: Icon(
                                 Icons.location_on_rounded,
@@ -331,7 +339,9 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                           children: [
                             MaterialButton(
                               elevation: 0.0,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (_) => SirenExamplePage()));
+                              },
                               color: Color(0xFFDCEDC8),
                               child: Icon(
                                 Icons.add_alert,
@@ -365,7 +375,9 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                           children: [
                             MaterialButton(
                               elevation: 0.0,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (_)=>SettingMessagePage()));
+                              },
                               color: Color(0xFFDCEDC8),
                               child: Icon(
                                 Icons.mark_chat_unread_rounded,
@@ -400,7 +412,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
-                    color: Color(0xFF00BFA5),
+                    color: Color(0xFF2d365c),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -420,7 +432,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               const Text(
                                 '자가진단',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+                                    color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -570,7 +582,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
-                    color: Colors.white,
+                    color: Color(0xFF2d365c),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -590,7 +602,8 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               const Text(
                                 '인구통계',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 22),
+                                    color: Colors.white, fontSize: 22,
+                                fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -740,7 +753,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
-                    color: Colors.white,
+                    color: Color(0xFF2d365c),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -760,7 +773,8 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               const Text(
                                 'MY진료내역',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 22),
+                                    color: Colors.white, fontSize: 22,
+                                fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -1054,12 +1068,12 @@ BarChartGroupData personData(int x, double y1, double y2) {
   return BarChartGroupData(barsSpace: 4, x: x, barRods: [
     BarChartRodData(
       y: y1,
-      colors: [Colors.green],
+      colors: [Colors.deepPurple],
       width: 7,
     ),
     BarChartRodData(
       y: y2,
-      colors: [Colors.amber],
+      colors: [Colors.yellow],
       width: 7,
     ),
   ]);

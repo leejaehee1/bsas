@@ -1,3 +1,4 @@
+import 'package:bsas/pages/emergency_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'login_page.dart';
@@ -53,6 +54,30 @@ class _NavigatorPageState extends State<NavigatorPage>
             onPressed: () {}, // -> 추후에 페이지와 항목 적용할 수 있음
           ),
           actions: <Widget>[
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (builder) => EmergencyPage()));
+              },
+              child: Container(
+                // height: 60,
+                width: 80,
+                margin:EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Center(
+                  child: Text(
+                    "긴급호출",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             TextButton(
               child: const Text(
                 'Logout',

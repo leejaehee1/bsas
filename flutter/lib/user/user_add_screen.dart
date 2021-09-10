@@ -31,7 +31,7 @@ class AddUserState extends State {
         onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 80.0),
+            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 100.0), //
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

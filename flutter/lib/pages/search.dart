@@ -4,6 +4,41 @@ import 'package:flutter/material.dart';
 // 검색 키워드, 인기 키워드 검색어 기술
 class TalkPageSecond extends StatelessWidget {
   @override
+
+  Widget _text(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 30,
+        color: Colors.black,
+      ),
+    );
+  }
+
+  Widget _subTitle(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: Colors.black54,
+      ),
+    );
+  }
+
+  Widget _button() {
+    return RaisedButton(
+      color: Color(0xFF43aa8b),
+      onPressed: () {},
+      child: Text(
+        'Label',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,8 +89,8 @@ class TalkPageSecond extends StatelessWidget {
                   child: Card(
                     child: ListTile(
                       //leading: Icon(Icons.add),
-                      title: Text('title'),
-                      subtitle: Text('subtitle'),
+                      // title: Text('title'),
+                      // subtitle: Text('subtitle'),
                     ),
                     // elevation: 2,
                     margin: EdgeInsets.all(15),

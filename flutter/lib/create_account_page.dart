@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'db/database.dart';
 import 'login_page.dart';
+import 'model/acount_model.dart';
 
 
 class CreateAccountPage extends StatefulWidget {
@@ -15,28 +16,27 @@ class CreateAccountPage extends StatefulWidget {
 
 class CreateAccountPageState extends State {
   String _name = '';
-  String _publicPhone = '';
-  String _mail = '';
+  String _password = '';
 
   var txtName = TextEditingController();
-  var txtpublicPhone = TextEditingController();
-  var txtmail = TextEditingController();
-  // var dbHelper = DatabaseHelper();
+  var txtPassword = TextEditingController();
+  var dbHelper = DatabaseHelper();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF43aa8b),
-              Color(0xFFDCEDC8),
-            ], // 그라데이션 색상 수정
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   gradient: LinearGradient(
+        //     begin: Alignment.topLeft,
+        //     end: Alignment.bottomRight,
+        //     colors: [
+        //       Color(0xFF43aa8b),
+        //       Color(0xFFDCEDC8),
+        //     ], // 그라데이션 색상 수정
+        //   ),
+        // ),
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: SingleChildScrollView(
@@ -60,7 +60,7 @@ class CreateAccountPageState extends State {
                   Text(
                     '회원가입',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color(0xFF43aa8b),
                       fontSize: 40.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -114,9 +114,9 @@ class CreateAccountPageState extends State {
                                 )),
                             validator: (input) =>
                             input!.trim().isEmpty ? '비밀번호를 입력하세요' : null,
-                            onSaved: (input) => _publicPhone = input!,
+                            onSaved: (input) => _password = input!,
                             // initialValue: _publicPhone,
-                            controller: txtpublicPhone,
+                            controller: txtPassword,
                           ),
                         ),
                         Container(
@@ -136,7 +136,8 @@ class CreateAccountPageState extends State {
                               borderRadius: BorderRadius.circular(20.0),
                             ),
                             onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
+                              addAccountData();
+                              // Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
                             },
                           ),
                         ),
@@ -152,12 +153,11 @@ class CreateAccountPageState extends State {
     );
   }
 
-  // void addUser() async{
-  //   var result = await dbHelper.insertUserData(Data(
-  //       name: txtName.text,
-  //       publicPhone: txtpublicPhone.text,
-  //       mail: txtmail.text
-  //   ));
-  //   Navigator.pop(context,true);
-  // }
+  void addAccountData() async{
+    var result = await dbHelper.insertAccountData(accountData(
+        name: txtName.text,
+        password: txtPassword.text,
+    ));
+    Navigator.pop(context,true);
+  }
 }

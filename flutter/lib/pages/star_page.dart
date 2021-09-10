@@ -72,7 +72,8 @@ class _StarPageState extends State<StarPage> {
   }
 
   Widget _button() {
-    return ElevatedButton(
+    return RaisedButton(
+      color: Color(0xFF43aa8b),
       onPressed: () {},
       child: Text(
         'Label',
@@ -154,34 +155,34 @@ class _StarPageState extends State<StarPage> {
                 ),
               ),
               //헬스 투어 정보
-              Container(
-                padding: EdgeInsets.only(left: 16, top: 25),
-                child: Text(
-                  '헬스 투어 정보', //gesture로 page 간 연결 필요
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              SizedBox(height: 5),
-              Container(
-                height: MediaQuery.of(context).size.height * 3.5/7,
-                child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    _contanier('설문/투표', 'image/vote.jpg'),
-                    _contanier('우리가게', 'image/market.jpg'),
-                    _contanier('공간공유', 'image/space.jpg'),
-                    _contanier('지식/재능공유', 'image/share.jpg'),
-                  ],
-                ),
-              ),
+              // Container(
+              //   padding: EdgeInsets.only(left: 16, top: 25),
+              //   child: Text(
+              //     '헬스 투어 정보', //gesture로 page 간 연결 필요
+              //     style: TextStyle(
+              //       fontSize: 30,
+              //       fontWeight: FontWeight.bold,
+              //       color: Colors.black,
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 5),
+              // Container(
+              //   height: MediaQuery.of(context).size.height * 3.5/7,
+              //   child: GridView.count(
+              //     primary: false,
+              //     padding: const EdgeInsets.all(20),
+              //     crossAxisSpacing: 10,
+              //     mainAxisSpacing: 10,
+              //     crossAxisCount: 2,
+              //     children: <Widget>[
+              //       _contanier('설문/투표', 'image/vote.jpg'),
+              //       _contanier('우리가게', 'image/market.jpg'),
+              //       _contanier('공간공유', 'image/space.jpg'),
+              //       _contanier('지식/재능공유', 'image/share.jpg'),
+              //     ],
+              //   ),
+              // ),
               //이달의 픽
               Container(
                 padding: EdgeInsets.only(left: 16, top: 25),
@@ -197,7 +198,7 @@ class _StarPageState extends State<StarPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: Text(
-                  'subtitle',
+                  '코로나 시대 올바른 건강관리 ',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -222,11 +223,11 @@ class _StarPageState extends State<StarPage> {
                 children: [
                   _text('테마 별 추천 장소'),
                   SizedBox(height: 10),
-                  _subTitle('1. [뚝섬]뚝섬한강공원'),
-                  _subTitle('2. [뚝섬]뚝섬한강공원'),
-                  _subTitle('3. [뚝섬]뚝섬한강공원'),
-                  _subTitle('4. [뚝섬]뚝섬한강공원'),
-                  _subTitle('5. [뚝섬]뚝섬한강공원'),
+                  _subTitle('1. [서울]뚝섬한강공원'),
+                  _subTitle('2. [춘천]소양강스카이워크'),
+                  _subTitle('3. [강원]속초등대해수욕장'),
+                  _subTitle('4. [부산]감천문화마을'),
+                  _subTitle('5. [여수]하화도꽃섬길'),
                 ],
               ),//
               SizedBox(height: 10),
@@ -287,10 +288,10 @@ class _StarPageState extends State<StarPage> {
                   ),
                   SizedBox(height: 10),
                   _subTitle('1. [무료][서울 강남구] 신형 진단 키트 나눔'),
-                  _subTitle('2. [무료][서울 강남구] 신형 진단 키트 나눔'),
-                  _subTitle('3. [무료][서울 강남구] 신형 진단 키트 나눔'),
-                  _subTitle('4. [무료][서울 강남구] 신형 진단 키트 나눔'),
-                  _subTitle('5. [무료][서울 강남구] 신형 진단 키트 나눔'),
+                  _subTitle('2. [직거래][서울 노원구] 2020년 진단 키드 쿨거래'),
+                  _subTitle('3. [무료][서울 강서구] 의료 3.0 세미나 입장권'),
+                  _subTitle('4. [직거래][서울 중구] 2022년 스마트 헬스 행사 입장권'),
+                  _subTitle('5. [직거래][경기 분당] 뇌졸중에 좋은 고랭지 배추 분양'),
                 ],
               ),
             ],
