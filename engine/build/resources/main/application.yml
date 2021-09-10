@@ -1,0 +1,72 @@
+server:
+  address: 192.168.213.206
+  port: 18080
+#  18080
+
+spring:
+  application:
+    name: ERP Basic Management Module
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    generate-ddl: true
+    database: mysql
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+        username: sergey
+        password: sergey
+        instance:
+          metadata:
+            user:
+              name: ${spring.security.user.name}
+              password: ${spring.security.user.password}
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      maximum-pool-size: 4
+  secondary:
+    datasource:
+      jdbc-url: jdbc:mysql://localhost:3306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      maximum-pool-size: 4
+  hsqldb:
+    datasource:
+      url: jdbc:mysql://localhost:3306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  session:
+    store-type: redis
+  redis:
+    host: localhost
+#    password:
+    password:
+    port: 6379
+  security:
+    user:
+      name: sergey
+      password: sergey
+      roles: manager
+  thymeleaf:
+    prefix: classpath:templates/
+    check-template-location: true
+    suffix: .html
+    mode: HTML5
+    cache: false
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+

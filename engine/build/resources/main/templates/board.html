@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Thymeleaf 게시판 만들기</h1>
+<table class="table table-hover">
+    <thead>
+    <tr class="warning">
+        <th class="col-sm-1">No</th>
+        <th class="col-sm-5">제목</th>
+        <th class="col-sm-5">내용</th>
+<!--        <th class="col-sm-3">작성 날짜</th>-->
+<!--        <th class="col-sm-3">수정 날짜</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="board : ${boardList}">
+        <td th:text="${board.id}">no</td>
+        <td><a th:href="'/contents?idx='+${board.id}" th:text="${board.title}"></a></td>
+        <td><a th:href="'/contents?idx='+${board.id}" th:text="${board.contents}"></a></td>
+<!--
+        <td th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm:dd')}"></td>
+        <td th:text="${#temporals.format(board.updatedDate, 'yyyy-MM-dd HH:mm:dd')}"></td>
+-->
+    </tr>
+    </tbody>
+</table>
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <td th:each="paging : ${pagingList}">
+            <a th:href="'/board?current='+${paging}" th:text="${paging}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-outline-success" type="button" onclick="location.href='/contents'">글쓰기</button>
+</body>
+</html>
