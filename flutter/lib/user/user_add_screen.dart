@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'user_home_screen.dart';
 import '../model/data_model.dart';
 import '../db/database.dart';
+import '../db/db.dart';
 
 class AddUser extends StatefulWidget {
   @override
@@ -21,7 +22,19 @@ class AddUserState extends State {
   var txtName = TextEditingController();
   var txtpublicPhone = TextEditingController();
   var txtmail = TextEditingController();
-  var dbHelper = DatabaseHelper();
+
+  // var dbHelper = DatabaseHelper();
+  var dbHelper = DBHelper();
+
+  @override
+  void dispose() {
+    super.initState();
+    txtName.dispose();
+    txtpublicPhone.dispose();
+    txtmail.dispose();
+    //입력 끊어주는 역할
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +49,10 @@ class AddUserState extends State {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () => Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (_) => HomeScreen())),
+                  onTap: () =>
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => HomeScreen())),
                   child: Icon(
                     Icons.arrow_back,
                     size: 30.0,
@@ -80,7 +95,7 @@ class AddUserState extends State {
                             ),
                           ),
                           validator: (input) => //유효성 검사
-                              input!.trim().isEmpty ? '이름을 입력하세요' : null,
+                          input!.trim().isEmpty ? '이름을 입력하세요' : null,
                           onSaved: (input) => _name = input!,
                           // initialValue: _name,
                           controller: txtName,
@@ -103,7 +118,7 @@ class AddUserState extends State {
                                 borderRadius: BorderRadius.circular(20.0),
                               )),
                           validator: (input) =>
-                              input!.trim().isEmpty ? '전화번호를 입력하세요' : null,
+                          input!.trim().isEmpty ? '전화번호를 입력하세요' : null,
                           onSaved: (input) => _publicPhone = input!,
                           // initialValue: _publicPhone,
                           controller: txtpublicPhone,
@@ -126,7 +141,7 @@ class AddUserState extends State {
                                 borderRadius: BorderRadius.circular(20.0),
                               )),
                           validator: (input) =>
-                              input!.trim().isEmpty ? '이메일을 입력하세요' : null,
+                          input!.trim().isEmpty ? '이메일을 입력하세요' : null,
                           onSaved: (input) => _mail = input!,
                           // initialValue: _mail,
                           controller: txtmail,
@@ -153,7 +168,7 @@ class AddUserState extends State {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          onPressed: (){
+                          onPressed: () {
                             addUser();
                           },
                         ),
@@ -169,12 +184,23 @@ class AddUserState extends State {
     );
   }
 
-  void addUser() async{
-    var result = await dbHelper.insertUserData(Data(
-      name: txtName.text,
-      publicPhone: txtpublicPhone.text,
-      mail: txtmail.text
-    ));
-    Navigator.pop(context,true);
+  void addUser() async {
+    var result = await dbHelper.addUser(
+      txtName.text,
+      txtpublicPhone.text,
+      txtmail.text,
+    );
+    Navigator.pop(context, true);
   }
 }
+
+//   void addUser() async{
+//     var result = await dbHelper.addUser(Data(
+//       name: txtName.text,
+//       publicPhone: txtpublicPhone.text,
+//       mail: txtmail.text
+//     ));
+//     Navigator.pop(context,true);
+//   }
+// }
+

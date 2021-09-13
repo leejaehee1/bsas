@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
               var fetchLogin = await viewModel.fetchLogin(
                   _idController.value.text, _pwController.value.text);
 
-              if (fetchLogin == "true") {
+              if (fetchLogin == true) {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (builder) => NavigatorPage()));
               } else {

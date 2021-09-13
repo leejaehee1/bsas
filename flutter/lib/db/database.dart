@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:bsas/model/acount_model.dart';
+import 'package:bsas/model/acount.dart';
 import 'package:bsas/model/data_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';

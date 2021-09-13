@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class MemberViewModel {
-  Future<dynamic> fetchLogin(String id, String pw) async {
+class AccountViewModel {
+  Future<String> fetchAccount(String id, String pw) async {
     print("http://172.30.1.44:18080/member/login?id=" + id + "&pw=" +pw);
     final response = await http.get(Uri.parse("http://172.30.1.44:18080/member/login?id=" + id + "&pw=" +pw), headers: {
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
@@ -13,7 +13,6 @@ class MemberViewModel {
     });
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-    print('Response body: ${response.body.runtimeType}');
 
     if (response.statusCode == 200) {
       // 만약 서버가 OK 응답을 반환하면, JSON을 파싱합니다.

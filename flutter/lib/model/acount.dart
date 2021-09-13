@@ -23,9 +23,6 @@ class accountData{
     if(id != null){
       json['id'] = id;
     }
-    // else if(personPhone != null) {
-    //   json['personPhone'] = personPhone;
-    // }
     json['name'] = name;
     json['password'] = password;
     return json;

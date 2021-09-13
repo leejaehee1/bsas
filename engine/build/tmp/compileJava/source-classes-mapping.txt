@@ -65,11 +65,11 @@ com/jsoftware/platform/model/Center.java
  com.jsoftware.platform.model.Center
 com/jsoftware/platform/repository/BoardRepositoryImpl.java
  com.jsoftware.platform.repository.BoardRepositoryImpl
-com/jsoftware/platform/controller/MemberController.java
- com.jsoftware.platform.controller.MemberController
+com/jsoftware/platform/repository/MemberRepositoryImpl.java
+ com.jsoftware.platform.repository.MemberRepositoryImpl
 com/jsoftware/platform/repository/MemberRepository.java
  com.jsoftware.platform.repository.MemberRepository
 com/jsoftware/platform/service/MemberService.java
  com.jsoftware.platform.service.MemberService
-com/jsoftware/platform/repository/MemberRepositoryImpl.java
- com.jsoftware.platform.repository.MemberRepositoryImpl
+com/jsoftware/platform/controller/MemberController.java
+ com.jsoftware.platform.controller.MemberController

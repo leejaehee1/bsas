@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:bsas/db/db.dart';
 import 'package:bsas/user/user_add_screen.dart';
 import 'package:bsas/user/user_data_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../db/database.dart';
 import 'package:bsas/model/data_model.dart';
 
@@ -14,14 +18,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State {
-  var dbHelper = DatabaseHelper();
-  late List data;
+  // var dbHelper = DatabaseHelper();
+  // late List data;
   int DataCount = 0;
+  late List data;
+  var dbHelper = DBHelper();
+
+  Future<List> getData() async {
+    final response = await http.get(Uri.parse("http://localhost:18080/api/users"));
+    return json.decode(response.body);
+  }
+
 
   @override
   void initState() {
     // TODO: implement initState
-    this.getUserData();
+    this.getData();
     super.initState();
   }
 
