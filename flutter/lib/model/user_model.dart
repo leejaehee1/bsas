@@ -1,26 +1,55 @@
-class User {
-  final int id; // 0 : other or 1 : my
-  final String userName;
-  final String userPhone;
-  final String userEmail;
-  final String created_date;
-  final String modified_date;
+import 'package:flutter/cupertino.dart';
 
-  User(
-      {required this.id,
-        required this.userName,
-        required this.userPhone,
-        required this.userEmail,
-        required this.created_date,
-        required this.modified_date});
+class User{
+  int? id;
+  String? userName;
+  String? userPhone;
+  String? userEmail;
+  String? created_date;
+  String? modified_date;
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-        id: json['id'],
-        userName: json['userName'],
-        userPhone: json['userPhone'],
-        userEmail: json['userEmail'],
-        created_date: json['created_date'],
-        modified_date: json['modified_date']);
+
+  User({
+    required this.userName,
+    required this.userPhone,
+    required this.userEmail,
+    // this.personPhone,
+  });
+
+  User.withId({
+    this.id,
+    this.userName,
+    this.userPhone,
+    this.userEmail,
+    // this.personPhone,
+  });
+
+
+  // Map<String, dynamic> toJson(){
+  //   final json = Map<String, dynamic>();
+  //
+  //   // if(id != null){
+  //   //   json['id'] = id;
+  //   // }
+  //   // else if(personPhone != null) {
+  //   //   json['personPhone'] = personPhone;
+  //   // }
+  //   json['id'] = id;
+  //   json['name'] = userName;
+  //   json['publicPhone'] = userPhone;
+  //   json['mail'] = userEmail;
+  //   return json;
+  // }
+
+  //json 변환
+  factory User.fromJson(Map<String, dynamic> json){
+    return User.withId(
+      // id : int.parse(json['id'].toString()),
+      id: json['id'],
+      userName: json['name'],
+      userPhone: json['publicPhone'],
+      userEmail: json['mail'],
+      // personPhone: json['personPhone'],
+    );
   }
 }

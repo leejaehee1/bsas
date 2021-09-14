@@ -56,13 +56,5 @@ class Data{
       mail: json['mail'],
       personPhone: json['personPhone'],
     );
-    // id = int.tryParse(a['id'].toString());
-    // name = a['name'];
-    // publicPhone = a['publicPhone'];
-    // mail = a['mail'];
-    // personPhone = a['personPhone'];
-    // type = int.tryParse(a['type'].toString());
-
   }
-
 }
