@@ -3,13 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="member">
-    <select id="selectMemberById" resultType="com.jsoftware.platform.model.Member">
+    <select id="findByMemberId" resultType="com.jsoftware.platform.model.Member">
         SELECT id
             , memberId
             , memberPwd
             , authType
         FROM member
-        WHERE id = #{id}
+        WHERE memberId = #{memberId}
     </select>
 
     <select id="selectAllMembers" resultType="com.jsoftware.platform.model.Member">
@@ -21,8 +21,8 @@
     </select>
 
     <insert id="insertMember" parameterType="com.jsoftware.platform.model.Member">
-        INSERT INTO member (memberId, memberPwd, authType)
-        VALUES (#{memberId}, #{memberPwd}, #{authType})
+        INSERT INTO member (memberId, memberPwd)
+        VALUES (#{memberId}, #{memberPwd})
     </insert>
 
     <update id="updateMember" parameterType="com.jsoftware.platform.model.Member">

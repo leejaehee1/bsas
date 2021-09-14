@@ -18,37 +18,46 @@ public class BoardService {
         this.repository = repository;
     }
 
-    @Cacheable(key = "#size", value = "getBoards")
-    public List<Board> getBoards(String size) {
-        return repository.createBySize(size);
-    }
-
-    public static int getDbCount() {
-        return BoardRepositoryImpl.getDbCount();
-    }
-
-    public Board getBoardById(Long id) {
-        Board board = new Board();
-        board.setId(id);
-        return repository.selectBoardById(board);
-    }
-
-    public List<Board> getAllBoards() {
-        return repository.selectAllBoards();
-    }
-
     @Transactional
     public void addBoard(Board board) {
-        repository.insertBoard(board);
+        repository.addBoard(board);
     }
 
-    @Transactional
-    public void updateBoard(Board board) {
-        repository.updateBoard(board);
+    public List<Board> getBoard(){
+        return repository.getBoard();
     }
 
-    @Transactional
-    public void deleteBoard(Board board) {
-        repository.deleteBoard(board);
-    }
+//    @Cacheable(key = "#size", value = "getBoards")
+//    public List<Board> getBoards(String size) {
+//        return repository.createBySize(size);
+//    }
+//
+//    public static int getDbCount() {
+//        return BoardRepositoryImpl.getDbCount();
+//    }
+//
+//    public Board getBoardById(Long id) {
+//        Board board = new Board();
+//        board.setId(id);
+//        return repository.selectBoardById(board);
+//    }
+//
+//    public List<Board> getAllBoards() {
+//        return repository.selectAllBoards();
+//    }
+//
+//    @Transactional
+//    public void addBoard(Board board) {
+//        repository.insertBoard(board);
+//    }
+//
+//    @Transactional
+//    public void updateBoard(Board board) {
+//        repository.updateBoard(board);
+//    }
+//
+//    @Transactional
+//    public void deleteBoard(Board board) {
+//        repository.deleteBoard(board);
+//    }
 }

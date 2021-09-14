@@ -8,14 +8,21 @@ import java.util.List;
 @Mapper
 public interface BoardRepository {
 
-    Board selectBoardById(Board board);
+    void addBoard(Board board);
+    public List<Board> getBoard();
+    public Board getBoardOne(Long id);
 
-    List<Board> selectAllBoards();
+//    public boolean addReply(Reply reply);
+//    public List<Reply> getReply(int boardIdx);
 
-    void insertBoard(Board board);
-
-    void updateBoard(Board board);
-
-    void deleteBoard(Board board);
+//    Board selectBoardById(Board board);
+//
+//    List<Board> selectAllBoards();
+//
+//    void insertBoard(Board board);
+//
+//    void updateBoard(Board board);
+//
+//    void deleteBoard(Board board);
 
 }
