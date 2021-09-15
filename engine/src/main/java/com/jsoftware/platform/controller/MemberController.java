@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,19 +26,20 @@ public class MemberController {
     // test
     @GetMapping("/test")
     public String getMember(Model model) {
-        Member member = new Member(3, "test", "test", "web");
+        Member member = new Member(4, "hi", "test", "web");
         model.addAttribute("member", member);
         memberService.insertMember(member);
         System.out.println("******GET1 register");
         return "test";
     }
-    // test 완료
+
 
     @PostMapping("/test")
     public String getMemberTest(@RequestBody Member member) {
         return "ID : " + member.getId() + ", Member ID : " + member.getMember_id()
                 + ", Member PW : " + member.getMember_pwd()+ ", AuthType : " + member.getAuth_type();
     }
+    // test 완료
 
     //회원가입 페이지
     @GetMapping("/member/signup")
@@ -48,18 +50,9 @@ public class MemberController {
 
     //회원가입 처리
     @PostMapping("/member/signup")
-    public String insertMember(Member member) {
+    public Member insertMember(Member member) {
         System.out.println("******POST1 register");
-        Member member1 = new Member();
-        member1.setId(2);
-        member1.setMember_id("test10");
-        member1.setMember_pwd("test19");
-        member1.setAuth_type("test");
-        System.out.println("******POST2 register");
-        memberService.insertMember(member1);
-//        return memberService.insertMember(member);
-        System.out.println("******POST3 register");
-        return member1.toEntity().getMember_id();
+        return memberService.insertMember(member);
     }
 
 
