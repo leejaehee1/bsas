@@ -1,13 +1,18 @@
 package com.jsoftware.platform.controller;
 
 import com.jsoftware.platform.model.Member;
-import com.jsoftware.platform.repository.MemberRepository;
 import com.jsoftware.platform.service.MemberService;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 
@@ -15,22 +20,99 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MemberController {
 
-    private final PasswordEncoder passwordEncoder;
-    private MemberRepository memberRepository;
     private MemberService memberService;
+
+    // test
+    @GetMapping("/test")
+    public String getMember(Model model) {
+        Member member = new Member(3, "test", "test", "web");
+        model.addAttribute("member", member);
+        memberService.insertMember(member);
+        System.out.println("******GET1 register");
+        return "test";
+    }
+    // test 완료
+
+    @PostMapping("/test")
+    public String getMemberTest(@RequestBody Member member) {
+        return "ID : " + member.getId() + ", Member ID : " + member.getMember_id()
+                + ", Member PW : " + member.getMember_pwd()+ ", AuthType : " + member.getAuth_type();
+    }
 
     //회원가입 페이지
     @GetMapping("/member/signup")
-    public void signupGet() {
-        System.out.println("******GET register");
+    public List<Member> getMembers() {
+        System.out.println("******GET1 register");
+        return memberService.readMembers();
     }
 
     //회원가입 처리
     @PostMapping("/member/signup")
-    public Long insertMember(Member member) {
-        System.out.println("******POST register");
-        return memberService.insertMember(member);
+    public String insertMember(Member member) {
+        System.out.println("******POST1 register");
+        Member member1 = new Member();
+        member1.setId(2);
+        member1.setMember_id("test10");
+        member1.setMember_pwd("test19");
+        member1.setAuth_type("test");
+        System.out.println("******POST2 register");
+        memberService.insertMember(member1);
+//        return memberService.insertMember(member);
+        System.out.println("******POST3 register");
+        return member1.toEntity().getMember_id();
     }
+
+
+    // read one
+    @GetMapping("/member/login/{id}")
+    public Member readMember(@PathVariable("id") int id) {
+        System.out.println(id);
+        return memberService.readMember(id);
+    }
+
+    // update
+    @PutMapping("/member/login/{id}")
+    public Member putMember(@PathVariable("id") int id, @RequestBody Member Member) {
+        return memberService.updateMember(Member);
+    }
+
+    // delete
+    @DeleteMapping("/member/login/{id}")
+    public Member deleteMember(@PathVariable int id, Member Member) {
+        return memberService.deleteMember(Member);
+    }
+
+//    //로그인 페이지
+//    @GetMapping("/member/login")
+//    public String login() {
+//        return "login";
+//    }
+//
+//    //회원가입 페이지
+//    @GetMapping("/member/signup")
+//    public String signpage() {
+//        return "signup_page";
+//    }
+
+//
+//    //회원가입 페이지
+//    @GetMapping("/member/signup")
+//    public void signupGet() {
+//        System.out.println("******GET register");
+//    }
+//
+//    //회원가입 처리
+//    @PostMapping("/member/signup")
+//    public Long insertMember() {
+//        System.out.println("******POST register");
+////        return memberService.insertMember(member);
+////        return Long.valueOf("0");
+//        Member member = new Member();
+//        member.setMemberId("test10");
+//        member.setMemberPwd("test19");
+//        memberService.insertMember(member);
+//        return 0l;
+//    }
 
     //회원가입 처리
 //    @PostMapping("/member/signup")
