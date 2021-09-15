@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bsas/db/user_database.dart';
+import 'package:bsas/db/user_db.dart';
 import 'package:bsas/model/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class AddUserState extends State {
   String _publicPhone = '';
   String _mail = '';
 
-  UserDataBaseHelper userDataBaseHelper = UserDataBaseHelper();
+  DBHelper userDataBaseHelper = DBHelper();
 
   final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _phoneController = new TextEditingController();

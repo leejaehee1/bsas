@@ -14,10 +14,11 @@ class UserDataBaseHelper {
     //encode Map to JSON
     var body = json.encode(data);
 
-    var response = await http.post(Uri.parse('http://localhost:18080/api/users'),
+    var response = await http.post(Uri.parse('http://3.36.200.118:18080/api/users'),
         headers: {"Content-Type": 'application/json; charset=UTF-8'}, body: body);
     print("${response.statusCode}");
     print("${response.body}");
+    print('name: ${nameController}');
     return response;
   }
 
@@ -37,7 +38,7 @@ class UserDataBaseHelper {
     //encode Map to JSON
     var body = json.encode(data);
 
-    var response = await http.put(Uri.parse('http://localhost:18080/api/users/{id}'),
+    var response = await http.put(Uri.parse('http://3.36.200.118:18080/api/users/{id}'),
         headers: {"Content-Type": 'application/json; charset=UTF-8'}, body: body);
     print("${response.statusCode}");
     print("${response.body}");
@@ -51,7 +52,7 @@ class UserDataBaseHelper {
     // var url = 'http://192.168.1.38:9191/delete/$a';
 
     var response =
-    await http.delete(Uri.parse('http://localhost:18080/api/users/{id}'),
+    await http.delete(Uri.parse('http://3.36.200.118:18080/api/users/{id}'),
         headers: {"Content-Type": 'application/json; charset=UTF-8'});
     print("${response.statusCode}");
     return response;

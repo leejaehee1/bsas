@@ -1,3 +1,4 @@
+import 'package:bsas/model/user_model.dart';
 import 'package:bsas/user/user_add_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +18,12 @@ class HomeScreenState extends State {
   // UserDataBaseHelper userDataBaseHelper = UserDataBaseHelper();
 
   Future<List> getData() async {
-    var response = await http.get(Uri.parse("http://localhost:18080/api/users"));
+    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users"));
     return json.decode(response.body);
   }
 
   // Future<List> getUserData() async {
-  //   final response = await http.get(Uri.parse("http://localhost:18080/api/users")); //localhost 기본값 설정 해제 후 재실행 -> 완료
+  //   final response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users")); //3.36.200.118 기본값 설정 해제 후 재실행 -> 완료
   //   print('Response status: ${response.statusCode}');
   //   if (response.statusCode == 200) {
   //     List data = jsonDecode(response.body);
