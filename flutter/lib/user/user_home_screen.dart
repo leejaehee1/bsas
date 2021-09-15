@@ -15,25 +15,11 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State {
   late List list;
-  // UserDataBaseHelper userDataBaseHelper = UserDataBaseHelper();
 
   Future<List> getData() async {
     var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users"));
     return json.decode(response.body);
   }
-
-  // Future<List> getUserData() async {
-  //   final response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users")); //3.36.200.118 기본값 설정 해제 후 재실행 -> 완료
-  //   print('Response status: ${response.statusCode}');
-  //   if (response.statusCode == 200) {
-  //     List data = jsonDecode(response.body);
-  //     var userList = data.map((element) => User.fromJson(element)).toList();
-  //     return userList;
-  //   } else {
-  //     throw Exception('Failed');
-  //   }
-  // }
-
 
   @override
   void initState() {

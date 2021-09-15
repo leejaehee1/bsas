@@ -71,7 +71,7 @@ class DBHelper {
   //delete
   Future<User> deleteUser(String id) async {
     final http.Response response = await http.delete(
-      Uri.parse('http://3.36.200.118:18080/api/users/{id}'),
+      Uri.parse('http://3.36.200.118:18080/api/users/{id}'), // {id} id번호가 자동으로 들어감
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
