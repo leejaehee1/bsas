@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:bsas/db/user_db.dart';
+import 'package:bsas/db/user_database.dart';
 import 'package:bsas/model/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,31 +21,33 @@ class AddUserState extends State {
   String _publicPhone = '';
   String _mail = '';
 
+  UserDataBaseHelper userDataBaseHelper = UserDataBaseHelper();
+
   final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _phoneController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
 
-  Future<User> addUser(String name, String phone, String email) async {
-    final response = await http.post(
-      Uri.parse('http://3.36.200.118:18080/api/users'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'name': name,
-        'phone' : phone,
-        'email' : email,
-      },),
-    );
-    print('Response status: ${response.statusCode}');
-    print('name: ${name}');
-
-    if (response.statusCode == 500) {
-      return User.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load user');
-    }
-  }
+  // Future<User> addUser(String name, String phone, String email) async {
+  //   final response = await http.post(
+  //     Uri.parse('http://3.36.200.118:18080/api/users'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       'name': name,
+  //       'phone' : phone,
+  //       'email' : email,
+  //     },),
+  //   );
+  //   print('Response status: ${response.statusCode}');
+  //   print('name: ${name}');
+  //
+  //   if (response.statusCode == 500) {
+  //     return User.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception('Failed to load user');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +181,7 @@ class AddUserState extends State {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           onPressed: () {
-                            addUser(
+                            userDataBaseHelper.addUser(
                               _nameController.text,
                               _phoneController.text,
                               _emailController.text,
