@@ -22,25 +22,13 @@ class AddUserState extends State {
   String _publicPhone = '';
   String _mail = '';
 
-  final DBHelper dbHelper = DBHelper();
-
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    _emailController.dispose();//입력 끊어주는 역할
-    super.dispose();
-  }
-
-  Future<User>? _futureUser;
+  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _phoneController = new TextEditingController();
+  final TextEditingController _emailController = new TextEditingController();
 
   Future<User> addUser(String name, String phone, String email) async {
     final response = await http.post(
-      Uri.parse('http://172.30.1.44:18080/api/users'),
+      Uri.parse('http://3.36.200.118:18080/api/users'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -60,14 +48,6 @@ class AddUserState extends State {
     }
   }
 
-
-  // @override
-  // void dispose() {
-  //   super.initState();
-  //   //입력 끊어주는 역할
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +56,7 @@ class AddUserState extends State {
         onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 100.0), //
+            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 100.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -179,7 +159,6 @@ class AddUserState extends State {
                           controller: _emailController,
                         ),
                       ),
-
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 20.0),
                         height: 60.0,
@@ -201,9 +180,12 @@ class AddUserState extends State {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           onPressed: () {
-                            _futureUser = addUser(_nameController.value.text, _phoneController.value.text, _emailController.value.text);
-                            // var addUser = await DBHelper.addUser(
-                            //     _nameController.text, _phoneController.text, _emailController.text);
+                            addUser(
+                              _nameController.text,
+                              _phoneController.text,
+                              _emailController.text,
+                            );
+                            Navigator.pop(context, true);
                           },
                         ),
                       ),
@@ -217,39 +199,6 @@ class AddUserState extends State {
       ),
     );
   }
-  FutureBuilder<User> buildFutureBuilder() {
-    return FutureBuilder<User>(
-      future: _futureUser,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Text(snapshot.data!.userName!);
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-        return const CircularProgressIndicator();
-      },
-    );
-  }
 }
 
-
-//   void addUser() async {
-//     var result = await DBHelper.addUser(
-//       txtName.text,
-//       txtpublicPhone.text,
-//       txtmail.text,
-//     );
-//     Navigator.pop(context, true);
-//   }
-// }
-
-//   void addUser() async{
-//     var result = await dbHelper.addUser(Data(
-//       name: txtName.text,
-//       publicPhone: txtpublicPhone.text,
-//       mail: txtmail.text
-//     ));
-//     Navigator.pop(context,true);
-//   }
-// }
 

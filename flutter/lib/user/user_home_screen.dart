@@ -19,7 +19,7 @@ import 'dart:convert';
 // }
 
 Future<List<User>> getUserData() async {
-  final response = await http.get(Uri.parse("http://172.30.1.44:18080/api/users")); //localhost 기본값 설정 해제 후 재실행 -> 완료
+  final response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users")); //localhost 기본값 설정 해제 후 재실행 -> 완료
   print('Response status: ${response.statusCode}');
   if (response.statusCode == 200) {
     List data = jsonDecode(response.body);

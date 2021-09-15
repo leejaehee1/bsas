@@ -54,9 +54,8 @@ CREATE TABLE `member` (
 
 insert into member values (null, 'test', 'test', 'user', now(), null);
 
-CREATE TABLE `user` (
+CREATE TABLE `User` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
-  `pw` varchar(100) NOT NULL COMMENT '비밀번호',
   `name` varchar(100) NOT NULL COMMENT '이름',
   `phone` varchar(100) NOT NULL COMMENT '연락처',
   `email` varchar(300) NOT NULL COMMENT '이메일',
@@ -64,3 +63,4 @@ CREATE TABLE `user` (
   `modified_date` datetime DEFAULT NULL COMMENT '수정일',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='지인등록';
+insert into user values (null, name, phone, email, now(), null);
