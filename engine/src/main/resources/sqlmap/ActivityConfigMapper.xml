@@ -5,32 +5,31 @@
 <mapper namespace="test">
     <select id="selectUserById" resultType="com.jsoftware.platform.model.User">
         SELECT id
-            , pw
+<!--            , pw-->
             , name
             , phone
             , email
-        FROM user
+        FROM User
         WHERE id = #{id}
     </select>
 
     <select id="selectAllUsers" resultType="com.jsoftware.platform.model.User">
         SELECT id
-             , pw
+<!--             , pw-->
              , name
              , phone
              , email
-        FROM user
+        FROM User
     </select>
 
     <insert id="insertUser" parameterType="com.jsoftware.platform.model.User">
-        INSERT INTO user (pw, name, phone, email)
-        VALUES (#{pw}, #{name}, #{phone}, #{email})
+        INSERT INTO User (name, phone, email)
+        VALUES (#{name}, #{phone}, #{email})
     </insert>
 
     <update id="updateUser" parameterType="com.jsoftware.platform.model.User">
-        UPDATE user
-        set pw = #{pw},
-            name = #{name},
+        UPDATE User
+        set name = #{name},
             phone = #{phone},
             email = #{email}
         WHERE id = #{id}
@@ -38,7 +37,7 @@
 
     <delete id="deleteUser" parameterType="com.jsoftware.platform.model.User">
         DELETE
-        FROM user
+        FROM User
         WHERE id = #{id}
     </delete>
 

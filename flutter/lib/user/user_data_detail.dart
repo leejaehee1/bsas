@@ -8,7 +8,7 @@ import 'package:bsas/model/user_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<User> getUserData() async {
-  final response = await http.get(Uri.parse("http://172.30.1.44:18080/api/users/{id}"));
+  final response = await http.get(Uri.parse("http://127.0.0.1:18080/api/users/{id}"));
   if (response.statusCode == 200) {
     return User.fromJson(jsonDecode(response.body));
   } else {
@@ -18,7 +18,7 @@ Future<User> getUserData() async {
 
 Future<User> updateUser(String name, String phone, String email) async {
   final response = await http.put(
-    Uri.parse('http://172.30.1.44:18080/api/users/{id}'),
+    Uri.parse('http://127.0.0.1:18080/api/users/{id}'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

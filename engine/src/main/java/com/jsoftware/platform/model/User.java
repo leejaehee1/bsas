@@ -7,12 +7,12 @@ import lombok.*;
 @Setter
 @Getter
 @RequiredArgsConstructor
-@Table(name="user")
+@Table(name="User")
 public class User {
     @NonNull
     private int id;
-    @NonNull
-    private String pw;
+//    @NonNull
+//    private String pw;
     @NonNull
     private String name;
     private String phone;
@@ -23,9 +23,9 @@ public class User {
 
     }
 
-    public User(int id, String pw, String name, String phone, String email) {
+    public User(int id, String name, String phone, String email) {
         this.id = id;
-        this.pw = pw;
+//        this.pw = pw;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -35,9 +35,9 @@ public class User {
         return id;
     }
 
-    public String getPw() {
-        return pw;
-    }
+//    public String getPw() {
+//        return pw;
+//    }
 
     public String getName() {
         return name;

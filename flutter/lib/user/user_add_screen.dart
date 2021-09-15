@@ -201,7 +201,7 @@ class AddUserState extends State {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           onPressed: () {
-                            _futureUser = addUser(_nameController.text, _phoneController.text, _emailController.text);
+                            _futureUser = addUser(_nameController.value.text, _phoneController.value.text, _emailController.value.text);
                             // var addUser = await DBHelper.addUser(
                             //     _nameController.text, _phoneController.text, _emailController.text);
                           },

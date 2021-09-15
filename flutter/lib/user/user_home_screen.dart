@@ -19,9 +19,9 @@ import 'dart:convert';
 // }
 
 Future<List<User>> getUserData() async {
-  final response = await http.get(Uri.parse("http://172.30.1.44:18080/api/users"));
+  final response = await http.get(Uri.parse("http://172.30.1.44:18080/api/users")); //localhost 기본값 설정 해제 후 재실행 -> 완료
   print('Response status: ${response.statusCode}');
-  if (response.statusCode == 400) {
+  if (response.statusCode == 200) {
     List data = jsonDecode(response.body);
     var userList = data.map((element) => User.fromJson(element)).toList();
     return userList;
@@ -40,6 +40,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State {
   late Future<List<User>> userList;
+  var dbHelper = DBHelper();
 
 
   @override
@@ -144,14 +145,15 @@ class HomeScreenState extends State {
       }
     }
   }
+
+
   //
-  // void getUserData() async {
-  //   var productsFuture = dbHelper.getUserData();
-  //   productsFuture.then((data) {
+  // void pullUserData() async {
+  //   var userFuture = dbHelper.getUserData();
+  //   userFuture.then((data) {
   //     setState(() {
   //       this.data = data;
   //       DataCount = (data as List).length;
-  //       // DataCount = (data as List).length;
   //     });
   //   });
   // }
