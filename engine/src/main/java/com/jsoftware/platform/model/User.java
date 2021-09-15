@@ -1,15 +1,11 @@
 package com.jsoftware.platform.model;
 
-import java.util.List;
-
 import javax.persistence.Table;
 
 import lombok.*;
 
 @Setter
 @Getter
-@ToString
-//@AllArgsConstructor
 @RequiredArgsConstructor
 @Table(name="user")
 public class User {

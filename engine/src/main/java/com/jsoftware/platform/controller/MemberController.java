@@ -1,27 +1,13 @@
 package com.jsoftware.platform.controller;
 
 import com.jsoftware.platform.model.Member;
-import com.jsoftware.platform.model.User;
 import com.jsoftware.platform.repository.MemberRepository;
 import com.jsoftware.platform.service.MemberService;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import lombok.AllArgsConstructor;
 
@@ -41,7 +27,7 @@ public class MemberController {
 
     //회원가입 처리
     @PostMapping("/member/signup")
-    public Member createUser(Member member) {
+    public Long insertMember(Member member) {
         System.out.println("******POST register");
         return memberService.insertMember(member);
     }

@@ -13,7 +13,6 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Table(name="hospital")
 public class Hospital {
     @NonNull

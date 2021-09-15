@@ -13,7 +13,6 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Table(name="center")
 public class Center {
     @NonNull

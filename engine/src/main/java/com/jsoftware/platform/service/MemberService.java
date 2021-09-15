@@ -24,12 +24,12 @@ public class MemberService implements UserDetailsService {
     final MemberRepository memberRepository;
 
     @Transactional
-    public Member insertMember(Member member) {
+    public Long insertMember(Member member) {
         // 비밀번호 암호화
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         member.setMemberPwd(passwordEncoder.encode(member.getMemberPwd()));
 
-        return memberRepository.save(member);
+        return memberRepository.save(member.toEntity()).getId();
     }
 
 //    @Transactional

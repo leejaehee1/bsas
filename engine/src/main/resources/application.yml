@@ -1,5 +1,5 @@
 server:
-  address: 172.30.1.44
+  address: localhost
   port: 18080
 #  18080
 
@@ -46,7 +46,7 @@ spring:
     store-type: redis
   redis:
     host: localhost
-#    password:
+    #    password:
     password:
     port: 6379
   security:
@@ -68,5 +68,3 @@ management:
     web:
       exposure:
         include: "*"
-
-
