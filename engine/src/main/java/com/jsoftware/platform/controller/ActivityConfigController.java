@@ -94,6 +94,7 @@ public class ActivityConfigController {
     }
 
     // user, hospital, center put
+    // put 작동 확인
 
     @PutMapping("/api/users/{id}")
     public User putUser(@PathVariable("id") int id, @RequestBody User user) {
@@ -111,6 +112,7 @@ public class ActivityConfigController {
     }
 
     // user, hospital, center delete
+    // delete 작동 확인
 
     @DeleteMapping("/api/users/{id}")
     public User deleteUser(@PathVariable int id, User user) {
