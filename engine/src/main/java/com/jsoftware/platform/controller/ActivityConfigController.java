@@ -98,16 +98,19 @@ public class ActivityConfigController {
 
     @PutMapping("/api/users/{id}")
     public User putUser(@PathVariable("id") int id, @RequestBody User user) {
+        user.setId(id);
         return activityConfigService.updateUser(user);
     }
 
     @PutMapping("/api/hospitals/{id}")
     public Hospital putHospital(@PathVariable("id") int id, @RequestBody Hospital hospital) {
+        hospital.setId(id);
         return activityConfigService.updateHospital(hospital);
     }
 
     @PutMapping("/api/centers/{id}")
     public Center putCenter(@PathVariable("id") int id, @RequestBody Center center) {
+        center.setId(id);
         return activityConfigService.updateCenter(center);
     }
 
