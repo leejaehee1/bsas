@@ -18,8 +18,6 @@ public class Hospital {
     @NonNull
     private int id;
     @NonNull
-    private String pw;
-    @NonNull
     private String name;
     private String phone;
     private String publicPhone;
