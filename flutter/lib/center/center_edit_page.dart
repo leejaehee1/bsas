@@ -1,31 +1,32 @@
-import 'package:bsas/db/hospital_db.dart';
+import 'package:bsas/db/center_db.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'hospital_home_screen.dart';
+import 'center_home_screen.dart';
 
-class EditHospital extends StatefulWidget {
+
+class EditCenter extends StatefulWidget {
   final List list;
   final int index;
 
-  EditHospital({required this.list, required this.index});
+  EditCenter({required this.list, required this.index});
 
   @override
-  _EditHospitalState createState() => _EditHospitalState();
+  _EditCenterState createState() => _EditCenterState();
 }
 
-class _EditHospitalState extends State<EditHospital> {
+class _EditCenterState extends State<EditCenter> {
 
-  HospitalDBHelper databaseHelper = HospitalDBHelper();
+  CenterDBHelper databaseHelper = CenterDBHelper();
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _publicPhoneController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
 
-  _navigateHospitalList(BuildContext context) async {
+  _navigateCenterList(BuildContext context) async {
     final result = await Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HosHomeScreen()));
+        MaterialPageRoute(builder: (context) => CenterHomeScreen()));
 
     if (result) {
       setState(() {});
@@ -117,13 +118,13 @@ class _EditHospitalState extends State<EditHospital> {
                   child: Text("Edit"),
                   color: Colors.blueAccent,
                   onPressed: () {
-                    databaseHelper.updateHospital(
+                    databaseHelper.updateCenter(
                       _nameController.text.trim(),
                       _phoneController.text.trim(),
                       _publicPhoneController.text.trim(),
                       _emailController.text.trim(),
                     );
-                    _navigateHospitalList(context);
+                    _navigateCenterList(context);
                   },
                 )
               ],

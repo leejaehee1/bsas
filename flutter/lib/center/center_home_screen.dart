@@ -1,31 +1,32 @@
-import 'package:bsas/db/database.dart';
-import 'package:bsas/user/user_edit_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../navigate_page.dart';
-import '../db/database.dart';
-import '../model/data_model.dart';
-import 'center_add_screen.dart';
-import 'center_data_detail.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class CenHomeScreen extends StatefulWidget {
+import 'center_add_screen.dart';
+
+class CenterHomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return CenHomeScreenState();
+    return CenterHomeScreenState();
   }
 }
 
-class CenHomeScreenState extends State {
-  var dbHelper = DatabaseHelper();
-  late List data;
-  int DataCount = 0;
+class CenterHomeScreenState extends State {
+  late List list;
+
+  Future<List> getData() async {
+    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/centers"));
+    //http://3.36.200.118:18080/api/users
+    return json.decode(response.body);
+  }
 
   @override
   void initState() {
     // TODO: implement initState
-    getCenterData();
-    //super.initState();
+    super.initState();
+    getData();
   }
 
   @override
@@ -41,80 +42,94 @@ class CenHomeScreenState extends State {
         ),
         centerTitle: true,
       ),
-      body: buildProductList(),
+      body: Center(
+          child: FutureBuilder<List>(
+            future: getData(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+              return snapshot.hasData
+                  ? CenterList(
+                list: snapshot.data!,
+              )
+                  : Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          )
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF43aa8b),
         onPressed: () {
-          goToDataAdd();
+          // goToDataAdd();
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>AddCenter()));
         },
         child: Icon(Icons.add),
         tooltip: "센터 등록",
       ),
     );
   }
+}
 
-  ListView buildProductList() {
-    return ListView.builder(
-        itemCount: DataCount,
-        itemBuilder: (BuildContext context, int position) {
-          return Card(
-            color: Colors.white,
-            elevation: 2.0,
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Color(0xFF43aa8b),
-                child: Icon(Icons.person, color: Colors.white),
+
+class CenterList extends StatelessWidget {
+  final List list;
+  CenterList({required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return new ListView.builder(
+      itemCount: list == null ? 0 : list.length,
+      itemBuilder: (context, i) {
+        return Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                height: 100.3,
+                child: new Card(
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min, // add this
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                list[i]['name'].toString(),
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.black87),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                list[i]['phone'].toString(),
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.black87),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              title: Text(
-                this.data[position].name,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.black),
-              ),
-              subtitle: Text(
-                this.data[position].publicPhone,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: Colors.black54),
-              ),
-              onTap: () {
-                goToCenterDetail(this.data[position]);
-              },
             ),
-          );
-        });
-  }
-
-  void goToDataAdd() async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddCenter()));
-    if (result != null) {
-      if (result) {
-        getCenterData();
-      }
-    }
-  }
-
-  void getCenterData() async {
-    var productsFuture = dbHelper.getCenterData();
-    productsFuture.then((centerData) {
-      setState(() {
-        this.data = centerData;
-        DataCount = centerData.length;
-      });
-    });
-  }
-
-  void goToCenterDetail(centerData) async {
-    final result = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => CenDataDetail(centerData)));
-    if (result != null) {
-      if (result) {
-        getCenterData();
-      }
-    }
+          ],
+        );
+      },
+    );
   }
 }
+
 

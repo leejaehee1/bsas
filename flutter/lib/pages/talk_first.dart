@@ -188,7 +188,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => CenHomeScreen()));
+                                        builder: (_) => CenterHomeScreen()));
                               },
                               color: Color(0xFFDCEDC8),
                               child: Icon(

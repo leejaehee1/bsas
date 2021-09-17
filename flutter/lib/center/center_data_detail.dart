@@ -1,145 +1,115 @@
-import 'package:bsas/model/data_model.dart';
+import 'package:bsas/db/center_db.dart';
 import 'package:flutter/material.dart';
-import 'package:bsas/db/database.dart';
-import 'package:bsas/model/data_model.dart';
-import 'package:bsas/db/database.dart';
 
-class CenDataDetail extends StatefulWidget {
-  Data data;
-  CenDataDetail(this.data);
+import 'center_edit_page.dart';
+import 'center_home_screen.dart';
+
+class CenterDetail extends StatefulWidget {
+  List list;
+  int index;
+  CenterDetail({required this.index, required this.list});
 
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return CenDataDetailState(data);
-  }
+  _DetailCenterState createState() => _DetailCenterState();
 }
 
-enum Options { delete, update }
+class _DetailCenterState extends State<CenterDetail> {
+  CenterDBHelper databaseHelper = CenterDBHelper();
 
-class CenDataDetailState extends State {
-  Data data;
-  CenDataDetailState(this.data);
-  var dbHelper = DatabaseHelper();
-  var txtName = TextEditingController();
-  var txtpublicPhone = TextEditingController();
-  var txtmail = TextEditingController();
-  var txtpersonPhone = TextEditingController();
+  _navigateCenterList(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CenterHomeScreen()),
+    );
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    txtName.text = data.name!;
-    txtpublicPhone.text = data.publicPhone!;
-    txtmail.text = data.mail!;
-    txtpersonPhone.text = data.personPhone!;
-    super.initState();
+    if (result) {
+      setState(() {});
+    }
+  }
+
+  //create function delete
+  void confirm() {
+    AlertDialog alertDialog = AlertDialog(
+      content: Text(
+          "정말 삭제하시겠습니까? '${widget.list[widget.index]['name']}'"),
+      actions: <Widget>[
+        RaisedButton(
+          child: Text(
+            "OK remove!",
+            style: TextStyle(color: Colors.black),
+          ),
+          color: Colors.red,
+          onPressed: () {
+            databaseHelper
+                .deleteCenter(widget.list[widget.index]['name'].toString());
+            _navigateCenterList(context);
+          },
+        ),
+        RaisedButton(
+          child: Text("CANCEL", style: TextStyle(color: Colors.black)),
+          color: Colors.green,
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF43aa8b),
-        title: Text(
-          "편집 : ${data.name}",
-          style: TextStyle(
-              fontWeight: FontWeight.w900, fontSize: 20, color: Colors.black),
+      body: Container(
+        height: 270.0,
+        padding: const EdgeInsets.all(20.0),
+        child: Card(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                ),
+                Text(
+                  widget.list[widget.index]['name'],
+                  style:TextStyle(fontSize: 20.0),
+                ),
+                Divider(),
+                Text(
+                  "phone : ${widget.list[widget.index]['phone']}",
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text("Edit"),
+                      color: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      onPressed: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => EditCenter(
+                              list: widget.list,
+                              index: widget.index,
+                            ),
+                          )),
+                    ),
+                    VerticalDivider(),
+                    RaisedButton(
+                      child: Text("Delete"),
+                      color: Colors.redAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      onPressed: () => confirm(),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
         ),
-        centerTitle: true,
-        actions: <Widget>[
-          PopupMenuButton<Options>(
-            onSelected: selectProcess,
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<Options>>[
-              PopupMenuItem<Options>(
-                value: Options.delete,
-                child: Text("삭제"),
-              ),
-              PopupMenuItem<Options>(
-                value: Options.update,
-                child: Text("뒤로가기"),
-              ),
-            ],
-          )
-        ],
-      ),
-      body: buildDataDetail(),
-    );
-  }
-
-  Widget buildDataDetail() {
-    return Padding(
-      padding: EdgeInsets.all(30.0),
-      child: Column(
-        children: <Widget>[
-          buildName(),
-          buildPublicPhone(),
-          buildMail(),
-          buildPersonPhone(),
-        ],
       ),
     );
-  }
-
-  Widget buildName() {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: "이름 : ",
-      ),
-      controller: txtName,
-    );
-  }
-
-  Widget buildPublicPhone() {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: "연락처 : ",
-      ),
-      controller: txtpublicPhone,
-    );
-  }
-
-  Widget buildMail() {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: "이메일 : ",
-      ),
-      controller: txtmail,
-    );
-  }
-
-  Widget buildPersonPhone() {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: "담당자 연락처 : ",
-      ),
-      controller: txtpersonPhone,
-    );
-  }
-
-
-
-
-  void selectProcess(Options options) async {
-    //print(value);
-    switch (options) {
-      case Options.delete:
-        await dbHelper.deleteCenterData(data.id!);
-        Navigator.pop(context, true);
-        break;
-      case Options.update:
-        await dbHelper.updateCenterData(Data.withId(
-          id: data.id,
-          name: txtName.text,
-          publicPhone: txtpublicPhone.text,
-          mail: txtmail.text,
-          personPhone: txtpersonPhone.text,
-          // type: data.type
-        ));
-        Navigator.pop(context, true);
-        break;
-      default:
-    }
   }
 }

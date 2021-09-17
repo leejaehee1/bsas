@@ -15,7 +15,7 @@ class HospitalDetail extends StatefulWidget {
 class _DetailHospitalState extends State<HospitalDetail> {
   HospitalDBHelper databaseHelper = HospitalDBHelper();
 
-  _navigateUserList(BuildContext context) async {
+  _navigateHospitalList(BuildContext context) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HosHomeScreen()),
@@ -41,7 +41,7 @@ class _DetailHospitalState extends State<HospitalDetail> {
           onPressed: () {
             databaseHelper
                 .deleteHospital(widget.list[widget.index]['name'].toString());
-            _navigateUserList(context);
+            _navigateHospitalList(context);
           },
         ),
         RaisedButton(
