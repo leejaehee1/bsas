@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bsas/db/user_db.dart';
-import 'user_data_edit.dart';
+import 'user_edit_page.dart';
 import 'user_home_screen.dart';
 
 class UserDetail extends StatefulWidget {

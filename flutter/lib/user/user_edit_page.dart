@@ -2,7 +2,6 @@ import 'package:bsas/db/user_db.dart';
 import 'package:bsas/user/user_home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class EditUser extends StatefulWidget {
   final List list;
@@ -37,7 +36,7 @@ class _EditUserState extends State<EditUser> {
     _nameController = TextEditingController(
         text: widget.list[widget.index]['name'].toString());
     _phoneController = TextEditingController(
-        text: widget.list[widget.index]['price'].toString());
+        text: widget.list[widget.index]['phone'].toString());
     _emailController = TextEditingController(
         text: widget.list[widget.index]['email'].toString());
     super.initState();

@@ -1,8 +1,9 @@
-import 'package:bsas/db/database.dart';
+import 'package:bsas/db/hospital_db.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../model/data_model.dart';
-import 'package:bsas/hospital/hospital_home_screen.dart';
+import 'hospital_home_screen.dart';
+
 
 class AddHospital extends StatefulWidget {
   @override
@@ -12,19 +13,19 @@ class AddHospital extends StatefulWidget {
   }
 }
 
-
 class AddHospitalState extends State {
+
   String _name = '';
+  String _phone = '';
   String _publicPhone = '';
   String _mail = '';
-  String _personPhone = '';
 
-  var txtName = TextEditingController();
-  var txtpublicPhone = TextEditingController();
-  var txtmail = TextEditingController();
-  var txtpersonPhone = TextEditingController();
-  var dbHelper = DatabaseHelper();
+  HospitalDBHelper hospitalDataBaseHelper = HospitalDBHelper();
 
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _publicPhoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +35,15 @@ class AddHospitalState extends State {
         onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 80.0),
+            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 100.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () => Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (_) => HosHomeScreen())),
+                  onTap: () =>
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => HosHomeScreen())),
                   child: Icon(
                     Icons.arrow_back,
                     size: 30.0,
@@ -70,7 +73,7 @@ class AddHospitalState extends State {
                         child: TextFormField(
                           style: TextStyle(fontSize: 18.0),
                           decoration: InputDecoration(
-                            labelText: '병원명',
+                            labelText: '이름',
                             labelStyle: TextStyle(fontSize: 18.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.0),
@@ -83,10 +86,10 @@ class AddHospitalState extends State {
                             ),
                           ),
                           validator: (input) => //유효성 검사
-                          input!.trim().isEmpty ? '병원명을 입력하세요' : null,
+                          input!.trim().isEmpty ? '이름을 입력하세요' : null,
                           onSaved: (input) => _name = input!,
                           // initialValue: _name,
-                          controller: txtName,
+                          controller: _nameController,
                         ),
                       ),
                       Padding(
@@ -107,9 +110,32 @@ class AddHospitalState extends State {
                               )),
                           validator: (input) =>
                           input!.trim().isEmpty ? '전화번호를 입력하세요' : null,
+                          onSaved: (input) => _phone = input!,
+                          // initialValue: _publicPhone,
+                          controller: _phoneController,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                        child: TextFormField(
+                          style: TextStyle(fontSize: 18.0),
+                          decoration: InputDecoration(
+                              labelText: '담당자 연락처',
+                              labelStyle: TextStyle(fontSize: 18.0),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF43aa8b),
+                                ),
+                                borderRadius: BorderRadius.circular(20.0),
+                              )),
+                          validator: (input) =>
+                          input!.trim().isEmpty ? '담당자 연락처를 입력하세요' : null,
                           onSaved: (input) => _publicPhone = input!,
                           // initialValue: _publicPhone,
-                          controller: txtpublicPhone,
+                          controller: _publicPhoneController,
                         ),
                       ),
                       Padding(
@@ -132,37 +158,17 @@ class AddHospitalState extends State {
                           input!.trim().isEmpty ? '이메일을 입력하세요' : null,
                           onSaved: (input) => _mail = input!,
                           // initialValue: _mail,
-                          controller: txtmail,
+                          controller: _emailController,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: TextFormField(
-                          style: TextStyle(fontSize: 18.0),
-                          decoration: InputDecoration(
-                              labelText: '담당자 연락처',
-                              labelStyle: TextStyle(fontSize: 18.0),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFF43aa8b),
-                                ),
-                                borderRadius: BorderRadius.circular(20.0),
-                              )),
-                          validator: (input) =>
-                          input!.trim().isEmpty ? '연락처를 입력하세요' : null,
-                          onSaved: (input) => _personPhone = input!,
-                          // initialValue: _personPhone,
-                          controller: txtpersonPhone,
-                        ),
-                      ),
-
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 20.0),
                         height: 60.0,
                         width: double.infinity,
+                        // decoration: BoxDecoration(
+                        //   color: Color(0xFF00C853),
+                        //   borderRadius: BorderRadius.circular(80.0),
+                        // ),
                         child: RaisedButton(
                           child: Text(
                             '저장',
@@ -175,8 +181,14 @@ class AddHospitalState extends State {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          onPressed: (){
-                            addHospital();
+                          onPressed: () {
+                            hospitalDataBaseHelper.addHospital(
+                              _nameController.text,
+                              _phoneController.text,
+                              _publicPhoneController.text,
+                              _emailController.text,
+                            );
+                            Navigator.pop(context, true);
                           },
                         ),
                       ),
@@ -190,13 +202,6 @@ class AddHospitalState extends State {
       ),
     );
   }
-
-  void addHospital() async{
-    var result = await dbHelper.insertHospitalData(Data(
-        name: txtName.text,
-        publicPhone: txtpublicPhone.text,
-        mail: txtmail.text,
-        personPhone: txtpersonPhone.text));
-    Navigator.pop(context,true);
-  }
 }
+
+

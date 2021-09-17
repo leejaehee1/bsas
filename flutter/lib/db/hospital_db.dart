@@ -42,7 +42,7 @@ class HospitalDBHelper {
   }
 
   // update or put
-  Future<Hospital> updateCenter(String name, String phone, String publicPhone, String email) async {
+  Future<Hospital> updateHospital(String name, String phone, String publicPhone, String email) async {
     final response = await http.put(
       Uri.parse('http://3.36.200.118:18080/api/hospitals/{id}'),
       headers: <String, String>{
@@ -71,7 +71,7 @@ class HospitalDBHelper {
 
 
   //delete
-  Future<Hospital> deleteCenter(String id) async {
+  Future<Hospital> deleteHospital(String id) async {
     final http.Response response = await http.delete(
       Uri.parse('http://3.36.200.118:18080/api/hospitals/{id}'), // {id} id번호가 자동으로 들어감
       headers: <String, String>{
