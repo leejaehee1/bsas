@@ -6,6 +6,7 @@
     <select id="selectAllRecommendActivity" resultType="com.jsoftware.platform.model.RecommendActivity">
         SELECT id
              , title
+             , img_url
              , contents
         FROM recommend_activity
     </select>

@@ -15,5 +15,6 @@ import lombok.Setter;
 public class RecommendHotspot {
     private int id;
     private String title;
+    private String img_url;
     private String contents;
 }

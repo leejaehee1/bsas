@@ -6,6 +6,7 @@
     <select id="selectAllTodaysHeadline" resultType="com.jsoftware.platform.model.TodaysHeadline">
         SELECT id
              , title
+             , img_url
              , contents
         FROM event_day
     </select>

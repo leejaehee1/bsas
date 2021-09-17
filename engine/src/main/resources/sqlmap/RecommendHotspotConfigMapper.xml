@@ -6,6 +6,7 @@
     <select id="selectAllRecommendHotspot" resultType="com.jsoftware.platform.model.RecommendHotspot">
         SELECT id
              , title
+             , img_url
              , contents
         FROM recommend_hotspot
     </select>
