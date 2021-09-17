@@ -1,11 +1,7 @@
 import 'package:bsas/db/user_db.dart';
-import 'package:bsas/model/user_model.dart';
 import 'package:bsas/user/user_home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bsas/model/data_model.dart';
-import 'dart:convert';
-import 'package:bsas/model/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class EditUser extends StatefulWidget {
@@ -49,7 +45,7 @@ class _EditUserState extends State<EditUser> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       body: Form(
         child: ListView(
           padding: const EdgeInsets.all(10.0),
@@ -58,39 +54,39 @@ class _EditUserState extends State<EditUser> {
               children: <Widget>[
                 ListTile(
                   leading: const Icon(Icons.person, color: Colors.black),
-                  title: new TextFormField(
+                  title: TextFormField(
                     controller: _nameController,
                     validator: (value) {
                       if (value!.isEmpty) return "name";
                     },
-                    decoration: new InputDecoration(
+                    decoration: InputDecoration(
                       hintText: "Name",
                       labelText: "Name",
                     ),
                   ),
                 ),
-                new ListTile(
+                ListTile(
                   leading: const Icon(Icons.location_on, color: Colors.black),
-                  title: new TextFormField(
+                  title: TextFormField(
                     controller: _phoneController,
                     validator: (value) {
                       if (value!.isEmpty) return "Phone";
                     },
-                    decoration: new InputDecoration(
+                    decoration: InputDecoration(
                       hintText: "Phone",
                       labelText: "Phone",
                     ),
                   ),
                 ),
-                new ListTile(
+                ListTile(
                   leading: const Icon(Icons.settings_input_component,
                       color: Colors.black),
-                  title: new TextFormField(
+                  title: TextFormField(
                     controller: _emailController,
                     validator: (value) {
                       if (value!.isEmpty) return "Email";
                     },
-                    decoration: new InputDecoration(
+                    decoration: InputDecoration(
                       hintText: "Email",
                       labelText: "Email",
                     ),
@@ -99,11 +95,11 @@ class _EditUserState extends State<EditUser> {
                 const Divider(
                   height: 1.0,
                 ),
-                new Padding(
+                Padding(
                   padding: const EdgeInsets.all(10.0),
                 ),
-                new RaisedButton(
-                  child: new Text("Edit"),
+                RaisedButton(
+                  child: Text("Edit"),
                   color: Colors.blueAccent,
                   onPressed: () {
                     databaseHelper.updateUser(
