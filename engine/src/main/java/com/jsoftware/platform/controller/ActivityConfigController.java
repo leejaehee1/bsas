@@ -3,26 +3,34 @@ package com.jsoftware.platform.controller;
 import com.jsoftware.platform.model.Center;
 import com.jsoftware.platform.model.Hospital;
 import com.jsoftware.platform.model.User;
+import com.jsoftware.platform.repository.ActivityConfigRepository;
 import com.jsoftware.platform.service.ActivityConfigService;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 public class ActivityConfigController {
 
     final ActivityConfigService activityConfigService;
+    final ActivityConfigRepository activityConfigRepository;
 
-    public ActivityConfigController(ActivityConfigService activityConfigService) {
+    public ActivityConfigController(ActivityConfigService activityConfigService, ActivityConfigRepository activityConfigRepository) {
 
         this.activityConfigService = activityConfigService;
+        this.activityConfigRepository = activityConfigRepository;
     }
 
     // user, hospital, center read all
@@ -56,7 +64,7 @@ public class ActivityConfigController {
     // id 값을 호출하여 url에 맞춰서 binding하는 @PathVariable 쓰는 게 맞다.
 
     @GetMapping("/api/users/{id}")
-    public User readUser(@PathVariable("id") int id) {
+    public User readUser(@PathVariable("id") Long id) {
         System.out.println(id);
         return activityConfigService.readUser(id);
     }
@@ -95,9 +103,10 @@ public class ActivityConfigController {
 
     // user, hospital, center put
     // put 작동 확인
+    // null 있을 때
 
     @PutMapping("/api/users/{id}")
-    public User putUser(@PathVariable("id") int id, @RequestBody User user) {
+    public User putUser(@PathVariable("id") Long id, @RequestBody User user) {
         user.setId(id);
         return activityConfigService.updateUser(user);
     }

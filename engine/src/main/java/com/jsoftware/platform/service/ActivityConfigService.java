@@ -29,7 +29,7 @@ public class ActivityConfigService {
 
     // one user
     @Transactional
-    public User readUser(int id) {
+    public User readUser(Long id) {
         return repository.selectUserById(id);
     }
 

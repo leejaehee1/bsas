@@ -10,7 +10,7 @@ import lombok.*;
 @Table(name="User")
 public class User {
     @NonNull
-    private int id;
+    private Long id;
     @NonNull
     private String name;
     private String phone;
@@ -21,7 +21,7 @@ public class User {
 
     }
 
-    public User(int id, String name, String phone, String email) {
+    public User(Long id, String name, String phone, String email) {
         this.id = id;
         this.name = name;
         this.phone = phone;

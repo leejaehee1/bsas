@@ -30,7 +30,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
 
     // 지인
     @Override
-    public User selectUserById(int id) {
+    public User selectUserById(Long id) {
         return sqlSessionTemplate.selectOne("selectUserById", id);
     }
 

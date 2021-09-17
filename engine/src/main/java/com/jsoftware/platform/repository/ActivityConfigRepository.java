@@ -12,7 +12,7 @@ import java.util.List;
 public interface ActivityConfigRepository {
 
     // 지인 등록
-    User selectUserById(int id);
+    User selectUserById(Long id);
 
     List<User> selectAllUsers();
 
