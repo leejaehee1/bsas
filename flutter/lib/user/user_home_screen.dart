@@ -1,4 +1,3 @@
-import 'package:bsas/model/user_model.dart';
 import 'package:bsas/user/user_add_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,7 @@ class HomeScreenState extends State {
 
   Future<List> getData() async {
     var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users"));
+    //http://3.36.200.118:18080/api/users
     return json.decode(response.body);
   }
 

@@ -1,25 +1,24 @@
-import 'package:bsas/db/center_db.dart';
 import 'package:flutter/material.dart';
+import 'package:bsas/db/user_db.dart';
+import 'user_edit_page.dart';
+import 'user_home_screen.dart';
 
-import 'center_edit_page.dart';
-import 'center_home_screen.dart';
-
-class CenterDetail extends StatefulWidget {
+class UserDetail extends StatefulWidget {
   List list;
   int index;
-  CenterDetail({required this.index, required this.list});
+  UserDetail({required this.index, required this.list});
 
   @override
-  _DetailCenterState createState() => _DetailCenterState();
+  _DetailUserState createState() => _DetailUserState();
 }
 
-class _DetailCenterState extends State<CenterDetail> {
-  CenterDBHelper databaseHelper = CenterDBHelper();
+class _DetailUserState extends State<UserDetail> {
+  DBHelper databaseHelper = DBHelper();
 
-  _navigateCenterList(BuildContext context) async {
+  _navigateUserList(BuildContext context) async {
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CenterHomeScreen()),
+      MaterialPageRoute(builder: (context) => HomeScreen()),
     );
 
     if (result) {
@@ -41,8 +40,8 @@ class _DetailCenterState extends State<CenterDetail> {
           color: Colors.red,
           onPressed: () {
             databaseHelper
-                .deleteCenter(widget.list[widget.index]['name'].toString());
-            _navigateCenterList(context);
+                .deleteUser(widget.list[widget.index]['name'].toString());
+            _navigateUserList(context);
           },
         ),
         RaisedButton(
@@ -89,7 +88,7 @@ class _DetailCenterState extends State<CenterDetail> {
                           borderRadius: BorderRadius.circular(30.0)),
                       onPressed: () =>
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => EditCenter(
+                            builder: (BuildContext context) => EditUser(
                               list: widget.list,
                               index: widget.index,
                             ),

@@ -90,12 +90,4 @@ class DBHelper {
       throw Exception('Failed to delete album.');
     }
   }
-
-
-
-    // //get user data -> add page와 연결
-    // Future<List> getUserData() async {
-    //   final response = await http.get("url");
-    //   return json.decode(response.body);
-    // }
   }

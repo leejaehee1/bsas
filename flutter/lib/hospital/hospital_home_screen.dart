@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../db/database.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'hospital_add_screen.dart';
-import 'package:bsas/db/database.dart';
-
-import 'hospital_data_detail.dart';
 
 class HosHomeScreen extends StatefulWidget {
   @override
@@ -15,15 +13,19 @@ class HosHomeScreen extends StatefulWidget {
 }
 
 class HosHomeScreenState extends State {
-  var dbHelper = DatabaseHelper();
-  late List data;
-  int DataCount = 0;
+  late List list;
+
+  Future<List> getData() async {
+    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/hospitals"));
+    //http://3.36.200.118:18080/api/users
+    return json.decode(response.body);
+  }
 
   @override
   void initState() {
     // TODO: implement initState
-    getHospitalData();
-    //super.initState();
+    super.initState();
+    getData();
   }
 
   @override
@@ -39,80 +41,94 @@ class HosHomeScreenState extends State {
         ),
         centerTitle: true,
       ),
-      body: buildProductList(),
+      body: Center(
+          child: FutureBuilder<List>(
+            future: getData(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+              return snapshot.hasData
+                  ? HospitalList(
+                list: snapshot.data!,
+              )
+                  : Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          )
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF43aa8b),
         onPressed: () {
-          goToHosDataAdd();
+          // goToDataAdd();
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>AddHospital ()));
         },
         child: Icon(Icons.add),
         tooltip: "병원 등록",
       ),
     );
   }
+}
 
-  ListView buildProductList() {
-    return ListView.builder(
-        itemCount: DataCount,
-        itemBuilder: (BuildContext context, int position) {
-          return Card(
-            color: Colors.white,
-            elevation: 2.0,
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Color(0xFF43aa8b),
-                child: Icon(Icons.person, color: Colors.white),
+
+class HospitalList extends StatelessWidget {
+  final List list;
+  HospitalList({required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return new ListView.builder(
+      itemCount: list == null ? 0 : list.length,
+      itemBuilder: (context, i) {
+        return Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                height: 100.3,
+                child: new Card(
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min, // add this
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                list[i]['name'].toString(),
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.black87),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                list[i]['phone'].toString(),
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.black87),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              title: Text(
-                this.data[position].name,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.black),
-              ),
-              subtitle: Text(
-                this.data[position].publicPhone,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: Colors.black54),
-              ),
-              onTap: () {
-                goToHosDetail(this.data[position]);
-              },
             ),
-          );
-        });
-  }
-
-  void goToHosDataAdd() async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddHospital()));
-    if (result != null) {
-      if (result) {
-        getHospitalData();
-      }
-    }
-  }
-
-  void getHospitalData() async {
-    var hospitalDataFuture = dbHelper.getHospitalData();
-    hospitalDataFuture.then((data) {
-      setState(() {
-        this.data = data;
-        DataCount = data.length;
-      });
-    });
-  }
-
-  void goToHosDetail(data) async {
-    final result = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => HosDataDetail(data)));
-    if (result != null) {
-      if (result) {
-        getHospitalData();
-      }
-    }
+          ],
+        );
+      },
+    );
   }
 }
+
 

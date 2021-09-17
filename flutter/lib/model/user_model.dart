@@ -25,22 +25,6 @@ class User{
   });
 
 
-  // Map<String, dynamic> toJson(){
-  //   final json = Map<String, dynamic>();
-  //
-  //   // if(id != null){
-  //   //   json['id'] = id;
-  //   // }
-  //   // else if(personPhone != null) {
-  //   //   json['personPhone'] = personPhone;
-  //   // }
-  //   json['id'] = id;
-  //   json['name'] = userName;
-  //   json['publicPhone'] = userPhone;
-  //   json['mail'] = userEmail;
-  //   return json;
-  // }
-
   //json 변환
   factory User.fromJson(Map<String, dynamic> json){
     return User.withId(

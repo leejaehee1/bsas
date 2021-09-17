@@ -24,9 +24,9 @@ class AddUserState extends State {
 
   DBHelper userDataBaseHelper = DBHelper();
 
-  final TextEditingController _nameController = new TextEditingController();
-  final TextEditingController _phoneController = new TextEditingController();
-  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   // Future<User> addUser(String name, String phone, String email) async {
   //   final response = await http.post(
