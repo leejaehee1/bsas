@@ -27,7 +27,7 @@ public class TodaysHeadlineRepositoryImpl implements TodaysHeadlineRepository{
     }
 
     @Override
-    public TodaysHeadline readTodaysHeadline(int id) {
+    public TodaysHeadline readTodaysHeadline(Long id) {
         return sqlSessionTemplate.selectOne("selectTodaysHeadlineById", id);
     }
 

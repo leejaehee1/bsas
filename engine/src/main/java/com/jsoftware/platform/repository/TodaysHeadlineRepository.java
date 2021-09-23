@@ -10,7 +10,7 @@ import java.util.List;
 public interface TodaysHeadlineRepository {
     List<TodaysHeadline> readTodaysHeadlines();
 
-    TodaysHeadline readTodaysHeadline(int id);
+    TodaysHeadline readTodaysHeadline(Long id);
 
     void createTodaysHeadline(TodaysHeadline todaysHeadline);
 }

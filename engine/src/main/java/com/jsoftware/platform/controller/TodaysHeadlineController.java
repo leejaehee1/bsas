@@ -26,7 +26,7 @@ public class TodaysHeadlineController {
     }
 
     @GetMapping("/api/todaysHeadline/{id}")
-    public TodaysHeadline getTodaysHeadline(@PathVariable("id") int id) {
+    public TodaysHeadline getTodaysHeadline(@PathVariable("id") Long id) {
         System.out.println(id);
         return Service.readTodaysHeadline(id);
     }
