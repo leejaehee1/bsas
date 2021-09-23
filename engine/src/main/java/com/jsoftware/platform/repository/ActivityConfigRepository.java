@@ -16,31 +16,31 @@ public interface ActivityConfigRepository {
 
     List<User> selectAllUsers();
 
-    void insertUser(User user);
+    public void insertUser(User user);
 
-    void updateUser(User user);
+    public void updateUser(Long id, User user);
 
-    void deleteUser(User user);
+    public void deleteUser(Long id);
 
     // 병원 등록
-    Hospital selectHospitalById(int id);
+    Hospital selectHospitalById(Long id);
 
     List<Hospital> selectAllHospitals();
 
-    void insertHospital(Hospital hospital);
+    public void insertHospital(Hospital hospital);
 
-    void updateHospital(Hospital hospital);
+    public void updateHospital(Long id, Hospital hospital);
 
-    void deleteHospital(Hospital hospital);
+    public void deleteHospital(Long id);
 
     // 센터 등록
-    Center selectCenterById(int id);
+    Center selectCenterById(Long id);
 
     List<Center> selectAllCenters();
 
-    void insertCenter(Center center);
+    public void insertCenter(Center center);
 
-    void updateCenter(Center center);
+    public void updateCenter(Long id, Center center);
 
-    void deleteCenter(Center center);
+    public void deleteCenter(Long id);
 }
