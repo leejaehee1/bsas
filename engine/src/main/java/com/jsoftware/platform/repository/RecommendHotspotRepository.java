@@ -9,4 +9,8 @@ import java.util.List;
 @Mapper
 public interface RecommendHotspotRepository {
     List<RecommendHotspot> readRecommendHotspots();
+
+    RecommendHotspot readRecommendHotspot(int id);
+
+    void createRecommendHotspot(RecommendHotspot recommendHotspot);
 }

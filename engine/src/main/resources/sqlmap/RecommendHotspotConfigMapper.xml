@@ -10,4 +10,18 @@
              , contents
         FROM recommend_hotspot
     </select>
+
+    <select id="selectRecommendHotspotById" resultType="com.jsoftware.platform.model.RecommendHotspot">
+        SELECT id
+        , title
+        , img_url
+        , contents
+        FROM recommend_hotspot
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertRecommendHotspot" parameterType="com.jsoftware.platform.model.RecommendHotspot">
+        INSERT INTO recommend_hotspot (title, img_url, contents)
+        VALUES (#{title}, #{img_url}, #{contents})
+    </insert>
 </mapper>

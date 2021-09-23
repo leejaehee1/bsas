@@ -22,4 +22,15 @@ public class RecommendHotspotService {
         return repository.readRecommendHotspots();
     }
 
+    @Transactional
+    public RecommendHotspot readRecommendHotspot(int id) {
+        return repository.readRecommendHotspot(id);
+    }
+
+    @Transactional
+    public RecommendHotspot createRecommendHotspot(RecommendHotspot recommendHotspot) {
+        repository.createRecommendHotspot(recommendHotspot);
+        return recommendHotspot;
+    }
+
 }
