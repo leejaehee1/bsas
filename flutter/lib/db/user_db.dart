@@ -5,12 +5,13 @@ import 'package:http/http.dart' as http;
 class DBHelper {
 
   Future<dynamic> getData() async {
-    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users"));
+    var response = await http.get(Uri.parse("http://172.30.1.60:18080/api/users"));
+    // http://3.36.200.118:18080/api/users
     return json.decode(response.body);
   }
 
   Future<User> getUserData() async {
-    final response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users/{id}"));
+    final response = await http.get(Uri.parse("http://172.30.1.60:18080/api/users/{id}"));
     print('Response status: ${response.statusCode}');
     if (response.statusCode == 400) {
       return User.fromJson(jsonDecode(response.body));
@@ -23,7 +24,7 @@ class DBHelper {
   //AddUser - Crud
   Future<User> addUser(String name, String phone, String email) async {
     final response = await http.post(
-      Uri.parse('http://3.36.200.118:18080/api/users'),
+      Uri.parse('http://172.30.1.60:18080/api/users'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -43,7 +44,7 @@ class DBHelper {
   // update or put
   Future<User> updateUser(String name, String phone, String email) async {
     final response = await http.put(
-      Uri.parse('http://3.36.200.118:18080/api/users/{id}'),
+      Uri.parse('http://172.30.1.60:18080/api/users/{id}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -63,7 +64,7 @@ class DBHelper {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to update album.');
+      throw Exception('Failed to update user.');
     }
   }
 
@@ -71,7 +72,7 @@ class DBHelper {
   //delete
   Future<User> deleteUser(String id) async {
     final http.Response response = await http.delete(
-      Uri.parse('http://3.36.200.118:18080/api/users/{id}'), // {id} id번호가 자동으로 들어감
+      Uri.parse('http://172.30.1.60:18080/api/users/{id}'), // {id} id번호가 자동으로 들어감
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
