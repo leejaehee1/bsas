@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State {
   late List list;
+  int DataCount = 0;
 
   Future<List> getData() async {
     var response = await http.get(Uri.parse("http://172.30.1.60:18080/api/users"));
@@ -22,11 +23,21 @@ class HomeScreenState extends State {
     return json.decode(response.body);
   }
 
+  _navigateAddUser(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddUser()),
+    );
+    if (result) {
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getData();
+    this.getData();
   }
 
   @override
@@ -59,16 +70,19 @@ class HomeScreenState extends State {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF43aa8b),
-        onPressed: () {
-          // goToDataAdd();
-          Navigator.push(context, MaterialPageRoute(builder: (_)=>AddUser()));
-        },
+        // onPressed: () {
+        //   _navigateAddUser();
+        //   // goToDataAdd();
+        //   // Navigator.push(context, MaterialPageRoute(builder: (_)=>AddUser()));
+        // },
+        onPressed: () => _navigateAddUser(context),
         child: Icon(Icons.add),
         tooltip: "지인 등록",
       ),
     );
   }
 }
+
 
 
 class UserList extends StatelessWidget {
