@@ -28,7 +28,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
 
     // 지인
     @Override
-    public User selectUserById(Long id) {
+    public User selectUserById(int id) {
         return sqlSessionTemplate.selectOne("selectUserById", id);
     }
 
@@ -43,19 +43,19 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateUser(Long id, User user) {
+    public void updateUser(int id, User user) {
         sqlSessionTemplate.update("updateUser", user);
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(int id) {
         sqlSessionTemplate.delete("deleteUser", id);
     }
 
 
     // 병원
     @Override
-    public Hospital selectHospitalById(Long id) {
+    public Hospital selectHospitalById(int id) {
         return sqlSessionTemplate.selectOne("selectHospitalById", id);
     }
 
@@ -70,12 +70,12 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateHospital(Long id, Hospital hospital) {
+    public void updateHospital(int id, Hospital hospital) {
         sqlSessionTemplate.update("updateHospital", hospital);
     }
 
     @Override
-    public void deleteHospital(Long id) {
+    public void deleteHospital(int id) {
         sqlSessionTemplate.delete("deleteHospital", id);
     }
 
@@ -83,7 +83,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
 
     // 센터
     @Override
-    public Center selectCenterById(Long id) {
+    public Center selectCenterById(int id) {
         return sqlSessionTemplate.selectOne("selectCenterById", id);
     }
 
@@ -98,12 +98,12 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateCenter(Long id, Center center) {
+    public void updateCenter(int id, Center center) {
         sqlSessionTemplate.update("updateCenter", center);
     }
 
     @Override
-    public void deleteCenter(Long id) {
+    public void deleteCenter(int id) {
         sqlSessionTemplate.delete("deleteCenter", id);
     }
 }

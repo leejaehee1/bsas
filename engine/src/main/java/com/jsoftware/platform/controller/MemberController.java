@@ -64,8 +64,9 @@ public class MemberController {
     }
 
     // update
+    // postman 수정 완료!
     @PutMapping("/member/login/{id}")
-    public Member putMember(@PathVariable("id") int id, @RequestBody Member Member) {
+    public Member putMember(@PathVariable("id") int id, Member Member) {
         return memberService.updateMember(Member);
     }
 

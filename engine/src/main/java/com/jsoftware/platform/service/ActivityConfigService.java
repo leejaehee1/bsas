@@ -28,7 +28,7 @@ public class ActivityConfigService {
 
     // one user
     @Transactional
-    public User readUser(Long id) {
+    public User readUser(int id) {
         return repository.selectUserById(id);
     }
 
@@ -39,19 +39,19 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public User updateUser(Long id, User user) {
+    public User updateUser(int id, User user) {
         repository.updateUser(id, user);
         return user;
     }
 
     @Transactional
-    public void deleteUser(Long id) {
+    public void deleteUser(int id) {
         repository.deleteUser(id);
     }
 
     // 병원
     @Transactional
-    public Hospital readHospital(Long id) {
+    public Hospital readHospital(int id) {
         return repository.selectHospitalById(id);
     }
 
@@ -67,19 +67,19 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public Hospital updateHospital(Long id, Hospital hospital) {
+    public Hospital updateHospital(int id, Hospital hospital) {
         repository.updateHospital(id, hospital);
         return hospital;
     }
 
     @Transactional
-    public void deleteHospital(Long id) {
+    public void deleteHospital(int id) {
         repository.deleteHospital(id);
     }
 
     // 센터
     @Transactional
-    public Center readCenter(Long id) {
+    public Center readCenter(int id) {
         return repository.selectCenterById(id);
     }
 
@@ -95,13 +95,13 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public Center updateCenter(Long id, Center center) {
+    public Center updateCenter(int id, Center center) {
         repository.updateCenter(id, center);
         return center;
     }
 
     @Transactional
-    public void deleteCenter(Long id) {
+    public void deleteCenter(int id) {
         repository.deleteCenter(id);
     }
 }

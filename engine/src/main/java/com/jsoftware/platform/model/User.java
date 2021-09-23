@@ -9,9 +9,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Table(name="User")
 public class User {
-    @NonNull
-    private Long id;
-    @NonNull
+    private int id;
     private String name;
     private String phone;
     private String email;
@@ -21,7 +19,7 @@ public class User {
 
     }
 
-    public User(Long id, String name, String phone, String email) {
+    public User(int id, String name, String phone, String email) {
         this.id = id;
         this.name = name;
         this.phone = phone;
