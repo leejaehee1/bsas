@@ -9,4 +9,8 @@ import java.util.List;
 @Mapper
 public interface TodaysHeadlineRepository {
     List<TodaysHeadline> readTodaysHeadlines();
+
+    TodaysHeadline readTodaysHeadline(int id);
+
+    void createTodaysHeadline(TodaysHeadline todaysHeadline);
 }

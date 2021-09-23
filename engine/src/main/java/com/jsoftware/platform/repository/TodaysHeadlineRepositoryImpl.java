@@ -21,7 +21,18 @@ public class TodaysHeadlineRepositoryImpl implements TodaysHeadlineRepository{
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
 
+    @Override
     public List<TodaysHeadline> readTodaysHeadlines() {
         return sqlSessionTemplate.selectList("selectAllTodaysHeadline");
+    }
+
+    @Override
+    public TodaysHeadline readTodaysHeadline(int id) {
+        return sqlSessionTemplate.selectOne("selectTodaysHeadlineById", id);
+    }
+
+    @Override
+    public void createTodaysHeadline(TodaysHeadline todaysHeadline) {
+        sqlSessionTemplate.insert("insertTodaysHeadline", todaysHeadline);
     }
 }

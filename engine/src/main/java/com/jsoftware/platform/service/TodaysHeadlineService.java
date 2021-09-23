@@ -22,4 +22,15 @@ public class TodaysHeadlineService {
         return repository.readTodaysHeadlines();
     }
 
+    @Transactional
+    public TodaysHeadline readTodaysHeadline(int id) {
+        return repository.readTodaysHeadline(id);
+    }
+
+    @Transactional
+    public TodaysHeadline createTodaysHeadline(TodaysHeadline todaysHeadline) {
+        repository.createTodaysHeadline(todaysHeadline);
+        return todaysHeadline;
+    }
+
 }

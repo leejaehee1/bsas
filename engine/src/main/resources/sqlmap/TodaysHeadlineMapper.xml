@@ -8,6 +8,20 @@
              , title
              , img_url
              , contents
-        FROM event_day
+        FROM todaysheadline
     </select>
+
+    <select id="selectTodaysHeadlineById" resultType="com.jsoftware.platform.model.TodaysHeadline">
+        SELECT id
+        , title
+        , img_url
+        , contents
+        FROM todaysheadline
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertTodaysHeadline" parameterType="com.jsoftware.platform.model.TodaysHeadline">
+        INSERT INTO todaysheadline (title, img_url, contents)
+        VALUES (#{title}, #{img_url}, #{contents})
+    </insert>
 </mapper>
