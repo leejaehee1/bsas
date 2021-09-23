@@ -28,7 +28,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
 
     // 지인
     @Override
-    public User selectUserById(int id) {
+    public User selectUserById(String id) {
         return sqlSessionTemplate.selectOne("selectUserById", id);
     }
 
@@ -43,19 +43,19 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateUser(int id, User user) {
+    public void updateUser(String id, User user) {
         sqlSessionTemplate.update("updateUser", user);
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void deleteUser(String id) {
         sqlSessionTemplate.delete("deleteUser", id);
     }
 
 
     // 병원
     @Override
-    public Hospital selectHospitalById(int id) {
+    public Hospital selectHospitalById(String id) {
         return sqlSessionTemplate.selectOne("selectHospitalById", id);
     }
 
@@ -70,12 +70,12 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateHospital(int id, Hospital hospital) {
+    public void updateHospital(String id, Hospital hospital) {
         sqlSessionTemplate.update("updateHospital", hospital);
     }
 
     @Override
-    public void deleteHospital(int id) {
+    public void deleteHospital(String id) {
         sqlSessionTemplate.delete("deleteHospital", id);
     }
 
@@ -83,7 +83,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
 
     // 센터
     @Override
-    public Center selectCenterById(int id) {
+    public Center selectCenterById(String id) {
         return sqlSessionTemplate.selectOne("selectCenterById", id);
     }
 
@@ -98,12 +98,12 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateCenter(int id, Center center) {
+    public void updateCenter(String id, Center center) {
         sqlSessionTemplate.update("updateCenter", center);
     }
 
     @Override
-    public void deleteCenter(int id) {
+    public void deleteCenter(String id) {
         sqlSessionTemplate.delete("deleteCenter", id);
     }
 }

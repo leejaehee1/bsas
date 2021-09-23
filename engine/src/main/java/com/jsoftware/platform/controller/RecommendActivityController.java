@@ -1,6 +1,5 @@
 package com.jsoftware.platform.controller;
 
-import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.model.RecommendActivity;
 import com.jsoftware.platform.service.RecommendActivityService;
 
@@ -27,7 +26,7 @@ public class RecommendActivityController {
     }
 
     @GetMapping("/api/recommendActivity/{id}")
-    public RecommendActivity getRecommendActivity(@PathVariable("id") int id) {
+    public RecommendActivity getRecommendActivity(@PathVariable("id") String id) {
         System.out.println(id);
         return activityService.readRecommendActivity(id);
     }

@@ -23,7 +23,7 @@ public class RecommendActivityService {
     }
 
     @Transactional
-    public RecommendActivity readRecommendActivity(int id) {
+    public RecommendActivity readRecommendActivity(String id) {
         return repository.readRecommendActivity(id);
     }
 

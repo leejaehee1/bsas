@@ -12,35 +12,35 @@ import java.util.List;
 public interface ActivityConfigRepository {
 
     // 지인 등록
-    User selectUserById(int id);
+    User selectUserById(String id);
 
     List<User> selectAllUsers();
 
     public void insertUser(User user);
 
-    public void updateUser(int id, User user);
+    public void updateUser(String id, User user);
 
-    public void deleteUser(int id);
+    public void deleteUser(String id);
 
     // 병원 등록
-    Hospital selectHospitalById(int id);
+    Hospital selectHospitalById(String id);
 
     List<Hospital> selectAllHospitals();
 
     public void insertHospital(Hospital hospital);
 
-    public void updateHospital(int id, Hospital hospital);
+    public void updateHospital(String id, Hospital hospital);
 
-    public void deleteHospital(int id);
+    public void deleteHospital(String id);
 
     // 센터 등록
-    Center selectCenterById(int id);
+    Center selectCenterById(String id);
 
     List<Center> selectAllCenters();
 
     public void insertCenter(Center center);
 
-    public void updateCenter(int id, Center center);
+    public void updateCenter(String id, Center center);
 
-    public void deleteCenter(int id);
+    public void deleteCenter(String id);
 }
