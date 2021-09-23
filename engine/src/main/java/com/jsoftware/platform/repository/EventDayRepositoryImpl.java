@@ -21,7 +21,18 @@ public class EventDayRepositoryImpl implements EventDayRepository{
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
 
+    @Override
     public List<EventDay> readEventDays() {
         return sqlSessionTemplate.selectList("selectAllEventDay");
+    }
+
+    @Override
+    public EventDay readEventDay(int id) {
+        return sqlSessionTemplate.selectOne("selectEventDayById", id);
+    }
+
+    @Override
+    public void createEventDay(EventDay eventDay) {
+        sqlSessionTemplate.insert("insertEventDay", eventDay);
     }
 }

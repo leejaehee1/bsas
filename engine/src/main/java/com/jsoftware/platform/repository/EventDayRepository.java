@@ -9,4 +9,8 @@ import java.util.List;
 @Mapper
 public interface EventDayRepository {
     List<EventDay> readEventDays();
+
+    EventDay readEventDay(int id);
+
+    void createEventDay(EventDay eventDay);
 }
