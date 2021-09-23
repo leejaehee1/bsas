@@ -10,4 +10,18 @@
              , contents
         FROM monthlypick
     </select>
+
+    <select id="selectMonthlyPickById" resultType="com.jsoftware.platform.model.MonthlyPick">
+        SELECT id
+        , title
+        , img_url
+        , contents
+        FROM monthlypick
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertMonthlyPick" parameterType="com.jsoftware.platform.model.MonthlyPick">
+        INSERT INTO monthlypick (title, img_url, contents)
+        VALUES (#{title}, #{img_url}, #{contents})
+    </insert>
 </mapper>

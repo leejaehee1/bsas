@@ -8,5 +8,10 @@ import java.util.List;
 
 @Mapper
 public interface MonthlyPickRepository {
+
     List<MonthlyPick> readMonthlyPicks();
+
+    MonthlyPick readMonthlyPick(int id);
+
+    void createMonthlyPick(MonthlyPick monthlyPick);
 }

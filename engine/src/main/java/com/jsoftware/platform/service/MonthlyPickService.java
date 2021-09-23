@@ -1,5 +1,6 @@
 package com.jsoftware.platform.service;
 
+import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.model.MonthlyPick;
 import com.jsoftware.platform.repository.MonthlyPickRepositoryImpl;
 
@@ -20,6 +21,17 @@ public class MonthlyPickService {
     @Transactional
     public List<MonthlyPick> readMonthlyPicks() {
         return repository.readMonthlyPicks();
+    }
+
+    @Transactional
+    public MonthlyPick readMonthlyPick(int id) {
+        return repository.readMonthlyPick(id);
+    }
+
+    @Transactional
+    public MonthlyPick createMonthlyPick(MonthlyPick monthlyPick) {
+        repository.createMonthlyPick(monthlyPick);
+        return monthlyPick;
     }
 
 }
