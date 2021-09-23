@@ -22,4 +22,15 @@ public class RecommendActivityService {
         return repository.readRecommendActivities();
     }
 
+    @Transactional
+    public RecommendActivity readRecommendActivity(int id) {
+        return repository.readRecommendActivity(id);
+    }
+
+    @Transactional
+    public RecommendActivity createRecommendActivity(RecommendActivity recommendActivity) {
+        repository.createRecommendActivity(recommendActivity);
+        return recommendActivity;
+    }
+
 }

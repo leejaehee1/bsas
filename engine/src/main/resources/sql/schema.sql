@@ -30,6 +30,7 @@ CREATE TABLE `center` (
 CREATE TABLE `event_day` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
   `title` varchar(100) NOT NULL COMMENT '제목',
+  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='오늘의이벤트';
@@ -53,6 +54,7 @@ CREATE TABLE `monthlypick` (
 CREATE TABLE `recommend_activity` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
   `title` varchar(100) NOT NULL COMMENT '제목',
+  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='추천활동';
@@ -60,6 +62,7 @@ CREATE TABLE `recommend_activity` (
 CREATE TABLE `recommend_hotspot` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
   `title` varchar(100) NOT NULL COMMENT '제목',
+  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='추천장소';
@@ -67,6 +70,7 @@ CREATE TABLE `recommend_hotspot` (
 CREATE TABLE `todaysheadline` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
   `title` varchar(100) NOT NULL COMMENT '제목',
+  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='오늘의헤드라인';

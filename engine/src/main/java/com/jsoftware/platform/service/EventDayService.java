@@ -22,4 +22,15 @@ public class EventDayService {
         return repository.readEventDays();
     }
 
+    @Transactional
+    public EventDay readEventDay(int id) {
+        return repository.readEventDay(id);
+    }
+
+    @Transactional
+    public EventDay createEventDay(EventDay eventDay) {
+        repository.createEventDay(eventDay);
+        return eventDay;
+    }
+
 }

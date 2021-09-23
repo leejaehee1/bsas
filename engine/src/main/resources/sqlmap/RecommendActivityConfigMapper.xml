@@ -10,4 +10,18 @@
              , contents
         FROM recommend_activity
     </select>
+
+    <select id="selectRecommendActivityById" resultType="com.jsoftware.platform.model.RecommendActivity">
+        SELECT id
+        , title
+        , img_url
+        , contents
+        FROM recommend_activity
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertRecommendActivity" parameterType="com.jsoftware.platform.model.RecommendActivity">
+        INSERT INTO recommend_activity (title, img_url, contents)
+        VALUES (#{title}, #{img_url}, #{contents})
+    </insert>
 </mapper>

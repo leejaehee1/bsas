@@ -1,6 +1,5 @@
 package com.jsoftware.platform.repository;
 
-import com.jsoftware.platform.model.Board;
 import com.jsoftware.platform.model.RecommendActivity;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,7 +21,18 @@ public class RecommendActivityRepositoryImpl implements RecommendActivityReposit
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
 
+    @Override
     public List<RecommendActivity> readRecommendActivities() {
         return sqlSessionTemplate.selectList("selectAllRecommendActivity");
+    }
+
+    @Override
+    public RecommendActivity readRecommendActivity(int id) {
+        return sqlSessionTemplate.selectOne("selectRecommendActivityById", id);
+    }
+
+    @Override
+    public void createRecommendActivity(RecommendActivity recommendActivity) {
+        sqlSessionTemplate.insert("insertRecommendActivity", recommendActivity);
     }
 }

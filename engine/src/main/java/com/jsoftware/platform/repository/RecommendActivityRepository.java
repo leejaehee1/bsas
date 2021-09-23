@@ -9,4 +9,8 @@ import java.util.List;
 @Mapper
 public interface RecommendActivityRepository {
     List<RecommendActivity> readRecommendActivities();
+
+    RecommendActivity readRecommendActivity(int id);
+
+    void createRecommendActivity(RecommendActivity recommendActivity);
 }

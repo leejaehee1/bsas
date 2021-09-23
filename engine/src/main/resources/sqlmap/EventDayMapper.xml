@@ -10,4 +10,18 @@
              , contents
         FROM event_day
     </select>
+
+    <select id="selectEventDayById" resultType="com.jsoftware.platform.model.EventDay">
+        SELECT id
+        , title
+        , img_url
+        , contents
+        FROM event_day
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertEventDay" parameterType="com.jsoftware.platform.model.EventDay">
+        INSERT INTO event_day (title, img_url, contents)
+        VALUES (#{title}, #{img_url}, #{contents})
+    </insert>
 </mapper>
