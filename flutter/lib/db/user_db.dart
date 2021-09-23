@@ -42,7 +42,7 @@ class DBHelper {
   }
 
   // update or put
-  Future<User> updateUser(String name, String phone, String email) async {
+  Future<User> updateUser(String id, String name, String phone, String email) async {
     final response = await http.put(
       Uri.parse('http://172.30.1.60:18080/api/users/{id}'),
       headers: <String, String>{
@@ -56,8 +56,9 @@ class DBHelper {
     );
     print('Response status: ${response.statusCode}');
     print('name: ${name}');
+    print('name: ${phone}');
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 400) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       return User.fromJson(jsonDecode(response.body));
@@ -71,13 +72,15 @@ class DBHelper {
 
   //delete
   Future<User> deleteUser(String id) async {
+    // int a = int.parse(id);
+    // print(a);
     final http.Response response = await http.delete(
       Uri.parse('http://172.30.1.60:18080/api/users/{id}'), // {id} id번호가 자동으로 들어감
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-
+    print('Response status: ${response.statusCode}');
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON. After deleting,
@@ -88,7 +91,7 @@ class DBHelper {
     } else {
       // If the server did not return a "200 OK response",
       // then throw an exception.
-      throw Exception('Failed to delete album.');
+      throw Exception('Failed to delete user.');
     }
   }
-  }
+}

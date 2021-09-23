@@ -27,31 +27,35 @@ class _DetailUserState extends State<UserDetail> {
   }
 
   //create function delete
-  void confirm() {
-    AlertDialog alertDialog = AlertDialog(
-      content: Text(
-          "정말 삭제하시겠습니까? '${widget.list[widget.index]['name']}'"),
-      actions: <Widget>[
-        RaisedButton(
-          child: Text(
-            "OK remove!",
-            style: TextStyle(color: Colors.black),
-          ),
-          color: Colors.red,
-          onPressed: () {
-            databaseHelper
-                .deleteUser(widget.list[widget.index]['name'].toString());
-            _navigateUserList(context);
-          },
-        ),
-        RaisedButton(
-          child: Text("CANCEL", style: TextStyle(color: Colors.black)),
-          color: Colors.green,
-          onPressed: () => Navigator.pop(context),
-        ),
-      ],
-    );
+  void showAlertDialog(BuildContext context) async{
+    String result = await showDialog(
+        context: context, builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(
+                "정말 삭제하시겠습니까? '${widget.list[widget.index]['id']}'"),
+            actions: <Widget>[
+              RaisedButton(
+                child: Text(
+                  "OK remove!",
+                  style: TextStyle(color: Colors.black),
+                ),
+                color: Colors.red,
+                onPressed: () {
+                  databaseHelper
+                      .deleteUser(widget.list[widget.index]['id'].toString());
+                  _navigateUserList(context);
+                },
+              ),
+              RaisedButton(
+                child: Text("CANCEL", style: TextStyle(color: Colors.black)),
+                color: Colors.green,
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          );
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +104,7 @@ class _DetailUserState extends State<UserDetail> {
                       color: Colors.redAccent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
-                      onPressed: () => confirm(),
+                      onPressed: () => showAlertDialog(context),
                     ),
                   ],
                 )

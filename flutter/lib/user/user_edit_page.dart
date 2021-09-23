@@ -16,10 +16,10 @@ class EditUser extends StatefulWidget {
 class _EditUserState extends State<EditUser> {
 
   DBHelper databaseHelper = DBHelper();
-
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _idController = TextEditingController();
 
   _navigateUserList(BuildContext context) async {
     final result = await Navigator.push(
@@ -33,6 +33,8 @@ class _EditUserState extends State<EditUser> {
 
   @override
   void initState() {
+    _idController = new TextEditingController(
+        text: widget.list[widget.index]['id'].toString());
     _nameController = TextEditingController(
         text: widget.list[widget.index]['name'].toString());
     _phoneController = TextEditingController(
@@ -102,6 +104,7 @@ class _EditUserState extends State<EditUser> {
                   color: Colors.blueAccent,
                   onPressed: () {
                     databaseHelper.updateUser(
+                      _idController.text.trim(),
                         _nameController.text.trim(),
                         _phoneController.text.trim(),
                         _emailController.text.trim(),
