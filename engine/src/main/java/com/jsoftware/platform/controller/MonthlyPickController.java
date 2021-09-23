@@ -26,7 +26,7 @@ public class MonthlyPickController {
     }
 
     @GetMapping("/api/monthlyPick/{id}")
-    public MonthlyPick getMonthlyPick(@PathVariable("id") Long id) {
+    public MonthlyPick getMonthlyPick(@PathVariable("id") int id) {
         System.out.println(id);
         return Service.readMonthlyPick(id);
     }

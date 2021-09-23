@@ -23,7 +23,7 @@ public class EventDayService {
     }
 
     @Transactional
-    public EventDay readEventDay(Long id) {
+    public EventDay readEventDay(int id) {
         return repository.readEventDay(id);
     }
 

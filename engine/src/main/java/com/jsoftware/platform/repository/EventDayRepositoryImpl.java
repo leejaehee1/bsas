@@ -27,7 +27,7 @@ public class EventDayRepositoryImpl implements EventDayRepository{
     }
 
     @Override
-    public EventDay readEventDay(Long id) {
+    public EventDay readEventDay(int id) {
         return sqlSessionTemplate.selectOne("selectEventDayById", id);
     }
 

@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name="event_day")
 public class EventDay {
-    private Long id;
+    private int id;
     private String title;
     private String img_url;
     private String contents;

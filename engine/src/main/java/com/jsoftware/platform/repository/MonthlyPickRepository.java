@@ -11,7 +11,7 @@ public interface MonthlyPickRepository {
 
     List<MonthlyPick> readMonthlyPicks();
 
-    MonthlyPick readMonthlyPick(Long id);
+    MonthlyPick readMonthlyPick(int id);
 
     void createMonthlyPick(MonthlyPick monthlyPick);
 }

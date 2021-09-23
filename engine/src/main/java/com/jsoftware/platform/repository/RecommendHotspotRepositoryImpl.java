@@ -26,7 +26,7 @@ public class RecommendHotspotRepositoryImpl implements RecommendHotspotRepositor
     }
 
     @Override
-    public RecommendHotspot readRecommendHotspot(Long id) {
+    public RecommendHotspot readRecommendHotspot(int id) {
         return sqlSessionTemplate.selectOne("selectRecommendHotspotById", id);
     }
 

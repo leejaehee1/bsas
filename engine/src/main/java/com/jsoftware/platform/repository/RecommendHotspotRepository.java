@@ -10,7 +10,7 @@ import java.util.List;
 public interface RecommendHotspotRepository {
     List<RecommendHotspot> readRecommendHotspots();
 
-    RecommendHotspot readRecommendHotspot(Long id);
+    RecommendHotspot readRecommendHotspot(int id);
 
     void createRecommendHotspot(RecommendHotspot recommendHotspot);
 }

@@ -14,9 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Table(name="hospital")
 public class Hospital {
-    @NonNull
-    private Long id;
-    @NonNull
+    private int id;
     private String name;
     private String phone;
     private String publicPhone;

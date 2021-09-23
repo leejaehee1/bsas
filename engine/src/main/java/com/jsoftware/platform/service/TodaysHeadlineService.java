@@ -23,7 +23,7 @@ public class TodaysHeadlineService {
     }
 
     @Transactional
-    public TodaysHeadline readTodaysHeadline(Long id) {
+    public TodaysHeadline readTodaysHeadline(int id) {
         return repository.readTodaysHeadline(id);
     }
 
