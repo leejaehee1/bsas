@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name="monthlypick")
 public class MonthlyPick {
-    private int id;
+    private Long id;
     private String title;
     private String img_url;
     private String contents;
