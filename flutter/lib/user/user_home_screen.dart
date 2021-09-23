@@ -1,4 +1,5 @@
 import 'package:bsas/user/user_add_screen.dart';
+import 'package:bsas/user/user_detail_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,7 @@ class HomeScreenState extends State {
   late List list;
 
   Future<List> getData() async {
-    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users"));
+    var response = await http.get(Uri.parse("http://172.30.1.60:18080/api/users"));
     //http://3.36.200.118:18080/api/users
     return json.decode(response.body);
   }
@@ -83,10 +84,13 @@ class UserList extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(10.0),
-              // child: GestureDetector(
-              //   onTap: () => Navigator.push(context,
-              // MaterialPageRoute(builder: (context) => DataDetail()))
-              //   ),
+              child: GestureDetector(
+                onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => UserDetail(
+                list: list,
+                index: i,
+              ))
+                ),
                 child: Container(
                   //color: Colors.black,
                   height: 100.3,
@@ -129,6 +133,7 @@ class UserList extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
           ],
         );
       },
