@@ -44,7 +44,8 @@ class _DetailUserState extends State<UserDetail> {
                     borderRadius: BorderRadius.circular(30.0)),
                 onPressed: () {
                   databaseHelper
-                      .deleteUser(widget.list[widget.index]['id'].toString());
+                      .deleteUser(widget.list[widget.index]['id'].toString()
+                  );
                   _navigateUserList(context);
                 },
               ),
