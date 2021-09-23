@@ -26,7 +26,7 @@ public class EventDayController {
     }
 
     @GetMapping("/api/eventDay/{id}")
-    public EventDay getEventDay(@PathVariable("id") int id) {
+    public EventDay getEventDay(@PathVariable("id") Long id) {
         System.out.println(id);
         return Service.readEventDay(id);
     }
