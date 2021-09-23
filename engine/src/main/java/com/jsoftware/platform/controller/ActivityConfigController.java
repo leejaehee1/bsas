@@ -6,20 +6,15 @@ import com.jsoftware.platform.model.User;
 import com.jsoftware.platform.repository.ActivityConfigRepository;
 import com.jsoftware.platform.service.ActivityConfigService;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityNotFoundException;
 
 @RestController
 public class ActivityConfigController {
@@ -70,13 +65,13 @@ public class ActivityConfigController {
     }
 
     @GetMapping("/api/hospitals/{id}")
-    public Hospital readHospital(@PathVariable("id") int id) {
+    public Hospital readHospital(@PathVariable("id") Long id) {
         System.out.println(id);
         return activityConfigService.readHospital(id);
     }
 
     @GetMapping("/api/centers/{id}")
-    public Center readCenter(@PathVariable("id") int id) {
+    public Center readCenter(@PathVariable("id") Long id) {
         System.out.println(id);
         return activityConfigService.readCenter(id);
     }
@@ -108,36 +103,36 @@ public class ActivityConfigController {
     @PutMapping("/api/users/{id}")
     public User putUser(@PathVariable("id") Long id, @RequestBody User user) {
         user.setId(id);
-        return activityConfigService.updateUser(user);
+        return activityConfigService.updateUser(id, user);
     }
 
     @PutMapping("/api/hospitals/{id}")
-    public Hospital putHospital(@PathVariable("id") int id, @RequestBody Hospital hospital) {
+    public Hospital putHospital(@PathVariable("id") Long id, @RequestBody Hospital hospital) {
         hospital.setId(id);
-        return activityConfigService.updateHospital(hospital);
+        return activityConfigService.updateHospital(id, hospital);
     }
 
     @PutMapping("/api/centers/{id}")
-    public Center putCenter(@PathVariable("id") int id, @RequestBody Center center) {
+    public Center putCenter(@PathVariable("id") Long id, @RequestBody Center center) {
         center.setId(id);
-        return activityConfigService.updateCenter(center);
+        return activityConfigService.updateCenter(id, center);
     }
 
     // user, hospital, center delete
     // delete 작동 확인
 
     @DeleteMapping("/api/users/{id}")
-    public User deleteUser(@PathVariable int id, User user) {
-        return activityConfigService.deleteUser(user);
+    public void deleteUser(@PathVariable("id") Long id) {
+        activityConfigService.deleteUser(id);
     }
 
     @DeleteMapping("/api/hospitals/{id}")
-    public Hospital deleteHospital(@PathVariable int id, Hospital hospital) {
-        return activityConfigService.deleteHospital(hospital);
+    public void deleteHospital(@PathVariable Long id) {
+        activityConfigService.deleteHospital(id);
     }
 
     @DeleteMapping("/api/centers/{id}")
-    public Center deleteCenter(@PathVariable int id, Center center) {
-        return activityConfigService.deleteCenter(center);
+    public void deleteCenter(@PathVariable Long id) {
+        activityConfigService.deleteCenter(id);
     }
 }

@@ -1,6 +1,5 @@
 package com.jsoftware.platform.service;
 
-import com.jsoftware.platform.model.Board;
 import com.jsoftware.platform.model.Center;
 import com.jsoftware.platform.model.Hospital;
 import com.jsoftware.platform.model.User;
@@ -40,20 +39,19 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public User updateUser(User user) {
-        repository.updateUser(user);
+    public User updateUser(Long id, User user) {
+        repository.updateUser(id, user);
         return user;
     }
 
     @Transactional
-    public User deleteUser(User user) {
-        repository.deleteUser(user);
-        return user;
+    public void deleteUser(Long id) {
+        repository.deleteUser(id);
     }
 
     // 병원
     @Transactional
-    public Hospital readHospital(int id) {
+    public Hospital readHospital(Long id) {
         return repository.selectHospitalById(id);
     }
 
@@ -69,20 +67,19 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public Hospital updateHospital(Hospital hospital) {
-        repository.updateHospital(hospital);
+    public Hospital updateHospital(Long id, Hospital hospital) {
+        repository.updateHospital(id, hospital);
         return hospital;
     }
 
     @Transactional
-    public Hospital deleteHospital(Hospital hospital) {
-        repository.deleteHospital(hospital);
-        return hospital;
+    public void deleteHospital(Long id) {
+        repository.deleteHospital(id);
     }
 
     // 센터
     @Transactional
-    public Center readCenter(int id) {
+    public Center readCenter(Long id) {
         return repository.selectCenterById(id);
     }
 
@@ -98,14 +95,13 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public Center updateCenter(Center center) {
-        repository.updateCenter(center);
+    public Center updateCenter(Long id, Center center) {
+        repository.updateCenter(id, center);
         return center;
     }
 
     @Transactional
-    public Center deleteCenter(Center center) {
-        repository.deleteCenter(center);
-        return center;
+    public void deleteCenter(Long id) {
+        repository.deleteCenter(id);
     }
 }

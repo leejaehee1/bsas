@@ -5,7 +5,6 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -16,7 +15,7 @@ import lombok.ToString;
 @Table(name="center")
 public class Center {
     @NonNull
-    private int id;
+    private Long id;
     @NonNull
     private String name;
     private String phone;
