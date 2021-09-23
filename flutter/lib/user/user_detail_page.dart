@@ -37,9 +37,11 @@ class _DetailUserState extends State<UserDetail> {
               RaisedButton(
                 child: Text(
                   "OK remove!",
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                 ),
-                color: Colors.red,
+                color: Colors.redAccent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0)),
                 onPressed: () {
                   databaseHelper
                       .deleteUser(widget.list[widget.index]['id'].toString());
@@ -47,8 +49,10 @@ class _DetailUserState extends State<UserDetail> {
                 },
               ),
               RaisedButton(
-                child: Text("CANCEL", style: TextStyle(color: Colors.black)),
-                color: Colors.green,
+                child: Text("CANCEL", style: TextStyle(color: Colors.white)),
+                color: Color(0xFF43aa8b),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0)),
                 onPressed: () => Navigator.pop(context),
               ),
             ],
@@ -60,9 +64,21 @@ class _DetailUserState extends State<UserDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF43aa8b),
+        title: Text(
+          "상제 정보",
+          style: TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
-        height: 270.0,
-        padding: const EdgeInsets.all(20.0),
+        // height: 270.0,
+        padding: const EdgeInsets.all(30.0),
         child: Card(
           child: Center(
             child: Column(
@@ -86,7 +102,11 @@ class _DetailUserState extends State<UserDetail> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text("Edit"),
+                      child: Text("Edit",
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
                       color: Colors.blueAccent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
@@ -100,7 +120,10 @@ class _DetailUserState extends State<UserDetail> {
                     ),
                     VerticalDivider(),
                     RaisedButton(
-                      child: Text("Delete"),
+                      child: Text("Delete", style: TextStyle(
+                        color: Colors.white
+                      ),
+                      ),
                       color: Colors.redAccent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),

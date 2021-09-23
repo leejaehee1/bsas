@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State {
   late List list;
-  int DataCount = 0;
 
   Future<List> getData() async {
     var response = await http.get(Uri.parse("http://172.30.1.60:18080/api/users"));

@@ -42,7 +42,7 @@ class DBHelper {
   }
 
   // update or put
-  Future<User> updateUser(String id, String name, String phone, String email) async {
+  Future<User> updateUser(String name, String phone, String email) async {
     final response = await http.put(
       Uri.parse('http://172.30.1.60:18080/api/users/{id}'),
       headers: <String, String>{
@@ -81,7 +81,7 @@ class DBHelper {
       },
     );
     print('Response status: ${response.statusCode}');
-    if (response.statusCode == 200) {
+    if (response.statusCode == 400) {
       // If the server did return a 200 OK response,
       // then parse the JSON. After deleting,
       // you'll get an empty JSON `{}` response.
