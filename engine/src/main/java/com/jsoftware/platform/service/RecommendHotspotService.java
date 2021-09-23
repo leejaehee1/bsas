@@ -23,7 +23,7 @@ public class RecommendHotspotService {
     }
 
     @Transactional
-    public RecommendHotspot readRecommendHotspot(int id) {
+    public RecommendHotspot readRecommendHotspot(Long id) {
         return repository.readRecommendHotspot(id);
     }
 
