@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name="todaysheadline")
 public class TodaysHeadline {
-    private int id;
+    private String id;
     private String title;
     private String img_url;
     private String contents;
