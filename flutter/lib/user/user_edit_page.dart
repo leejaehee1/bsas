@@ -19,7 +19,7 @@ class _EditUserState extends State<EditUser> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
-  // TextEditingController _idController = TextEditingController();
+  TextEditingController _idController = TextEditingController();
 
   _navigateUserList(BuildContext context) async {
     final result = await Navigator.push(
@@ -33,8 +33,8 @@ class _EditUserState extends State<EditUser> {
 
   @override
   void initState() {
-    // _idController = new TextEditingController(
-    //     text: widget.list[widget.index]['id'].toString());
+    _idController = TextEditingController(
+        text: widget.list[widget.index]['id'].toString());
     _nameController = TextEditingController(
         text: widget.list[widget.index]['name'].toString());
     _phoneController = TextEditingController(
@@ -65,6 +65,19 @@ class _EditUserState extends State<EditUser> {
           children: <Widget>[
             Column(
               children: <Widget>[
+                ListTile(
+                  leading: const Icon(Icons.person, color: Colors.black),
+                  title: TextFormField(
+                    controller: _idController,
+                    validator: (value) {
+                      if (value!.isEmpty) return "id";
+                    },
+                    decoration: InputDecoration(
+                      hintText: "id",
+                      labelText: "id",
+                    ),
+                  ),
+                ),
                 ListTile(
                   leading: const Icon(Icons.person, color: Colors.black),
                   title: TextFormField(
@@ -121,7 +134,7 @@ class _EditUserState extends State<EditUser> {
                   color: Colors.blueAccent,
                   onPressed: () {
                     databaseHelper.updateUser(
-                      // _idController.text.trim(),
+                      _idController.text.trim(),
                         _nameController.text.trim(),
                         _phoneController.text.trim(),
                         _emailController.text.trim(),

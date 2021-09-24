@@ -16,7 +16,7 @@ class _DetailUserState extends State<UserDetail> {
   DBHelper databaseHelper = DBHelper();
 
   _navigateUserList(BuildContext context) async {
-    final result = await Navigator.push(
+    var result = await Navigator.push( //final
       context,
       MaterialPageRoute(builder: (context) => HomeScreen()),
     );
@@ -28,7 +28,7 @@ class _DetailUserState extends State<UserDetail> {
 
   //create function delete
   void showAlertDialog(BuildContext context) async{
-    String result = await showDialog(
+    var result = await showDialog(
         context: context, builder: (BuildContext context) {
           return AlertDialog(
             content: Text(
