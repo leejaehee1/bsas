@@ -53,10 +53,9 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
 //    }
 
     @Override
-    public void deleteUser(User user) {
-        sqlSessionTemplate.delete("deleteUser", user);
+    public void deleteUser(int id) {
+        sqlSessionTemplate.delete("deleteUser", id);
     }
-
 
     // 병원
     @Override

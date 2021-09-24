@@ -22,7 +22,7 @@ public interface ActivityConfigRepository {
 
 //    public void deleteUser(int id);
 
-    public void deleteUser(User user);
+    public void deleteUser(int id);
 
 
     // 병원 등록
