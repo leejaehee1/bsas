@@ -72,10 +72,10 @@ class DBHelper {
 
   //delete
   Future<User> deleteUser(String id) async {
-    // int a = int.parse(id);
-    // print(a);
+    int a = int.parse(id);
+    print(a);
     final http.Response response = await http.delete(
-      Uri.parse('http://172.30.1.60:18080/api/users/{id}'), // {id} id번호가 자동으로 들어감
+      Uri.parse('http://172.30.1.60:18080/api/users/{a}'), // {id} id번호가 자동으로 들어감
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

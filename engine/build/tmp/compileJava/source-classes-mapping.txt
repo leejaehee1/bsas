@@ -50,6 +50,17 @@ com/jsoftware/platform/model/ChatRoom.java
  com.jsoftware.platform.model.ChatRoom
 com/jsoftware/platform/config/RedisConfig.java
  com.jsoftware.platform.config.RedisConfig
+com/jsoftware/platform/repository/MemberRepository.java
+ com.jsoftware.platform.repository.MemberRepository
+com/jsoftware/platform/service/MemberService.java
+ com.jsoftware.platform.service.MemberService
+com/jsoftware/platform/repository/MemberRepositoryImpl.java
+ com.jsoftware.platform.repository.MemberRepositoryImpl
+com/jsoftware/platform/model/Member.java
+ com.jsoftware.platform.model.Member
+ com.jsoftware.platform.model.Member$MemberBuilder
+com/jsoftware/platform/controller/MemberController.java
+ com.jsoftware.platform.controller.MemberController
 com/jsoftware/platform/controller/RecommendActivityController.java
  com.jsoftware.platform.controller.RecommendActivityController
 com/jsoftware/platform/repository/RecommendActivityRepositoryImpl.java
@@ -60,8 +71,6 @@ com/jsoftware/platform/controller/ActivityConfigController.java
  com.jsoftware.platform.controller.ActivityConfigController
 com/jsoftware/platform/model/Hospital.java
  com.jsoftware.platform.model.Hospital
-com/jsoftware/platform/controller/MemberController.java
- com.jsoftware.platform.controller.MemberController
 com/jsoftware/platform/model/RecommendHotspot.java
  com.jsoftware.platform.model.RecommendHotspot
 com/jsoftware/platform/model/User.java
@@ -78,8 +87,6 @@ com/jsoftware/platform/controller/TodaysHeadlineController.java
  com.jsoftware.platform.controller.TodaysHeadlineController
 com/jsoftware/platform/service/EventDayService.java
  com.jsoftware.platform.service.EventDayService
-com/jsoftware/platform/service/MemberService.java
- com.jsoftware.platform.service.MemberService
 com/jsoftware/platform/repository/MonthlyPickRepositoryImpl.java
  com.jsoftware.platform.repository.MonthlyPickRepositoryImpl
 com/jsoftware/platform/repository/RecommendHotspotRepositoryImpl.java
@@ -96,17 +103,12 @@ com/jsoftware/platform/repository/RecommendActivityRepository.java
  com.jsoftware.platform.repository.RecommendActivityRepository
 com/jsoftware/platform/repository/MonthlyPickRepository.java
  com.jsoftware.platform.repository.MonthlyPickRepository
-com/jsoftware/platform/repository/MemberRepositoryImpl.java
- com.jsoftware.platform.repository.MemberRepositoryImpl
 com/jsoftware/platform/service/MonthlyPickService.java
  com.jsoftware.platform.service.MonthlyPickService
 com/jsoftware/platform/repository/ActivityConfigRepository.java
  com.jsoftware.platform.repository.ActivityConfigRepository
 com/jsoftware/platform/repository/TodaysHeadlineRepositoryImpl.java
  com.jsoftware.platform.repository.TodaysHeadlineRepositoryImpl
-com/jsoftware/platform/model/Member.java
- com.jsoftware.platform.model.Member
- com.jsoftware.platform.model.Member$MemberBuilder
 com/jsoftware/platform/model/EventDay.java
  com.jsoftware.platform.model.EventDay
 com/jsoftware/platform/repository/ActivityConfigRepositoryImpl.java
@@ -117,8 +119,6 @@ com/jsoftware/platform/repository/TodaysHeadlineRepository.java
  com.jsoftware.platform.repository.TodaysHeadlineRepository
 com/jsoftware/platform/model/Center.java
  com.jsoftware.platform.model.Center
-com/jsoftware/platform/repository/MemberRepository.java
- com.jsoftware.platform.repository.MemberRepository
 com/jsoftware/platform/controller/MonthlyPickController.java
  com.jsoftware.platform.controller.MonthlyPickController
 com/jsoftware/platform/controller/EventDayController.java

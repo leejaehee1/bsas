@@ -41,7 +41,6 @@
 
 <select id="selectHospitalById" resultType="com.jsoftware.platform.model.Hospital">
     SELECT id
-    , pw
     , name
     , phone
     , publicPhone
@@ -52,7 +51,6 @@
 
 <select id="selectAllHospitals" resultType="com.jsoftware.platform.model.Hospital">
     SELECT id
-    , pw
     , name
     , phone
     , publicPhone
@@ -61,14 +59,13 @@
 </select>
 
 <insert id="insertHospital" parameterType="com.jsoftware.platform.model.Hospital">
-    INSERT INTO hospital (pw, name, phone, publicPhone, email)
-    VALUES (#{pw}, #{name}, #{phone}, #{publicPhone}, #{email})
+    INSERT INTO hospital (name, phone, publicPhone, email)
+    VALUES (#{name}, #{phone}, #{publicPhone}, #{email})
 </insert>
 
 <update id="updateHospital" parameterType="com.jsoftware.platform.model.Hospital">
     UPDATE hospital
-    set pw = #{pw},
-    name = #{name},
+    set name = #{name},
     phone = #{phone},
     publicPhone = #{publicPhone},
     email = #{email}
@@ -83,7 +80,6 @@
 
 <select id="selectCenterById" resultType="com.jsoftware.platform.model.Center">
     SELECT id
-    , pw
     , name
     , phone
     , publicPhone
@@ -94,7 +90,6 @@
 
 <select id="selectAllCenters" resultType="com.jsoftware.platform.model.Center">
     SELECT id
-    , pw
     , name
     , phone
     , publicPhone
@@ -103,14 +98,13 @@
 </select>
 
 <insert id="insertCenter" parameterType="com.jsoftware.platform.model.Center">
-    INSERT INTO center (pw, name, phone, publicPhone, email)
-    VALUES (#{pw}, #{name}, #{phone}, #{publicPhone}, #{email})
+    INSERT INTO center (name, phone, publicPhone, email)
+    VALUES (#{name}, #{phone}, #{publicPhone}, #{email})
 </insert>
 
 <update id="updateCenter" parameterType="com.jsoftware.platform.model.Center">
     UPDATE center
-    set pw = #{pw},
-    name = #{name},
+    set name = #{name},
     phone = #{phone},
     publicPhone = #{publicPhone},
     email = #{email}

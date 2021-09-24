@@ -76,7 +76,7 @@ class HomeScreenState extends State {
         // },
         onPressed: () => _navigateAddUser(context),
         child: Icon(Icons.add),
-        tooltip: "지인 등록",
+        tooltip: "등록",
       ),
     );
   }

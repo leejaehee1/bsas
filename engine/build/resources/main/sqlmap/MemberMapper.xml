@@ -3,33 +3,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="member">
-    <select id="findByMemberId" resultType="com.jsoftware.platform.model.Member">
+    <select id="selectMemberById" resultType="com.jsoftware.platform.model.Member">
         SELECT id
-            , memberId
-            , memberPwd
-            , authType
+            , member_id
+            , member_pwd
+            , auth_type
         FROM member
-        WHERE memberId = #{memberId}
+        WHERE id = #{id}
     </select>
 
     <select id="selectAllMembers" resultType="com.jsoftware.platform.model.Member">
         SELECT id
-             , memberId
-             , memberPwd
-             , authType
+             , member_id
+             , member_pwd
+             , auth_type
         FROM member
     </select>
 
     <insert id="insertMember" parameterType="com.jsoftware.platform.model.Member">
-        INSERT INTO member (memberId, memberPwd)
-        VALUES (#{memberId}, #{memberPwd})
+        INSERT INTO member (id, member_id, member_pwd, auth_type)
+        VALUES (#{id}, #{member_id}, #{member_pwd}, #{auth_type})
     </insert>
 
     <update id="updateMember" parameterType="com.jsoftware.platform.model.Member">
         UPDATE member
-        set memberId = #{memberId},
-            memberPwd = #{memberPwd},
-            authType = #{authType}
+        set member_id = #{member_id},
+        member_pwd = #{member_pwd},
+        auth_type = #{auth_type}
         WHERE id = #{id}
     </update>
 
