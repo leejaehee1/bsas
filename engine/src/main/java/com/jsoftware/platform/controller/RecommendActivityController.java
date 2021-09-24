@@ -26,7 +26,7 @@ public class RecommendActivityController {
     }
 
     @GetMapping("/api/recommendActivity/{id}")
-    public RecommendActivity getRecommendActivity(@PathVariable("id") String id) {
+    public RecommendActivity getRecommendActivity(@PathVariable("id") int id) {
         System.out.println(id);
         return activityService.readRecommendActivity(id);
     }

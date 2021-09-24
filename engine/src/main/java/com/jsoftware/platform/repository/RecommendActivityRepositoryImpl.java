@@ -27,7 +27,7 @@ public class RecommendActivityRepositoryImpl implements RecommendActivityReposit
     }
 
     @Override
-    public RecommendActivity readRecommendActivity(String id) {
+    public RecommendActivity readRecommendActivity(int id) {
         return sqlSessionTemplate.selectOne("selectRecommendActivityById", id);
     }
 

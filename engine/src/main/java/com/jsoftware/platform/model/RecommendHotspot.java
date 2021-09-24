@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name="recommend_hotspot")
 public class RecommendHotspot {
-    private String id;
+    private int id;
     private String title;
     private String img_url;
     private String contents;

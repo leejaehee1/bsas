@@ -26,7 +26,7 @@ public class RecommendHotspotController {
     }
 
     @GetMapping("/api/recommendHotspot/{id}")
-    public RecommendHotspot getRecommendHotspot(@PathVariable("id") String id) {
+    public RecommendHotspot getRecommendHotspot(@PathVariable("id") int id) {
         System.out.println(id);
         return activityService.readRecommendHotspot(id);
     }

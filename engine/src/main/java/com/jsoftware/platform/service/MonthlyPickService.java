@@ -24,7 +24,7 @@ public class MonthlyPickService {
     }
 
     @Transactional
-    public MonthlyPick readMonthlyPick(String id) {
+    public MonthlyPick readMonthlyPick(int id) {
         return repository.readMonthlyPick(id);
     }
 

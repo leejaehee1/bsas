@@ -28,7 +28,7 @@ public class MonthlyPickRepositoryImpl implements MonthlyPickRepository{
     }
 
     @Override
-    public MonthlyPick readMonthlyPick(String id) {
+    public MonthlyPick readMonthlyPick(int id) {
         return sqlSessionTemplate.selectOne("selectMonthlyPickById", id);
     }
 
