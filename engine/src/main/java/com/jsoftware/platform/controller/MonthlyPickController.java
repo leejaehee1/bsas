@@ -43,7 +43,7 @@ public class MonthlyPickController {
         return Service.updateMonthlyPick(monthlyPick);
     }
 
-    @DeleteMapping("/api/eventDay/{id}")
+    @DeleteMapping("/api/monthlyPick/{id}")
     public void DeleteMonthlyPick(@PathVariable("id") int id) {
         Service.deleteMonthlyPick(id);
     }
