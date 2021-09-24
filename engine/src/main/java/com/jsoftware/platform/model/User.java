@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Table(name="User")
 public class User {
-    private String id;
+    private int id;
     private String name;
     private String phone;
     private String email;
@@ -18,14 +18,14 @@ public class User {
 
     }
 
-    public User(String id, String name, String phone, String email) {
+    public User(int id, String name, String phone, String email) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

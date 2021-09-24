@@ -10,7 +10,7 @@ import java.util.List;
 public interface EventDayRepository {
     List<EventDay> readEventDays();
 
-    EventDay readEventDay(String id);
+    EventDay readEventDay(int id);
 
     void createEventDay(EventDay eventDay);
 }

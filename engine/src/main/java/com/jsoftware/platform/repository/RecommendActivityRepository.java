@@ -10,7 +10,7 @@ import java.util.List;
 public interface RecommendActivityRepository {
     List<RecommendActivity> readRecommendActivities();
 
-    RecommendActivity readRecommendActivity(String id);
+    RecommendActivity readRecommendActivity(int id);
 
     void createRecommendActivity(RecommendActivity recommendActivity);
 }

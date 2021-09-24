@@ -59,19 +59,19 @@ public class ActivityConfigController {
     // id 값을 호출하여 url에 맞춰서 binding하는 @PathVariable 쓰는 게 맞다.
 
     @GetMapping("/api/users/{id}")
-    public User readUser(@PathVariable("id") String id) {
+    public User readUser(@PathVariable("id") int id) {
         System.out.println(id);
         return activityConfigService.readUser(id);
     }
 
     @GetMapping("/api/hospitals/{id}")
-    public Hospital readHospital(@PathVariable("id") String id) {
+    public Hospital readHospital(@PathVariable("id") int id) {
         System.out.println(id);
         return activityConfigService.readHospital(id);
     }
 
     @GetMapping("/api/centers/{id}")
-    public Center readCenter(@PathVariable("id") String id) {
+    public Center readCenter(@PathVariable("id") int id) {
         System.out.println(id);
         return activityConfigService.readCenter(id);
     }
@@ -101,19 +101,19 @@ public class ActivityConfigController {
     // null 있을 때
 
     @PutMapping("/api/users/{id}")
-    public User putUser(@PathVariable("id") String id, @RequestBody User user) {
+    public User putUser(@PathVariable("id") int id, @RequestBody User user) {
         user.setId(id);
         return activityConfigService.updateUser(id, user);
     }
 
     @PutMapping("/api/hospitals/{id}")
-    public Hospital putHospital(@PathVariable("id") String id, @RequestBody Hospital hospital) {
+    public Hospital putHospital(@PathVariable("id") int id, @RequestBody Hospital hospital) {
         hospital.setId(id);
         return activityConfigService.updateHospital(id, hospital);
     }
 
     @PutMapping("/api/centers/{id}")
-    public Center putCenter(@PathVariable("id") String id, @RequestBody Center center) {
+    public Center putCenter(@PathVariable("id") int id, @RequestBody Center center) {
         center.setId(id);
         return activityConfigService.updateCenter(id, center);
     }
@@ -122,17 +122,17 @@ public class ActivityConfigController {
     // delete 작동 확인
 
     @DeleteMapping("/api/users/{id}")
-    public void deleteUser(@PathVariable("id") String id) {
+    public void deleteUser(@PathVariable("id") int id) {
         activityConfigService.deleteUser(id);
     }
 
     @DeleteMapping("/api/hospitals/{id}")
-    public void deleteHospital(@PathVariable String id) {
+    public void deleteHospital(@PathVariable int id) {
         activityConfigService.deleteHospital(id);
     }
 
     @DeleteMapping("/api/centers/{id}")
-    public void deleteCenter(@PathVariable String id) {
+    public void deleteCenter(@PathVariable int id) {
         activityConfigService.deleteCenter(id);
     }
 }
