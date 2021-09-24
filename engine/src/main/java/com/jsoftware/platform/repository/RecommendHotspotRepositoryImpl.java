@@ -1,6 +1,5 @@
 package com.jsoftware.platform.repository;
 
-import com.jsoftware.platform.model.RecommendActivity;
 import com.jsoftware.platform.model.RecommendHotspot;
 
 import org.apache.ibatis.session.SqlSessionFactory;

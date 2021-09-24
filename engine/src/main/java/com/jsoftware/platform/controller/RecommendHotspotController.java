@@ -1,6 +1,5 @@
 package com.jsoftware.platform.controller;
 
-import com.jsoftware.platform.model.RecommendActivity;
 import com.jsoftware.platform.model.RecommendHotspot;
 import com.jsoftware.platform.service.RecommendHotspotService;
 

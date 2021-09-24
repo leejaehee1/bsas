@@ -1,6 +1,5 @@
 package com.jsoftware.platform.service;
 
-import com.jsoftware.platform.model.MonthlyPick;
 import com.jsoftware.platform.model.RecommendActivity;
 import com.jsoftware.platform.repository.RecommendActivityRepositoryImpl;
 

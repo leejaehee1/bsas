@@ -1,6 +1,5 @@
 package com.jsoftware.platform.repository;
 
-import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.model.MonthlyPick;
 
 import org.apache.ibatis.annotations.Mapper;

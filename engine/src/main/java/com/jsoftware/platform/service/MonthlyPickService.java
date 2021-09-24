@@ -1,6 +1,5 @@
 package com.jsoftware.platform.service;
 
-import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.model.MonthlyPick;
 import com.jsoftware.platform.repository.MonthlyPickRepositoryImpl;
 

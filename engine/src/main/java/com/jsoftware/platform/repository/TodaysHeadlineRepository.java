@@ -1,6 +1,5 @@
 package com.jsoftware.platform.repository;
 
-import com.jsoftware.platform.model.RecommendHotspot;
 import com.jsoftware.platform.model.TodaysHeadline;
 
 import org.apache.ibatis.annotations.Mapper;

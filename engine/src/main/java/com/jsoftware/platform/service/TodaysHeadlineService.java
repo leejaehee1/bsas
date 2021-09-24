@@ -1,6 +1,5 @@
 package com.jsoftware.platform.service;
 
-import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.model.TodaysHeadline;
 import com.jsoftware.platform.repository.TodaysHeadlineRepositoryImpl;
 
