@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:bsas/model/monthly_pick.dart';
 import 'package:http/http.dart' as http;
-import 'package:bsas/model/event_day.dart';
 
 class MonthlyPickDB{
   Future<MonthlyPick> getEvent() async {
