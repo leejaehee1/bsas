@@ -15,16 +15,16 @@ class UserDetail extends StatefulWidget {
 class _DetailUserState extends State<UserDetail> {
   DBHelper databaseHelper = DBHelper();
 
-  _navigateUserList(BuildContext context) async {
-    var result = await Navigator.push( //final
-      context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
-    );
-
-    if (result) {
-      setState(() {});
-    }
-  }
+  // _navigateUserList(BuildContext context) async {
+  //   var result = await Navigator.push( //final
+  //     context,
+  //     MaterialPageRoute(builder: (context) => HomeScreen()),
+  //   );
+  //
+  //   if (result) {
+  //     setState(() {});
+  //   }
+  // }
 
   //create function delete
   void confirm() {
@@ -39,9 +39,13 @@ class _DetailUserState extends State<UserDetail> {
           ),
           color: Colors.red,
           onPressed: () {
-            databaseHelper
-                .deleteUser(widget.list[widget.index]['id'].toString());
-            _navigateUserList(context);
+            setState(() {
+              databaseHelper.deleteUser(widget.list[widget.index]['id'].toString());
+            });
+            return Navigator.pop(context, true);
+            // databaseHelper
+            //     .deleteUser(widget.list[widget.index]['id'].toString());
+            // _navigateUserList(context);
           },
         ),
         RaisedButton(

@@ -79,6 +79,7 @@ class DBHelper {
       },
     );
     print('Response status: ${response.statusCode}');
+    print('id: ${id}');
     if (response.statusCode == 400) {
       return User.fromJson(jsonDecode(response.body));
     } else {
