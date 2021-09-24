@@ -1,5 +1,6 @@
 package com.jsoftware.platform.service;
 
+import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.model.TodaysHeadline;
 import com.jsoftware.platform.repository.TodaysHeadlineRepositoryImpl;
 
@@ -31,6 +32,17 @@ public class TodaysHeadlineService {
     public TodaysHeadline createTodaysHeadline(TodaysHeadline todaysHeadline) {
         repository.createTodaysHeadline(todaysHeadline);
         return todaysHeadline;
+    }
+
+    @Transactional
+    public TodaysHeadline updateTodaysHeadline(TodaysHeadline todaysHeadline) {
+        repository.updateTodaysHeadline(todaysHeadline);
+        return todaysHeadline;
+    }
+
+    @Transactional
+    public void deleteTodaysHeadline(int id) {
+        repository.deleteTodaysHeadline(id);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.jsoftware.platform.repository;
 
+import com.jsoftware.platform.model.RecommendHotspot;
 import com.jsoftware.platform.model.TodaysHeadline;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -34,5 +35,15 @@ public class TodaysHeadlineRepositoryImpl implements TodaysHeadlineRepository{
     @Override
     public void createTodaysHeadline(TodaysHeadline todaysHeadline) {
         sqlSessionTemplate.insert("insertTodaysHeadline", todaysHeadline);
+    }
+
+    @Override
+    public void updateTodaysHeadline(TodaysHeadline todaysHeadline) {
+        sqlSessionTemplate.update("updateTodaysHeadline", todaysHeadline);
+    }
+
+    @Override
+    public void deleteTodaysHeadline(int id) {
+        sqlSessionTemplate.delete("deleteTodaysHeadline", id);
     }
 }
