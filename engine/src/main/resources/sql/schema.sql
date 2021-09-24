@@ -33,7 +33,16 @@ CREATE TABLE `event_day` (
   `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='오늘의이벤트';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='오늘의이벤트';
+
+CREATE TABLE `hospital` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
+  `name` varchar(100) NOT NULL COMMENT '이름',
+  `phone` varchar(100) NOT NULL COMMENT '연락처',
+  `publicPhone` varchar(100) NOT NULL COMMENT '담당자연락처',
+  `email` varchar(300) NOT NULL COMMENT '이메일',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='병원등록';
 
 CREATE TABLE `member` (
   `id` int NOT NULL,
@@ -49,7 +58,7 @@ CREATE TABLE `monthlypick` (
   `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='이달의PICK';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='이달의PICK';
 
 CREATE TABLE `recommend_activity` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
@@ -57,7 +66,7 @@ CREATE TABLE `recommend_activity` (
   `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='추천활동';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='추천활동';
 
 CREATE TABLE `recommend_hotspot` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
@@ -65,7 +74,7 @@ CREATE TABLE `recommend_hotspot` (
   `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='추천장소';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='추천장소';
 
 CREATE TABLE `todaysheadline` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
@@ -73,14 +82,14 @@ CREATE TABLE `todaysheadline` (
   `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
   `contents` varchar(3000) NOT NULL COMMENT '내용',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='오늘의헤드라인';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='오늘의헤드라인';
 
-CREATE TABLE `user` (
+CREATE TABLE `User` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
   `name` varchar(100) NOT NULL COMMENT '이름',
   `phone` varchar(100) NOT NULL COMMENT '연락처',
   `email` varchar(300) NOT NULL COMMENT '이메일',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='지인등록';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='지인등록';
 
 insert into user values (null, name, phone, email, now(), null);
