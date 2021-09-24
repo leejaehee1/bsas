@@ -133,8 +133,8 @@ public class ActivityConfigController {
 //    }
 
     @DeleteMapping("/api/users/{id}")
-    public User deleteUser(@RequestBody User user) {
-        return activityConfigService.deleteUser(user);
+    public void deleteUser(@RequestBody User user) {
+        activityConfigService.deleteUser(user);
     }
 
 
