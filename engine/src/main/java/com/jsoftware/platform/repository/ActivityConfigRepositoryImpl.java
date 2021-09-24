@@ -47,9 +47,14 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
         sqlSessionTemplate.update("updateUser", user);
     }
 
+//    @Override
+//    public void deleteUser(int id) {
+//        sqlSessionTemplate.delete("deleteUser", id);
+//    }
+
     @Override
-    public void deleteUser(int id) {
-        sqlSessionTemplate.delete("deleteUser", id);
+    public void deleteUser(User user) {
+        sqlSessionTemplate.delete("deleteUser", user);
     }
 
 

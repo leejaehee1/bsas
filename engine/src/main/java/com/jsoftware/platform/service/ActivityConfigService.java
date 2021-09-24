@@ -44,9 +44,15 @@ public class ActivityConfigService {
         return user;
     }
 
+//    @Transactional
+//    public void deleteUser(int id) {
+//        repository.deleteUser(id);
+//    }
+
     @Transactional
-    public void deleteUser(int id) {
-        repository.deleteUser(id);
+    public User deleteUser(User user) {
+        repository.deleteUser(user);
+        return user;
     }
 
     // 병원

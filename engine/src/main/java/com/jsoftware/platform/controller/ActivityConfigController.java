@@ -127,10 +127,16 @@ public class ActivityConfigController {
     // user, hospital, center delete
     // delete 작동 확인
 
+//    @DeleteMapping("/api/users/{id}")
+//    public void deleteUser(@PathVariable("id") int id) {
+//        activityConfigService.deleteUser(id);
+//    }
+
     @DeleteMapping("/api/users/{id}")
-    public void deleteUser(@PathVariable("id") int id) {
-        activityConfigService.deleteUser(id);
+    public User deleteUser(@RequestBody User user) {
+        return activityConfigService.deleteUser(user);
     }
+
 
     @DeleteMapping("/api/hospitals/{id}")
     public void deleteHospital(@PathVariable int id) {

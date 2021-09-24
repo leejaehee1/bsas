@@ -20,7 +20,10 @@ public interface ActivityConfigRepository {
 
     public void updateUser(User user);
 
-    public void deleteUser(int id);
+//    public void deleteUser(int id);
+
+    public void deleteUser(User user);
+
 
     // 병원 등록
     Hospital selectHospitalById(int id);
