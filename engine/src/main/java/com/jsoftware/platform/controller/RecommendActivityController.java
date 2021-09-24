@@ -1,11 +1,14 @@
 package com.jsoftware.platform.controller;
 
+import com.jsoftware.platform.model.MonthlyPick;
 import com.jsoftware.platform.model.RecommendActivity;
 import com.jsoftware.platform.service.RecommendActivityService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +37,15 @@ public class RecommendActivityController {
     @PostMapping("/api/recommendActivity")
     public RecommendActivity createRecommendActivity(@RequestBody RecommendActivity recommendActivity) {
         return activityService.createRecommendActivity(recommendActivity);
+    }
+
+    @PutMapping("/api/recommendActivity/{id}")
+    public RecommendActivity updateRecommendActivity(@RequestBody RecommendActivity recommendActivity) {
+        return activityService.updateRecommendActivity(recommendActivity);
+    }
+
+    @DeleteMapping("/api/recommendActivity/{id}")
+    public void DeleteRecommendActivity(@PathVariable("id") int id) {
+        activityService.deleteRecommendActivity(id);
     }
 }

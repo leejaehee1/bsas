@@ -24,4 +24,18 @@
         INSERT INTO recommend_activity (title, img_url, contents)
         VALUES (#{title}, #{img_url}, #{contents})
     </insert>
+
+    <update id="updateRecommendActivity" parameterType="com.jsoftware.platform.model.RecommendActivity">
+        UPDATE recommend_activity
+        SET title = #{title},
+        img_url = #{img_url},
+        contents = #{contents}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteRecommendActivity" parameterType="com.jsoftware.platform.model.RecommendActivity">
+        DELETE
+        FROM recommend_activity
+        WHERE id = #{id}
+    </delete>
 </mapper>

@@ -1,5 +1,6 @@
 package com.jsoftware.platform.service;
 
+import com.jsoftware.platform.model.MonthlyPick;
 import com.jsoftware.platform.model.RecommendActivity;
 import com.jsoftware.platform.repository.RecommendActivityRepositoryImpl;
 
@@ -31,6 +32,17 @@ public class RecommendActivityService {
     public RecommendActivity createRecommendActivity(RecommendActivity recommendActivity) {
         repository.createRecommendActivity(recommendActivity);
         return recommendActivity;
+    }
+
+    @Transactional
+    public RecommendActivity updateRecommendActivity(RecommendActivity recommendActivity) {
+        repository.updateRecommendActivity(recommendActivity);
+        return recommendActivity;
+    }
+
+    @Transactional
+    public void deleteRecommendActivity(int id) {
+        repository.deleteRecommendActivity(id);
     }
 
 }

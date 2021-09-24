@@ -1,5 +1,6 @@
 package com.jsoftware.platform.repository;
 
+import com.jsoftware.platform.model.MonthlyPick;
 import com.jsoftware.platform.model.RecommendActivity;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -34,5 +35,15 @@ public class RecommendActivityRepositoryImpl implements RecommendActivityReposit
     @Override
     public void createRecommendActivity(RecommendActivity recommendActivity) {
         sqlSessionTemplate.insert("insertRecommendActivity", recommendActivity);
+    }
+
+    @Override
+    public void updateRecommendActivity(RecommendActivity recommendActivity) {
+        sqlSessionTemplate.update("updateRecommendActivity", recommendActivity);
+    }
+
+    @Override
+    public void deleteRecommendActivity(int id) {
+        sqlSessionTemplate.delete("deleteRecommendActivity", id);
     }
 }
