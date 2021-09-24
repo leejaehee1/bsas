@@ -1,5 +1,6 @@
 package com.jsoftware.platform.service;
 
+import com.jsoftware.platform.model.RecommendActivity;
 import com.jsoftware.platform.model.RecommendHotspot;
 import com.jsoftware.platform.repository.RecommendHotspotRepositoryImpl;
 
@@ -31,6 +32,17 @@ public class RecommendHotspotService {
     public RecommendHotspot createRecommendHotspot(RecommendHotspot recommendHotspot) {
         repository.createRecommendHotspot(recommendHotspot);
         return recommendHotspot;
+    }
+
+    @Transactional
+    public RecommendHotspot updateRecommendHotspot(RecommendHotspot recommendHotspot) {
+        repository.updateRecommendHotspot(recommendHotspot);
+        return recommendHotspot;
+    }
+
+    @Transactional
+    public void deleteRecommendHotspot(int id) {
+        repository.deleteRecommendHotspot(id);
     }
 
 }

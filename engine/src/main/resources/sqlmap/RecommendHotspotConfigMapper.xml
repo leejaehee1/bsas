@@ -24,4 +24,18 @@
         INSERT INTO recommend_hotspot (title, img_url, contents)
         VALUES (#{title}, #{img_url}, #{contents})
     </insert>
+
+    <update id="updateRecommendHotspot" parameterType="com.jsoftware.platform.model.RecommendHotspot">
+        UPDATE recommend_hotspot
+        SET title = #{title},
+        img_url = #{img_url},
+        contents = #{contents}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteRecommendHotspot" parameterType="com.jsoftware.platform.model.RecommendHotspot">
+        DELETE
+        FROM recommend_hotspot
+        WHERE id = #{id}
+    </delete>
 </mapper>

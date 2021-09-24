@@ -1,5 +1,6 @@
 package com.jsoftware.platform.repository;
 
+import com.jsoftware.platform.model.RecommendActivity;
 import com.jsoftware.platform.model.RecommendHotspot;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -33,5 +34,15 @@ public class RecommendHotspotRepositoryImpl implements RecommendHotspotRepositor
     @Override
     public void createRecommendHotspot(RecommendHotspot recommendHotspot) {
         sqlSessionTemplate.insert("insertRecommendHotspot", recommendHotspot);
+    }
+
+    @Override
+    public void updateRecommendHotspot(RecommendHotspot recommendHotspot) {
+        sqlSessionTemplate.update("updateRecommendHotspot", recommendHotspot);
+    }
+
+    @Override
+    public void deleteRecommendHotspot(int id) {
+        sqlSessionTemplate.delete("deleteRecommendHotspot", id);
     }
 }
