@@ -101,7 +101,7 @@ class UserList extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: GestureDetector(
                 onTap: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EditUser(
+              MaterialPageRoute(builder: (context) => UserDetail(
                 list: list,
                 index: i,
               ))
