@@ -27,40 +27,73 @@ class _DetailUserState extends State<UserDetail> {
   }
 
   //create function delete
-  void showAlertDialog(BuildContext context) async{
-    var result = await showDialog(
-        context: context, builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(
-                "정말 삭제하시겠습니까? '${widget.list[widget.index]['id']}'"),
-            actions: <Widget>[
-              RaisedButton(
-                child: Text(
-                  "OK remove!",
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: Colors.redAccent,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
-                onPressed: () {
-                  databaseHelper
-                      .deleteUser(widget.list[widget.index]['id'].toString()
-                  );
-                  _navigateUserList(context);
-                },
-              ),
-              RaisedButton(
-                child: Text("CANCEL", style: TextStyle(color: Colors.white)),
-                color: Color(0xFF43aa8b),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          );
-    });
+  void confirm() {
+    AlertDialog alertDialog = AlertDialog(
+      content: Text(
+          "정말 삭제하시겠습니까? '${widget.list[widget.index]['id']}'"),
+      actions: <Widget>[
+        new RaisedButton(
+          child: Text(
+            "OK remove!",
+            style: TextStyle(color: Colors.black),
+          ),
+          color: Colors.red,
+          onPressed: () {
+            databaseHelper
+                .deleteUser(widget.list[widget.index]['id'].toString());
+            _navigateUserList(context);
+          },
+        ),
+        RaisedButton(
+          child: Text("CANCEL", style: TextStyle(color: Colors.black)),
+          color: Colors.green,
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
+    );
+    // showDialog(context: context,
+    //     builder: (context) => alertDialog);
+    showDialog(context: context,
+        builder: (BuildContext context) {
+      return alertDialog;
+        });
   }
 
+  // void showAlertDialog(BuildContext context) async{
+  //   var result = await showDialog(
+  //       context: context, builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           content: Text(
+  //               "정말 삭제하시겠습니까? '${widget.list[widget.index]['id']}'"),
+  //           actions: <Widget>[
+  //             RaisedButton(
+  //               child: Text(
+  //                 "OK remove!",
+  //                 style: TextStyle(color: Colors.white),
+  //               ),
+  //               color: Colors.redAccent,
+  //               shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(30.0)),
+  //               onPressed: () {
+  //                 databaseHelper
+  //                     .deleteUser(widget.list[widget.index]['id'].toString()
+  //                 );
+  //                 _navigateUserList(context);
+  //               },
+  //             ),
+  //             RaisedButton(
+  //               child: Text("CANCEL", style: TextStyle(color: Colors.white)),
+  //               color: Color(0xFF43aa8b),
+  //               shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(30.0)),
+  //               onPressed: () => Navigator.pop(context),
+  //             ),
+  //           ],
+  //         );
+  //   }
+  //   );
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +161,7 @@ class _DetailUserState extends State<UserDetail> {
                       color: Colors.redAccent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
-                      onPressed: () => showAlertDialog(context),
+                      onPressed: () => confirm(),
                     ),
                   ],
                 )
