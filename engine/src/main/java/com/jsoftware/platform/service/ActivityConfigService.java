@@ -39,8 +39,8 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public User updateUser(int id, User user) {
-        repository.updateUser(id, user);
+    public User updateUser(User user) {
+        repository.updateUser(user);
         return user;
     }
 
@@ -67,8 +67,8 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public Hospital updateHospital(int id, Hospital hospital) {
-        repository.updateHospital(id, hospital);
+    public Hospital updateHospital(Hospital hospital) {
+        repository.updateHospital(hospital);
         return hospital;
     }
 
@@ -95,8 +95,8 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public Center updateCenter(int id, Center center) {
-        repository.updateCenter(id, center);
+    public Center updateCenter(Center center) {
+        repository.updateCenter(center);
         return center;
     }
 

@@ -18,7 +18,7 @@ public interface ActivityConfigRepository {
 
     public void insertUser(User user);
 
-    public void updateUser(int id, User user);
+    public void updateUser(User user);
 
     public void deleteUser(int id);
 
@@ -29,7 +29,7 @@ public interface ActivityConfigRepository {
 
     public void insertHospital(Hospital hospital);
 
-    public void updateHospital(int id, Hospital hospital);
+    public void updateHospital(Hospital hospital);
 
     public void deleteHospital(int id);
 
@@ -40,7 +40,7 @@ public interface ActivityConfigRepository {
 
     public void insertCenter(Center center);
 
-    public void updateCenter(int id, Center center);
+    public void updateCenter(Center center);
 
     public void deleteCenter(int id);
 }

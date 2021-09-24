@@ -101,21 +101,27 @@ public class ActivityConfigController {
     // null 있을 때
 
     @PutMapping("/api/users/{id}")
-    public User putUser(@PathVariable("id") int id, @RequestBody User user) {
-        user.setId(id);
-        return activityConfigService.updateUser(id, user);
+    public User putUser(/*@PathVariable("id") int id, */@RequestBody User user) {
+//        user.setId(id);
+        //TODO 프론트엔드에서 user 객체에 id를 세팅해서 받아야 함.
+        return activityConfigService.updateUser(user);
     }
+    // CRUD
+    // C create insert post
+    // R read   select get
+    // U update update put
+    // D delete delete delete
 
     @PutMapping("/api/hospitals/{id}")
-    public Hospital putHospital(@PathVariable("id") int id, @RequestBody Hospital hospital) {
-        hospital.setId(id);
-        return activityConfigService.updateHospital(id, hospital);
+    public Hospital putHospital(/*@PathVariable("id") int id, */@RequestBody Hospital hospital) {
+//        hospital.setId(id);
+        return activityConfigService.updateHospital(hospital);
     }
 
     @PutMapping("/api/centers/{id}")
-    public Center putCenter(@PathVariable("id") int id, @RequestBody Center center) {
-        center.setId(id);
-        return activityConfigService.updateCenter(id, center);
+    public Center putCenter(/*@PathVariable("id") int id, */@RequestBody Center center) {
+//        center.setId(id);
+        return activityConfigService.updateCenter(center);
     }
 
     // user, hospital, center delete

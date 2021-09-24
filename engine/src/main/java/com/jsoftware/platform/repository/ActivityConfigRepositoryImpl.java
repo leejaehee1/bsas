@@ -43,7 +43,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateUser(int id, User user) {
+    public void updateUser(User user) {
         sqlSessionTemplate.update("updateUser", user);
     }
 
@@ -70,7 +70,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateHospital(int id, Hospital hospital) {
+    public void updateHospital(Hospital hospital) {
         sqlSessionTemplate.update("updateHospital", hospital);
     }
 
@@ -98,7 +98,7 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void updateCenter(int id, Center center) {
+    public void updateCenter(Center center) {
         sqlSessionTemplate.update("updateCenter", center);
     }
 
