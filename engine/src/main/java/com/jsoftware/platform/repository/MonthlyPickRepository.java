@@ -1,5 +1,6 @@
 package com.jsoftware.platform.repository;
 
+import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.model.MonthlyPick;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,4 +15,8 @@ public interface MonthlyPickRepository {
     MonthlyPick readMonthlyPick(int id);
 
     void createMonthlyPick(MonthlyPick monthlyPick);
+
+    void updateMonthlyPick(MonthlyPick monthlyPick);
+
+    void deleteMonthlyPick(int id);
 }

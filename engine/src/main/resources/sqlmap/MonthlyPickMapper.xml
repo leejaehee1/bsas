@@ -24,4 +24,18 @@
         INSERT INTO monthlypick (title, img_url, contents)
         VALUES (#{title}, #{img_url}, #{contents})
     </insert>
+
+    <update id="updateMonthlyPick" parameterType="com.jsoftware.platform.model.MonthlyPick">
+        UPDATE monthlypick
+        SET title = #{title},
+        img_url = #{img_url},
+        contents = #{contents}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteMonthlyPick" parameterType="com.jsoftware.platform.model.MonthlyPick">
+        DELETE
+        FROM monthlypick
+        WHERE id = #{id}
+    </delete>
 </mapper>

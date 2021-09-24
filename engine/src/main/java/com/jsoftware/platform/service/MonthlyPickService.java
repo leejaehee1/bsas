@@ -34,4 +34,15 @@ public class MonthlyPickService {
         return monthlyPick;
     }
 
+    @Transactional
+    public MonthlyPick updateMonthlyPick(MonthlyPick monthlyPick) {
+        repository.updateMonthlyPick(monthlyPick);
+        return monthlyPick;
+    }
+
+    @Transactional
+    public void deleteMonthlyPick(int id) {
+        repository.deleteMonthlyPick(id);
+    }
+
 }

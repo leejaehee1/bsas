@@ -36,4 +36,14 @@ public class MonthlyPickRepositoryImpl implements MonthlyPickRepository{
     public void createMonthlyPick(MonthlyPick monthlyPick) {
         sqlSessionTemplate.insert("insertMonthlyPick", monthlyPick);
     }
+
+    @Override
+    public void updateMonthlyPick(MonthlyPick monthlyPick) {
+        sqlSessionTemplate.update("updateMonthlyPick", monthlyPick);
+    }
+
+    @Override
+    public void deleteMonthlyPick(int id) {
+        sqlSessionTemplate.delete("deleteMonthlyPick", id);
+    }
 }
