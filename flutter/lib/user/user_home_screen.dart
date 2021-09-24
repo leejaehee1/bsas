@@ -109,7 +109,7 @@ class UserList extends StatelessWidget {
                 child: Container(
                   //color: Colors.black,
                   height: 100.3,
-                  child: new Card(
+                  child: Card(
                     color: Colors.white,
                     child: Column(
                       mainAxisSize: MainAxisSize.min, // add this
