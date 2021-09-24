@@ -89,7 +89,7 @@ class DBHelper {
   Future<http.Response> deleteUser(String id) async {
     int a = int.parse(id);
     print(a);
-    var url = 'http://3.36.200.118:18080/api/users/{id}';
+    var url = 'http://3.36.200.118:18080/api/users/{a}';
 
     var response =
     await http.delete(Uri.parse(url), headers: {"Content-Type": "application/json; charset=UTF-8"});
