@@ -1,3 +1,4 @@
+import 'package:bsas/model/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '/components/chat_icon_button.dart';
@@ -5,7 +6,6 @@ import '/components/my_chat.dart';
 import '/components/other_chat.dart';
 import '/components/time_line.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../db/chat_dbdart';
 import '/model/chat.dart';
 
 class ChatScreen extends StatefulWidget {

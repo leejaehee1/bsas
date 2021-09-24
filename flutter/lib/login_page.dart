@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'create_account_page.dart';
 import 'navigate_page.dart';
-import 'db/member_db.dart';
+import 'model/member_model.dart';
 
 class LoginPage extends StatefulWidget {
   @override
