@@ -33,4 +33,14 @@ public class EventDayService {
         return eventDay;
     }
 
+    @Transactional
+    public EventDay updateEventDay(EventDay eventDay) {
+        repository.updateEventDay(eventDay);
+        return eventDay;
+    }
+
+    @Transactional
+    public void deleteEventDay(int id) {
+        repository.deleteEventDay(id);
+    }
 }

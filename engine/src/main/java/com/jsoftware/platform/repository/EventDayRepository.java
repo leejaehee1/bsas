@@ -13,4 +13,8 @@ public interface EventDayRepository {
     EventDay readEventDay(int id);
 
     void createEventDay(EventDay eventDay);
+
+    void updateEventDay(EventDay eventDay);
+
+    void deleteEventDay(int id);
 }

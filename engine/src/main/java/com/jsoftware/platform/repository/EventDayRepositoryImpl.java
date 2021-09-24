@@ -35,4 +35,14 @@ public class EventDayRepositoryImpl implements EventDayRepository{
     public void createEventDay(EventDay eventDay) {
         sqlSessionTemplate.insert("insertEventDay", eventDay);
     }
+
+    @Override
+    public void updateEventDay(EventDay eventDay) {
+        sqlSessionTemplate.update("updateEventDay", eventDay);
+    }
+
+    @Override
+    public void deleteEventDay(int id) {
+        sqlSessionTemplate.delete("deleteEventDay", id);
+    }
 }

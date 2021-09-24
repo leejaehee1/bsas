@@ -24,4 +24,18 @@
         INSERT INTO event_day (title, img_url, contents)
         VALUES (#{title}, #{img_url}, #{contents})
     </insert>
+
+    <update id="updateEventDay" parameterType="com.jsoftware.platform.model.EventDay">
+        UPDATE event_day
+        SET title = #{title},
+        img_url = #{img_url},
+        contents = #{contents}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteEventDay" parameterType="com.jsoftware.platform.model.EventDay">
+        DELETE
+        FROM event_day
+        WHERE id = #{id}
+    </delete>
 </mapper>
