@@ -94,6 +94,7 @@ class DBHelper {
     var response =
     await http.delete(Uri.parse(url), headers: {"Content-Type": "application/json; charset=UTF-8"});
     print("${response.statusCode}");
+    // print("id : ${id}");
     return response;
   }
 }

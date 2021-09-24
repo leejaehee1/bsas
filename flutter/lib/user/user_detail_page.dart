@@ -21,9 +21,12 @@ class _DetailUserState extends State<UserDetail> {
       MaterialPageRoute(builder: (context) => HomeScreen()),
     );
 
-    // if (result) {
-    //   setState(() {});
-    // }
+    if (result) {
+      setState(() {
+        databaseHelper.deleteUser(widget.list[widget.index]['id'].toString()
+        );
+      });
+    }
   }
 
   //create function delete
@@ -39,9 +42,11 @@ class _DetailUserState extends State<UserDetail> {
           ),
           color: Colors.red,
           onPressed: () {
-            setState(() {
-              databaseHelper.deleteUser(widget.list[widget.index]['id'].toString());
-            });
+            // setState(() {
+            //   databaseHelper.deleteUser(widget.list[widget.index]['id'].toString()
+            //   );
+            // });
+            // databaseHelper.deleteUser(widget.list[widget.index]['id']).toString();
             // return Navigator.pop(context, true);
             _navigateUserList(context);
             // databaseHelper
