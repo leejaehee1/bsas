@@ -5,7 +5,7 @@ import '/components/my_chat.dart';
 import '/components/other_chat.dart';
 import '/components/time_line.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '/model/chat_model.dart';
+import '../db/chat_dbdart';
 import '/model/chat.dart';
 
 class ChatScreen extends StatefulWidget {
