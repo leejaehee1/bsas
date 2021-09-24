@@ -134,8 +134,10 @@ public class ActivityConfigController {
 
     @DeleteMapping("/api/users/{id}")
     public String deleteUser(@PathVariable("id") int id) {
+        System.out.println("delete");
         activityConfigService.deleteUser(id);
-        return "id" + id;
+        System.out.println("delete complete");
+        return "delete id" + id;
     }
 
 
