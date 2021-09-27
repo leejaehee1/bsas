@@ -69,32 +69,32 @@ class DBHelper {
 
 
   //delete
-  // Future<User> deleteUser(String id) async {
-  //   // int a = int.parse(id);
-  //   // print(a);
-  //   final http.Response response = await http.delete(
-  //     Uri.parse('http://3.36.200.118:18080/api/users/{id}'), // {id} id번호가 자동으로 들어감
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //   );
-  //   print('Response status: ${response.statusCode}');
-  //   print('id: ${id}');
-  //   if (response.statusCode == 400) {
-  //     return User.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Failed to delete user.');
-  //   }
-  // }
-  Future<http.Response> deleteUser(String id) async {
-    int a = int.parse(id);
-    print(a);
-    var url = 'http://3.36.200.118:18080/api/users/{a}';
-
-    var response =
-    await http.delete(Uri.parse(url), headers: {"Content-Type": "application/json; charset=UTF-8"});
-    print("${response.statusCode}");
-    // print("id : ${id}");
-    return response;
+  Future<User> deleteUser(String id) async {
+    // int a = int.parse(id);
+    // print(a);
+    final http.Response response = await http.delete(
+      Uri.parse('http://3.36.200.118:18080/api/users/{id}'), // {id} id번호가 자동으로 들어감
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    print('Response status: ${response.statusCode}');
+    print('id: ${id}');
+    if (response.statusCode == 400) {
+      return User.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to delete user.');
+    }
   }
+  // Future<http.Response> deleteUser(String id) async {
+  //   int a = int.parse(id);
+  //   print(a);
+  //   var url = 'http://3.36.200.118:18080/api/users/{a}';
+  //
+  //   var response =
+  //   await http.delete(Uri.parse(url), headers: {"Content-Type": "application/json; charset=UTF-8"});
+  //   print("${response.statusCode}");
+  //   // print("id : ${id}");
+  //   return response;
+  // }
 }
