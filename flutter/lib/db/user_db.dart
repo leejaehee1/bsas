@@ -44,7 +44,7 @@ class DBHelper {
   // update or put
   Future<User> updateUser(String id, String name, String phone, String email) async {
     final response = await http.put(
-      Uri.parse('http://3.36.200.118:18080/api/users/{id}'),
+      Uri.parse('http://3.36.200.118:18080/api/users/' + id),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -73,7 +73,7 @@ class DBHelper {
   //   // int a = int.parse(id);
   //   // print(a);
   //   final http.Response response = await http.delete(
-  //     Uri.parse('http://3.36.200.118:18080/api/users/{id}'), // {id} id번호가 자동으로 들어감
+  //     Uri.parse('http://3.36.200.118:18080/api/users/'+ id), // {id} id번호가 자동으로 들어감
   //     headers: <String, String>{
   //       'Content-Type': 'application/json; charset=UTF-8',
   //     },
@@ -87,14 +87,12 @@ class DBHelper {
   //   }
   // }
   Future<http.Response> deleteUser(String id) async {
-    int a = int.parse(id);
-    print(a);
-    var url = 'http://3.36.200.118:18080/api/users/{a}';
+    var url = 'http://3.36.200.118:18080/api/users/'+ id; // id 부분은 따로 빼줘야 함, 여태까지 string 으로 인식하고  있어서 처리가 안됨
 
     var response =
     await http.delete(Uri.parse(url), headers: {"Content-Type": "application/json; charset=UTF-8"});
     print("${response.statusCode}");
-    // print("id : ${id}");
+    print("id : ${id}");
     return response;
   }
 }
