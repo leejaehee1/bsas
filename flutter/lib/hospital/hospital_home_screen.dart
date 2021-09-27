@@ -20,6 +20,15 @@ class HosHomeScreenState extends State {
     var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/hospitals"));
     return json.decode(response.body);
   }
+  _navigateHospital(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddHospital()),
+    );
+    if (result) {
+      setState(() {});
+    }
+  }
 
   @override
   void initState() {
@@ -58,9 +67,8 @@ class HosHomeScreenState extends State {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF43aa8b),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => AddHospital()));
-        },
+        onPressed: () =>
+          _navigateHospital(context),
         child: Icon(Icons.add),
         tooltip: "병원 등록",
       ),
