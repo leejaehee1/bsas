@@ -44,11 +44,6 @@ public class ActivityConfigService {
         return user;
     }
 
-//    @Transactional
-//    public void deleteUser(int id) {
-//        repository.deleteUser(id);
-//    }
-
     @Transactional
     public String deleteUser(int id) {
         repository.deleteUser(id);
@@ -79,8 +74,9 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public void deleteHospital(int id) {
+    public String deleteHospital(int id) {
         repository.deleteHospital(id);
+        return "id" + id;
     }
 
     // 센터
@@ -107,7 +103,8 @@ public class ActivityConfigService {
     }
 
     @Transactional
-    public void deleteCenter(int id) {
+    public String deleteCenter(int id) {
         repository.deleteCenter(id);
+        return "id" + id;
     }
 }
