@@ -20,8 +20,6 @@ public interface ActivityConfigRepository {
 
     public void updateUser(User user);
 
-//    public void deleteUser(int id);
-
     public String deleteUser(int id);
 
 
@@ -34,7 +32,7 @@ public interface ActivityConfigRepository {
 
     public void updateHospital(Hospital hospital);
 
-    public void deleteHospital(int id);
+    public String deleteHospital(int id);
 
     // 센터 등록
     Center selectCenterById(int id);
@@ -45,5 +43,5 @@ public interface ActivityConfigRepository {
 
     public void updateCenter(Center center);
 
-    public void deleteCenter(int id);
+    public String deleteCenter(int id);
 }

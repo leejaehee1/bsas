@@ -47,11 +47,6 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
         sqlSessionTemplate.update("updateUser", user);
     }
 
-//    @Override
-//    public void deleteUser(int id) {
-//        sqlSessionTemplate.delete("deleteUser", id);
-//    }
-
     @Override
     public String deleteUser(int id) {
         sqlSessionTemplate.delete("deleteUser", id);
@@ -80,8 +75,9 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void deleteHospital(int id) {
+    public String deleteHospital(int id) {
         sqlSessionTemplate.delete("deleteHospital", id);
+        return "id" + id;
     }
 
 
@@ -108,7 +104,8 @@ public class ActivityConfigRepositoryImpl implements ActivityConfigRepository{
     }
 
     @Override
-    public void deleteCenter(int id) {
+    public String deleteCenter(int id) {
         sqlSessionTemplate.delete("deleteCenter", id);
+        return "id" + id;
     }
 }
