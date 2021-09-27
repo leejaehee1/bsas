@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'hospital_add_screen.dart';
+import 'hospital_detail.dart';
 
 class HosHomeScreen extends StatefulWidget {
   @override
@@ -15,9 +16,8 @@ class HosHomeScreen extends StatefulWidget {
 class HosHomeScreenState extends State {
   late List list;
 
-  Future<List> getData() async {
+  Future<List> getHosData() async {
     var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/hospitals"));
-    //http://3.36.200.118:18080/api/users
     return json.decode(response.body);
   }
 
@@ -25,7 +25,7 @@ class HosHomeScreenState extends State {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getData();
+    this.getHosData();
   }
 
   @override
@@ -43,7 +43,7 @@ class HosHomeScreenState extends State {
       ),
       body: Center(
           child: FutureBuilder<List>(
-            future: getData(),
+            future: getHosData(),
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
               return snapshot.hasData
@@ -59,8 +59,7 @@ class HosHomeScreenState extends State {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF43aa8b),
         onPressed: () {
-          // goToDataAdd();
-          Navigator.push(context, MaterialPageRoute(builder: (_)=>AddHospital ()));
+          Navigator.push(context, MaterialPageRoute(builder: (_) => AddHospital()));
         },
         child: Icon(Icons.add),
         tooltip: "병원 등록",
@@ -79,52 +78,62 @@ class HospitalList extends StatelessWidget {
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
-        return Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height: 100.3,
-                child: new Card(
-                  color: Colors.white,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min, // add this
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Text(
-                                list[i]['name'].toString(),
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.black87),
-                              ),
+        return Container(
+          child: GestureDetector(
+            onTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => HospitalDetail(
+                  list: list,
+                  index: i,
+                ))
+            ),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    height: 100.3,
+                    child: new Card(
+                      color: Colors.white,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min, // add this
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    list[i]['name'].toString(),
+                                    style: TextStyle(
+                                        fontSize: 20.0, color: Colors.black87),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    list[i]['phone'].toString(),
+                                    style: TextStyle(
+                                        fontSize: 20.0, color: Colors.black87),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Text(
-                                list[i]['phone'].toString(),
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.black87),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         );
       },
     );
