@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class HospitalDBHelper {
 
-  Future<dynamic> getData() async {
+  Future<dynamic> getHosData() async {
     var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/hospitals"));
     return json.decode(response.body);
   }
@@ -34,6 +34,8 @@ class HospitalDBHelper {
         'hospitalEmail' : email,
       }),
     );
+    print('Response status: ${response.statusCode}');
+    print('name: ${name} ');
     if (response.statusCode == 500) {
       return Hospital.fromJson(jsonDecode(response.body));
     } else {
@@ -42,13 +44,14 @@ class HospitalDBHelper {
   }
 
   // update or put
-  Future<Hospital> updateHospital(String name, String phone, String publicPhone, String email) async {
+  Future<Hospital> updateHospital(String id, String name, String phone, String publicPhone, String email) async {
     final response = await http.put(
-      Uri.parse('http://3.36.200.118:18080/api/hospitals/{id}'),
+      Uri.parse('http://3.36.200.118:18080/api/hospitals/' + id),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
+        'hospitalId' : id,
         'hospitalName' : name,
         'hospitalPhone' : phone,
         'hospitalPublicPhone' : publicPhone,
@@ -71,18 +74,13 @@ class HospitalDBHelper {
 
 
   //delete
-  Future<Hospital> deleteHospital(String id) async {
-    final http.Response response = await http.delete(
-      Uri.parse('http://3.36.200.118:18080/api/hospitals/{id}'), // {id} id번호가 자동으로 들어감
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
+  Future<http.Response> deleteHospital(String id) async {
+    var url = 'http://3.36.200.118:18080/api/hospitals/'+ id; // id 부분은 따로 빼줘야 함, 여태까지 string 으로 인식하고  있어서 처리가 안됨
 
-    if (response.statusCode == 200) {
-      return Hospital.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to delete hospitals.');
-    }
+    var response =
+    await http.delete(Uri.parse(url), headers: {"Content-Type": "application/json; charset=UTF-8"});
+    print("${response.statusCode}");
+    print("id : ${id}");
+    return response;
   }
 }

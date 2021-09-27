@@ -42,13 +42,14 @@ class CenterDBHelper {
   }
 
   // update or put
-  Future<Center> updateCenter(String name, String phone, String publicPhone, String email) async {
+  Future<Center> updateCenter(String id, String name, String phone, String publicPhone, String email) async {
     final response = await http.put(
-      Uri.parse('http://3.36.200.118:18080/api/centers/{id}'),
+      Uri.parse('http://3.36.200.118:18080/api/centers/' + id),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
+        'centerId' : id,
         'centerName': name,
         'centerPhone' : phone,
         'centerPublicPhone' : publicPhone,
@@ -71,18 +72,13 @@ class CenterDBHelper {
 
 
   //delete
-  Future<Center> deleteCenter(String id) async {
-    final http.Response response = await http.delete(
-      Uri.parse('http://3.36.200.118:18080/api/centers/{id}'), // {id} id번호가 자동으로 들어감
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
+  Future<http.Response> deleteCenter(String id) async {
+    var url = 'http://3.36.200.118:18080/api/centers/'+ id; // id 부분은 따로 빼줘야 함, 여태까지 string 으로 인식하고  있어서 처리가 안됨
 
-    if (response.statusCode == 200) {
-      return Center.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to delete centers.');
-    }
+    var response =
+    await http.delete(Uri.parse(url), headers: {"Content-Type": "application/json; charset=UTF-8"});
+    print("${response.statusCode}");
+    print("id : ${id}");
+    return response;
   }
 }
