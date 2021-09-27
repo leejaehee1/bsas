@@ -15,7 +15,7 @@ class HospitalDetail extends StatefulWidget {
 class _DetailHospitalState extends State<HospitalDetail> {
   HospitalDBHelper databaseHelper = HospitalDBHelper();
 
-  _navigateHospitalList(BuildContext context) async {
+  _deleteHospital(BuildContext context) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HosHomeScreen()),
@@ -26,36 +26,22 @@ class _DetailHospitalState extends State<HospitalDetail> {
     }
   }
 
-  //create function delete
-  void confirm() {
-    AlertDialog alertDialog = AlertDialog(
-      content: Text(
-          "정말 삭제하시겠습니까? '${widget.list[widget.index]['name']}'"),
-      actions: <Widget>[
-        RaisedButton(
-          child: Text(
-            "OK remove!",
-            style: TextStyle(color: Colors.black),
-          ),
-          color: Colors.red,
-          onPressed: () {
-            databaseHelper
-                .deleteHospital(widget.list[widget.index]['name'].toString());
-            _navigateHospitalList(context);
-          },
-        ),
-        RaisedButton(
-          child: Text("CANCEL", style: TextStyle(color: Colors.black)),
-          color: Colors.green,
-          onPressed: () => Navigator.pop(context),
-        ),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF43aa8b),
+        title: Text(
+          "상제 정보",
+          style: TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         height: 270.0,
         padding: const EdgeInsets.all(20.0),
@@ -100,7 +86,24 @@ class _DetailHospitalState extends State<HospitalDetail> {
                       color: Colors.redAccent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
-                      onPressed: () => confirm(),
+                      onPressed: () {
+                        showDialog(context: context,
+                            builder: (context) {
+                          return AlertDialog(
+                            title: Text("경고"),
+                            content: Text("정말 삭제하시겠습니까?"),
+                            actions: [
+                              FlatButton(onPressed: (){
+                                databaseHelper.deleteHospital(widget.list[widget.index]['id'].toString());
+                                _deleteHospital(context);
+                              },
+                                  child: Text('네')),
+                              FlatButton(onPressed: (){
+                                Navigator.pop(context);
+                              }, child: Text('취소'))
+                            ],);
+                        });
+                      },
                     ),
                   ],
                 )

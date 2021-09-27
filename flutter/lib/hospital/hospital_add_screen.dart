@@ -18,7 +18,7 @@ class AddHospitalState extends State {
   String _name = '';
   String _phone = '';
   String _publicPhone = '';
-  String _mail = '';
+  String _email = '';
 
   HospitalDBHelper hospitalDataBaseHelper = HospitalDBHelper();
 
@@ -156,7 +156,7 @@ class AddHospitalState extends State {
                               )),
                           validator: (input) =>
                           input!.trim().isEmpty ? '이메일을 입력하세요' : null,
-                          onSaved: (input) => _mail = input!,
+                          onSaved: (input) => _email = input!,
                           // initialValue: _mail,
                           controller: _emailController,
                         ),

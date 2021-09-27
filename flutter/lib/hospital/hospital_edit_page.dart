@@ -17,6 +17,7 @@ class _EditHospitalState extends State<EditHospital> {
 
   HospitalDBHelper databaseHelper = HospitalDBHelper();
 
+  TextEditingController _idController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _publicPhoneController = TextEditingController();
@@ -34,6 +35,8 @@ class _EditHospitalState extends State<EditHospital> {
 
   @override
   void initState() {
+    _idController = TextEditingController(
+        text: widget.list[widget.index]['name'].toString());
     _nameController = TextEditingController(
         text: widget.list[widget.index]['name'].toString());
     _phoneController = TextEditingController(
@@ -48,12 +51,37 @@ class _EditHospitalState extends State<EditHospital> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF43aa8b),
+        title: Text(
+          "편집 : ${widget.list[widget.index]['name']}",
+          style: TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Form(
         child: ListView(
           padding: const EdgeInsets.all(10.0),
           children: <Widget>[
             Column(
               children: <Widget>[
+                ListTile(
+                  leading: const Icon(Icons.person, color: Colors.black),
+                  title: TextFormField(
+                    controller: _idController,
+                    validator: (value) {
+                      if (value!.isEmpty) return "id";
+                    },
+                    decoration: InputDecoration(
+                      hintText: "id",
+                      labelText: "id",
+                    ),
+                  ),
+                ),
                 ListTile(
                   leading: const Icon(Icons.person, color: Colors.black),
                   title: TextFormField(
@@ -118,6 +146,7 @@ class _EditHospitalState extends State<EditHospital> {
                   color: Colors.blueAccent,
                   onPressed: () {
                     databaseHelper.updateHospital(
+                      _idController.text.trim(),
                       _nameController.text.trim(),
                       _phoneController.text.trim(),
                       _publicPhoneController.text.trim(),
