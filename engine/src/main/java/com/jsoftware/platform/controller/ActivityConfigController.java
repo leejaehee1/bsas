@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import static org.springframework.http.ResponseEntity.ok;
+
 import java.util.List;
 
 @RestController
@@ -35,17 +39,19 @@ public class ActivityConfigController {
 
     @GetMapping("/api/users")
     public List<User> getUsers() {
-        System.out.printf("aaaa");
+        System.out.printf("User list ------");
         return activityConfigService.readUsers();
     }
 
     @GetMapping("/api/hospitals")
     public List<Hospital> getHospitals() {
+        System.out.printf("Hospital list ------");
         return activityConfigService.readHospitals();
     }
 
     @GetMapping("/api/centers")
     public List<Center> getCenters() {
+        System.out.printf("Center list ------");
         return activityConfigService.readCenters();
     }
 
@@ -60,19 +66,19 @@ public class ActivityConfigController {
 
     @GetMapping("/api/users/{id}")
     public User readUser(@PathVariable("id") int id) {
-        System.out.println(id);
+        System.out.println("User" + id);
         return activityConfigService.readUser(id);
     }
 
     @GetMapping("/api/hospitals/{id}")
     public Hospital readHospital(@PathVariable("id") int id) {
-        System.out.println(id);
+        System.out.println("Hospital" + id);
         return activityConfigService.readHospital(id);
     }
 
     @GetMapping("/api/centers/{id}")
     public Center readCenter(@PathVariable("id") int id) {
-        System.out.println(id);
+        System.out.println("Center" + id);
         return activityConfigService.readCenter(id);
     }
 
@@ -83,29 +89,32 @@ public class ActivityConfigController {
 
     @PostMapping("/api/users")
     public User createUser(@RequestBody User user) {
+        System.out.println("Create User");
         return activityConfigService.createUser(user);
     }
 
     @PostMapping("/api/hospitals")
     public Hospital createHospital(@RequestBody Hospital hospital) {
+        System.out.println("Create Hospital");
         return activityConfigService.createHospital(hospital);
     }
 
     @PostMapping("/api/centers")
     public Center createCenter(@RequestBody Center center) {
+        System.out.println("Create Center");
         return activityConfigService.createCenter(center);
     }
 
     // user, hospital, center put
-    // put 작동 확인
-    // null 있을 때
 
     @PutMapping("/api/users/{id}")
     public User putUser(/*@PathVariable("id") int id, */@RequestBody User user) {
 //        user.setId(id);
         //TODO 프론트엔드에서 user 객체에 id를 세팅해서 받아야 함.
+        System.out.println("Modify User");
         return activityConfigService.updateUser(user);
     }
+
     // CRUD
     // C create insert post
     // R read   select get
@@ -115,39 +124,43 @@ public class ActivityConfigController {
     @PutMapping("/api/hospitals/{id}")
     public Hospital putHospital(/*@PathVariable("id") int id, */@RequestBody Hospital hospital) {
 //        hospital.setId(id);
+        System.out.println("Modify Hospital");
         return activityConfigService.updateHospital(hospital);
     }
 
     @PutMapping("/api/centers/{id}")
     public Center putCenter(/*@PathVariable("id") int id, */@RequestBody Center center) {
 //        center.setId(id);
+        System.out.println("Modify Center");
         return activityConfigService.updateCenter(center);
     }
 
     // user, hospital, center delete
     // delete 작동 확인
 
-//    @DeleteMapping("/api/users/{id}")
-//    public void deleteUser(@PathVariable("id") int id) {
-//        activityConfigService.deleteUser(id);
-//    }
-
     @DeleteMapping("/api/users/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-        System.out.println("delete");
+        System.out.println("delete User" + id);
         activityConfigService.deleteUser(id);
-        System.out.println("delete complete");
+        System.out.println(id + "delete User complete");
         return "delete id" + id;
+        // TODO return 코드 정의 필요 : 리턴이 문제 없다 하면 0, 또는 delete id로 리턴해서 화면에 찍어줄 수 있도록(알람)
     }
 
 
     @DeleteMapping("/api/hospitals/{id}")
-    public void deleteHospital(@PathVariable int id) {
+    public String deleteHospital(@PathVariable int id) {
+        System.out.println("delete Hospital" + id);
         activityConfigService.deleteHospital(id);
+        System.out.println(id + "delete Hospital complete");
+        return "delete id" + id;
     }
 
     @DeleteMapping("/api/centers/{id}")
-    public void deleteCenter(@PathVariable int id) {
+    public String deleteCenter(@PathVariable int id) {
+        System.out.println("delete Hospital" + id);
         activityConfigService.deleteCenter(id);
+        System.out.println(id + "delete Hospital complete");
+        return "delete id" + id;
     }
 }
