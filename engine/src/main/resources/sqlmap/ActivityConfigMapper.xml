@@ -27,7 +27,7 @@
 
     <update id="updateUser" parameterType="com.jsoftware.platform.model.User">
         UPDATE User
-        set name = #{name},
+        SET name = #{name},
             phone = #{phone},
             email = #{email}
         WHERE id = #{id}

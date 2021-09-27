@@ -138,6 +138,7 @@ public class ActivityConfigController {
         activityConfigService.deleteUser(id);
         System.out.println("delete complete");
         return "delete id" + id;
+        // TODO return 코드 정의 필요 : 리턴이 문제 없다 하면 0, 또는 delete id로 리턴해서 화면에 찍어줄 수 있도록(알람)
     }
 
 
