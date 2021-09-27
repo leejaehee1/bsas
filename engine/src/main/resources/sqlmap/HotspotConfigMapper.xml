@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test">
+    <select id="selectAllHotspots" resultType="com.jsoftware.platform.model.Hotspot">
+        SELECT id
+             , title
+             , img_url
+             , contents
+        FROM hotspot
+    </select>
+
+    <select id="selectHotspotById" resultType="com.jsoftware.platform.model.Hotspot">
+        SELECT id
+        , title
+        , img_url
+        , contents
+        FROM hotspot
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertHotspot" parameterType="com.jsoftware.platform.model.Hotspot">
+        INSERT INTO hotspot (title, img_url, contents)
+        VALUES (#{title}, #{img_url}, #{contents})
+    </insert>
+
+    <update id="updateHotspot" parameterType="com.jsoftware.platform.model.Hotspot">
+        UPDATE hotspot
+        SET title = #{title},
+        img_url = #{img_url},
+        contents = #{contents}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteHotspot" parameterType="com.jsoftware.platform.model.Hotspot">
+        DELETE
+        FROM hotspot
+        WHERE id = #{id}
+    </delete>
+</mapper>
