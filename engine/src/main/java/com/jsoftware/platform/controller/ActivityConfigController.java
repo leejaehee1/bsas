@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javassist.NotFoundException;
+import lombok.extern.log4j.Log4j;
+import lombok.var;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -136,7 +141,6 @@ public class ActivityConfigController {
     }
 
     // user, hospital, center delete
-    // delete 작동 확인
 
     @DeleteMapping("/api/users/{id}")
     public String deleteUser(@PathVariable("id") int id) {
