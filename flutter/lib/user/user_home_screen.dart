@@ -18,12 +18,11 @@ class HomeScreenState extends State {
 
   Future<List> getData() async {
     var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users"));
-    //http://3.36.200.118:18080/api/users
     return json.decode(response.body);
   }
 
   _navigateAddUser(BuildContext context) async {
-    final result = await Navigator.pushReplacement(
+    final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => AddUser()),
     );
@@ -32,9 +31,10 @@ class HomeScreenState extends State {
     }
   }
 
+
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     this.getData();
   }
