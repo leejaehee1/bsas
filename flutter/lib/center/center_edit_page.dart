@@ -22,6 +22,7 @@ class _EditCenterState extends State<EditCenter> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _publicPhoneController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _idController = TextEditingController();
 
   _navigateCenterList(BuildContext context) async {
     final result = await Navigator.push(
@@ -35,6 +36,8 @@ class _EditCenterState extends State<EditCenter> {
 
   @override
   void initState() {
+    _idController = TextEditingController(
+        text: widget.list[widget.index]['name'].toString());
     _nameController = TextEditingController(
         text: widget.list[widget.index]['name'].toString());
     _phoneController = TextEditingController(
@@ -55,6 +58,19 @@ class _EditCenterState extends State<EditCenter> {
           children: <Widget>[
             Column(
               children: <Widget>[
+                ListTile(
+                  leading: const Icon(Icons.person, color: Colors.black),
+                  title: TextFormField(
+                    controller: _idController,
+                    validator: (value) {
+                      if (value!.isEmpty) return "id";
+                    },
+                    decoration: InputDecoration(
+                      hintText: "id",
+                      labelText: "id",
+                    ),
+                  ),
+                ),
                 ListTile(
                   leading: const Icon(Icons.person, color: Colors.black),
                   title: TextFormField(
@@ -119,6 +135,7 @@ class _EditCenterState extends State<EditCenter> {
                   color: Colors.blueAccent,
                   onPressed: () {
                     databaseHelper.updateCenter(
+                      _idController.text.trim(),
                       _nameController.text.trim(),
                       _phoneController.text.trim(),
                       _publicPhoneController.text.trim(),
