@@ -1,7 +1,5 @@
 import 'package:bsas/user/user_add_screen.dart';
-import 'package:bsas/user/user_delete.dart';
 import 'package:bsas/user/user_detail_page.dart';
-import 'package:bsas/user/user_edit_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +23,7 @@ class HomeScreenState extends State {
   }
 
   _navigateAddUser(BuildContext context) async {
-    final result = await Navigator.push(
+    final result = await Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => AddUser()),
     );
@@ -54,28 +52,26 @@ class HomeScreenState extends State {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: FutureBuilder<List>(
-          future: getData(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
-            return snapshot.hasData
-                ? UserList(
-              list: snapshot.data!,
-            )
-                : Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        )
+      body: RefreshIndicator(
+        onRefresh: getData,
+        child: Center(
+          child: FutureBuilder<List>(
+            future: getData(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+              return snapshot.hasData
+                  ? UserList(
+                list: snapshot.data!,
+              )
+                  : Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          )
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF43aa8b),
-        // onPressed: () {
-        //   _navigateAddUser();
-        //   // goToDataAdd();
-        //   // Navigator.push(context, MaterialPageRoute(builder: (_)=>AddUser()));
-        // },
         onPressed: () => _navigateAddUser(context),
         child: Icon(Icons.add),
         tooltip: "등록",
