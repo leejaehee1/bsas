@@ -41,7 +41,8 @@ public class HotspotRepositoryImpl implements HotspotRepository {
     }
 
     @Override
-    public void deleteHotspot(int id) {
+    public String deleteHotspot(int id) {
         sqlSessionTemplate.delete("deleteHotspot", id);
+        return "id" + id;
     }
 }

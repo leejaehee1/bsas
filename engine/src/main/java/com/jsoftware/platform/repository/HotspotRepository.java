@@ -16,5 +16,5 @@ public interface HotspotRepository {
 
     void updateHotspot(Hotspot hotspot);
 
-    void deleteHotspot(int id);
+    String deleteHotspot(int id);
 }

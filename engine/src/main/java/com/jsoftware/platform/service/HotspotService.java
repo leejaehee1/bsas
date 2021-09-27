@@ -40,8 +40,9 @@ public class HotspotService {
     }
 
     @Transactional
-    public void deleteHotspot(int id) {
+    public String deleteHotspot(int id) {
         repository.deleteHotspot(id);
+        return "id" +id;
     }
 
 }
