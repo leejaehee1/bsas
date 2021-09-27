@@ -4,7 +4,7 @@ import 'package:bsas/model/event_day.dart';
 
 class EventDayDB{
   Future<EventDay> getEvent() async {
-    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/url")); //주소 넣기
+    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/eventDay")); //주소 넣기
     print('Response status: ${response.statusCode}');
 
     if (response.statusCode == 400) {

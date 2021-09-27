@@ -3,8 +3,8 @@ import 'package:bsas/model/recommend_hotspot.dart';
 import 'package:http/http.dart' as http;
 
 class RecommendHotSpotDb{
-  Future<RecommendHotspot> getEvent() async {
-    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/url")); //주소 넣기
+  Future<RecommendHotspot> getRecommendHotspot() async {
+    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/recommendHotspot")); //주소 넣기
     print('Response status: ${response.statusCode}');
 
     if (response.statusCode == 400) {
