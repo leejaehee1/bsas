@@ -51,6 +51,6 @@ public class Center {
 
     @Override
     public String toString() {
-        return String.format("Center[id='%d', name='%s', phone='%s', publicPhone='%s' email='%s']", id, name, phone, publicPhone, email);
+        return String.format("center[id='%d', name='%s', phone='%s', publicPhone='%s' email='%s']", id, name, phone, publicPhone, email);
     }
 }

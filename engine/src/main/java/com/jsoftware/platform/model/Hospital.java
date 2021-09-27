@@ -52,6 +52,6 @@ public class Hospital {
 
     @Override
     public String toString() {
-        return String.format("Hospital[id='%d', name='%s', phone='%s', publicPhone='%s' email='%s']", id, name, phone, publicPhone, email);
+        return String.format("hospital[id='%d', name='%s', phone='%s', publicPhone='%s' email='%s']", id, name, phone, publicPhone, email);
     }
 }
