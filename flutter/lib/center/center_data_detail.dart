@@ -1,6 +1,6 @@
 import 'package:bsas/db/center_db.dart';
 import 'package:flutter/material.dart';
-
+import 'package:bsas/db/center_db.dart';
 import 'center_edit_page.dart';
 import 'center_home_screen.dart';
 
@@ -16,7 +16,7 @@ class CenterDetail extends StatefulWidget {
 class _DetailCenterState extends State<CenterDetail> {
   CenterDBHelper databaseHelper = CenterDBHelper();
 
-  _navigateCenterList(BuildContext context) async {
+  _deleteCenter(BuildContext context) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CenterHomeScreen()),
@@ -27,32 +27,6 @@ class _DetailCenterState extends State<CenterDetail> {
     }
   }
 
-  //create function delete
-  void confirm() {
-    AlertDialog alertDialog = AlertDialog(
-      content: Text(
-          "정말 삭제하시겠습니까? '${widget.list[widget.index]['name']}'"),
-      actions: <Widget>[
-        RaisedButton(
-          child: Text(
-            "OK remove!",
-            style: TextStyle(color: Colors.black),
-          ),
-          color: Colors.red,
-          onPressed: () {
-            databaseHelper
-                .deleteCenter(widget.list[widget.index]['name'].toString());
-            _navigateCenterList(context);
-          },
-        ),
-        RaisedButton(
-          child: Text("CANCEL", style: TextStyle(color: Colors.black)),
-          color: Colors.green,
-          onPressed: () => Navigator.pop(context),
-        ),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +75,24 @@ class _DetailCenterState extends State<CenterDetail> {
                       color: Colors.redAccent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
-                      onPressed: () => confirm(),
+                      onPressed: (){
+                        showDialog(context: context,
+                            builder: (context){
+                          return AlertDialog(
+                            title: Text("경고"),
+                            content: Text("정말 삭제하시겠습니까?"),
+                            actions: [
+                              FlatButton(onPressed: (){
+                                databaseHelper.deleteCenter(widget.list[widget.index]['id'].toString());
+                                _deleteCenter(context);
+                              },
+                                  child: Text('네')),
+                              FlatButton(onPressed: (){
+                                Navigator.pop(context);
+                              }, child: Text("취소"))
+                            ],);
+                            });
+                      }
                     ),
                   ],
                 )

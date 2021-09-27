@@ -16,17 +16,24 @@ class CenterHomeScreen extends StatefulWidget {
 class CenterHomeScreenState extends State {
   late List list;
 
-  Future<List> getData() async {
+  Future<List> getCenterData() async {
     var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/centers"));
-    //http://3.36.200.118:18080/api/users
     return json.decode(response.body);
+  }
+  _navigateCenter(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddCenter()));
+    if (result) {
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getData();
+    this.getCenterData();
   }
 
   @override
@@ -44,7 +51,7 @@ class CenterHomeScreenState extends State {
       ),
       body: Center(
           child: FutureBuilder<List>(
-            future: getData(),
+            future: getCenterData(),
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
               return snapshot.hasData
@@ -59,10 +66,7 @@ class CenterHomeScreenState extends State {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF43aa8b),
-        onPressed: () {
-          // goToDataAdd();
-          Navigator.push(context, MaterialPageRoute(builder: (_)=>AddCenter()));
-        },
+        onPressed: () => _navigateCenter(context),
         child: Icon(Icons.add),
         tooltip: "센터 등록",
       ),
