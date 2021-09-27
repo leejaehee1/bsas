@@ -1,5 +1,3 @@
-import 'package:bsas/model/user_model.dart';
-import 'package:bsas/user/user_delete.dart';
 import 'package:flutter/material.dart';
 import 'package:bsas/db/user_db.dart';
 import 'user_edit_page.dart';
@@ -17,48 +15,15 @@ class UserDetail extends StatefulWidget {
 class _DetailUserState extends State<UserDetail> {
   DBHelper databaseHelper = DBHelper();
 
-  // _navigateUserList(BuildContext context) async {
-  //   var result = await Navigator.push( //final
-  //     context,
-  //     MaterialPageRoute(builder: (context) => HomeScreen()),
-  //   );
-  //
-  //   if (result) {
-  //     setState(() {
-  //       databaseHelper.deleteUser(widget.list[widget.index]['id'].toString()
-  //       );
-  //     });
-  //   }
-  // }
-
-  //create function delete
-  // void confirm() {
-    // AlertDialog alertDialog = AlertDialog(
-    //   content: Text(
-    //       "정말 삭제하시겠습니까? '${widget.list[widget.index]['id']}'"),
-    //   actions: <Widget>[
-    //     new RaisedButton(
-    //       child: Text(
-    //         "OK remove!",
-    //         style: TextStyle(color: Colors.black),
-    //       ),
-    //       color: Colors.red,
-    //       onPressed: () {
-    //         databaseHelper
-    //             .deleteUser(widget.list[widget.index]['id'].toString());
-    //         _navigateUserList(context);
-    //       },
-    //     ),
-    //     RaisedButton(
-    //       child: Text("CANCEL", style: TextStyle(color: Colors.black)),
-    //       color: Colors.green,
-    //       onPressed: () => Navigator.pop(context),
-    //     ),
-    //   ],
-    // );
-    // showDialog(context: context,
-    //     builder: (context) => alertDialog);
-  // }
+  _deleteUser(BuildContext context) async {
+    final result = await Navigator.pushReplacement( //final
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+    if (result) {
+      setState(() {});
+    }
+  }
 
 
   @override
@@ -127,7 +92,6 @@ class _DetailUserState extends State<UserDetail> {
                       color: Colors.redAccent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
-                      // onPressed: () => confirm(),
                       onPressed: (){
                         showDialog(context: context,
                             builder: (context){
@@ -136,10 +100,12 @@ class _DetailUserState extends State<UserDetail> {
                             content: Text('정말 삭제하시겠습니까?'),
                             actions: [
                               FlatButton(onPressed: (){
-                                setState(() {
-                                  databaseHelper.deleteUser(widget.list[widget.index]['id'].toString());
-                                });
-                                Navigator.of(context).pop();
+                                databaseHelper.deleteUser(widget.list[widget.index]['id'].toString());
+                                // setState(() {
+                                //   databaseHelper.deleteUser(widget.list[widget.index]['id'].toString());
+                                // });
+                                _deleteUser(context);
+                                // Navigator.pop(context, true);
                               },
                                 child: Text('네'),
                               ),

@@ -22,7 +22,7 @@ class _EditUserState extends State<EditUser> {
   TextEditingController _idController = TextEditingController();
 
   _navigateUserList(BuildContext context) async {
-    final result = await Navigator.push(
+    final result = await Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => HomeScreen()));
 

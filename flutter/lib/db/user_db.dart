@@ -34,7 +34,9 @@ class DBHelper {
         'email' : email,
       }),
     );
-    if (response.statusCode == 500) {
+    print('Response status: ${response.statusCode}');
+    print('name: ${name}');
+    if (response.statusCode == 200) {
       return User.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load user');
