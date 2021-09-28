@@ -19,36 +19,37 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class HotspotController {
 
-    private HotspotService activityService;
+    private HotspotService Service;
 
     @GetMapping("/api/hotspots")
     public List<Hotspot> getHotspots() {
         System.out.println("******Hotspot list");
-        return activityService.readHotspots();
+        return Service.readHotspots();
     }
 
     @GetMapping("/api/hotspots/{id}")
     public Hotspot getHotspot(@PathVariable("id") int id) {
         System.out.println("******Hotspot: " + id);
-        return activityService.readHotspot(id);
+        return Service.readHotspot(id);
     }
 
     @PostMapping("/api/hotspots")
     public Hotspot createHotspot(@RequestBody Hotspot hotspot) {
         System.out.println("******Create Hotspot");
-        return activityService.createHotspot(hotspot);
+        return Service.createHotspot(hotspot);
     }
 
     @PutMapping("/api/hotspots/{id}")
-    public Hotspot updateHotspot(@RequestBody Hotspot hotspot) {
+    public Hotspot updateHotspot(@PathVariable("id") int id, @RequestBody Hotspot hotspot) {
+        hotspot.setId(id);
         System.out.println("******Update Hotspot");
-        return activityService.updateHotspot(hotspot);
+        return Service.updateHotspot(hotspot);
     }
 
     @DeleteMapping("/api/hotspots/{id}")
     public String DeleteHotspot(@PathVariable("id") int id) {
         System.out.println("******Delete Hotspot");
-        activityService.deleteHotspot(id);
+        Service.deleteHotspot(id);
         System.out.println("******Delete Hotspot complete");
         return "delete id" + id;
     }
