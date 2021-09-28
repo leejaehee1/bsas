@@ -24,7 +24,8 @@ public class EventDayController {
             -> static resource 구조 형식
             -> css, js, img 등 resources 이하 권한 없이 접근 할 수 있는 url 작성
 
-            -> 느낌상 WebConfig에서 mvc 설정 해줘야 할 것 같고,
+            -> MVC
+            -> 느낌상 WebConfig에서 설정 해줘야 할 것 같고,
             -> 검색해보니 Devtools로 실시간 반영하는 게 있음
             -> Controller, WebConfig, application.yml 등만 수정하게 될 것 같음
             */
