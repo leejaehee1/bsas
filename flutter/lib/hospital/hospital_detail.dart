@@ -16,7 +16,7 @@ class _DetailHospitalState extends State<HospitalDetail> {
   HospitalDBHelper databaseHelper = HospitalDBHelper();
 
   _deleteHospital(BuildContext context) async {
-    final result = await Navigator.push(
+    var result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HosHomeScreen()),
     );
