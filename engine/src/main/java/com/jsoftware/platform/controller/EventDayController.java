@@ -26,7 +26,7 @@ public class EventDayController {
 
             -> MVC
             -> 느낌상 WebConfig에서 설정 해줘야 할 것 같고,
-            -> 검색해보니 Devtools로 실시간 반영하는 게 있음
+            -> 검색해보니 Devtools로 실시간 반영하는 게 있음. 유용할까?
             -> Controller, WebConfig, application.yml 등만 수정하게 될 것 같음
             */
 
