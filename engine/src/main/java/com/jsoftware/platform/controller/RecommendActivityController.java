@@ -48,9 +48,9 @@ public class RecommendActivityController {
 
     @DeleteMapping("/api/recommendActivity/{id}")
     public String DeleteRecommendActivity(@PathVariable("id") int id) {
-        System.out.println("******Delete RecommendActivity");
+        System.out.println("******Delete RecommendActivity" + id);
         activityService.deleteRecommendActivity(id);
-        System.out.println("******Delete Hotspot RecommendActivity");
+        System.out.println("******Delete RecommendActivity complete");
         return "delete id" + id;
     }
 }

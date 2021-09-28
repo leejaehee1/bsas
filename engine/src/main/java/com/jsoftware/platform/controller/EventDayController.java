@@ -48,9 +48,9 @@ public class EventDayController {
 
     @DeleteMapping("/api/eventDay/{id}")
     public String DeleteEventDay(@PathVariable("id") int id) {
-        System.out.println("delete EventDay" + id);
+        System.out.println("****** delete EventDay" + id);
         Service.deleteEventDay(id);
-        System.out.println(id + "delete EventDay complete ****** ");
+        System.out.println("delete EventDay complete ****** ");
         return "delete id" + id;
     }
 }

@@ -42,7 +42,8 @@ public class TodaysHeadlineRepositoryImpl implements TodaysHeadlineRepository{
     }
 
     @Override
-    public void deleteTodaysHeadline(int id) {
+    public String deleteTodaysHeadline(int id) {
         sqlSessionTemplate.delete("deleteTodaysHeadline", id);
+        return "id" +id;
     }
 }

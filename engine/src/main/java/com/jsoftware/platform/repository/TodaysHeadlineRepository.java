@@ -16,5 +16,5 @@ public interface TodaysHeadlineRepository {
 
     void updateTodaysHeadline(TodaysHeadline todaysHeadline);
 
-    void deleteTodaysHeadline(int id);
+    String deleteTodaysHeadline(int id);
 }

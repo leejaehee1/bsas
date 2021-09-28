@@ -40,8 +40,9 @@ public class TodaysHeadlineService {
     }
 
     @Transactional
-    public void deleteTodaysHeadline(int id) {
+    public String deleteTodaysHeadline(int id) {
         repository.deleteTodaysHeadline(id);
+        return "id" +id;
     }
 
 }
