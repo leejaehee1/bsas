@@ -1,8 +1,13 @@
+import 'package:bsas/components/event_list.dart';
+import 'package:bsas/db/event_day_db.dart';
+import 'package:bsas/model/event_banner.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
-import 'emergency_page.dart';
+import 'package:bsas/model/event_banner.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class PersonPage extends StatefulWidget {
   @override
@@ -25,6 +30,28 @@ class _PersonPageState extends State<PersonPage> {
 
   bool showAvg = false;
 
+  late List list;
+
+  //img db 불러오기
+  Future<dynamic> getBanner() async {
+    var url = "img_url";
+    var response = await http.get(Uri.parse(url));
+    print(response.body);
+
+    setState(() {
+      var imageConvertedToJson = json.decode(response.body);
+      List result = imageConvertedToJson['img'];
+      list.addAll(result);
+    });
+    return response.body;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getBanner();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +63,7 @@ class _PersonPageState extends State<PersonPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 10),
                 child: Text(
@@ -161,32 +189,40 @@ class _PersonPageState extends State<PersonPage> {
                   ),
                 ),
               ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // 활동 내역
-                        ListTile(
-                          leading: Icon(Icons.run_circle_rounded, color: Colors.blueAccent),
-                          title: Text('건강 목표 도달 이벤트'),
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.check_box_rounded, color: Colors.blueAccent),
-                          title: Text('건강 체크 이벤트'),
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.assignment_rounded, color: Colors.blueAccent),
-                          title: Text('사전 예약 이벤트'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(5.0),
+              //     child: Center(
+              //       child: FutureBuilder<List>(
+              //         future: getEventDay(),
+              //         builder: (context, snapshot) {
+              //          if (snapshot.hasData)
+              //            return Center(
+              //              child: CircularProgressIndicator(),
+              //            );
+              //          return ListView.builder(
+              //              itemCount: list == null ? 0 : list.length,
+              //              itemBuilder: (context, i) {
+              //                return Card(
+              //                  child: Column(
+              //                    mainAxisSize: MainAxisSize.min,
+              //                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //                    children: [
+              //                      // 활동 내역
+              //                      ListTile(
+              //                          leading: Image.network(list[i]['img_url'].toString()),
+              //                          title: Text(list[i]['title'].toString())
+              //                      ),
+              //                    ],
+              //                  ),
+              //                );
+              //              }
+              //          );
+              //         },
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 10),
@@ -256,9 +292,9 @@ class _PersonPageState extends State<PersonPage> {
                 child: Text(
                   "YOUTUBE 인기채널",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -887,5 +923,3 @@ class _PersonPageState extends State<PersonPage> {
     );
   }
 }
-
-
