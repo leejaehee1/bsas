@@ -31,6 +31,18 @@ class _DetailCenterState extends State<CenterDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF43aa8b),
+        title: Text(
+          "상제 정보",
+          style: TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         height: 270.0,
         padding: const EdgeInsets.all(20.0),

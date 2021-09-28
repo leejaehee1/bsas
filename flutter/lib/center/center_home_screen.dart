@@ -1,3 +1,4 @@
+import 'package:bsas/center/center_data_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,9 +18,10 @@ class CenterHomeScreenState extends State {
   late List list;
 
   Future<List> getCenterData() async {
-    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/centers"));
+    var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/centers"));
     return json.decode(response.body);
   }
+
   _navigateCenter(BuildContext context) async {
     final result = await Navigator.push(
       context,
@@ -84,52 +86,60 @@ class CenterList extends StatelessWidget {
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
-        return Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height: 100.3,
-                child: new Card(
-                  color: Colors.white,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min, // add this
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Text(
-                                list[i]['name'].toString(),
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.black87),
-                              ),
+        return Container(
+          child: GestureDetector(
+            onTap: () => Navigator.push(context, 
+                MaterialPageRoute(builder: (context) => CenterDetail(
+                    index: i, 
+                    list: list))),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    height: 100.3,
+                    child: new Card(
+                      color: Colors.white,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min, // add this
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    list[i]['name'].toString(),
+                                    style: TextStyle(
+                                        fontSize: 20.0, color: Colors.black87),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    list[i]['phone'].toString(),
+                                    style: TextStyle(
+                                        fontSize: 20.0, color: Colors.black87),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Text(
-                                list[i]['phone'].toString(),
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.black87),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         );
       },
     );

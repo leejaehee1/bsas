@@ -37,7 +37,7 @@ class _EditCenterState extends State<EditCenter> {
   @override
   void initState() {
     _idController = TextEditingController(
-        text: widget.list[widget.index]['name'].toString());
+        text: widget.list[widget.index]['id'].toString());
     _nameController = TextEditingController(
         text: widget.list[widget.index]['name'].toString());
     _phoneController = TextEditingController(
@@ -52,6 +52,18 @@ class _EditCenterState extends State<EditCenter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF43aa8b),
+        title: Text(
+          "편집 : '${widget.list[widget.index]['name']}'",
+          style: TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Form(
         child: ListView(
           padding: const EdgeInsets.all(10.0),
