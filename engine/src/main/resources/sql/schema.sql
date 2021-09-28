@@ -30,8 +30,7 @@ CREATE TABLE `center` (
 CREATE TABLE `event_day` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
   `title` varchar(100) NOT NULL COMMENT '제목',
-  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
-  `contents` varchar(3000) NOT NULL COMMENT '내용',
+  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL'
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='오늘의이벤트';
 
@@ -79,8 +78,7 @@ CREATE TABLE `hotspot` (
 CREATE TABLE `todaysheadline` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
   `title` varchar(100) NOT NULL COMMENT '제목',
-  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
-  `contents` varchar(3000) NOT NULL COMMENT '내용',
+  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL'
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='오늘의헤드라인';
 
