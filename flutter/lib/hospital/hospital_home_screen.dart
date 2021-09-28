@@ -17,7 +17,7 @@ class HosHomeScreenState extends State {
   late List list;
 
   Future<List> getHosData() async {
-    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/hospitals"));
+    var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/hospitals"));
     return json.decode(response.body);
   }
   _navigateHospital(BuildContext context) async {
