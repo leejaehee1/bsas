@@ -17,14 +17,14 @@ class _EditHospitalState extends State<EditHospital> {
 
   HospitalDBHelper databaseHelper = HospitalDBHelper();
 
-  TextEditingController _idController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _publicPhoneController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _idController = TextEditingController();
 
   _navigateHospitalList(BuildContext context) async {
-    final result = await Navigator.push(
+    final result = await Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HosHomeScreen()));
 
@@ -36,7 +36,7 @@ class _EditHospitalState extends State<EditHospital> {
   @override
   void initState() {
     _idController = TextEditingController(
-        text: widget.list[widget.index]['name'].toString());
+        text: widget.list[widget.index]['id'].toString());
     _nameController = TextEditingController(
         text: widget.list[widget.index]['name'].toString());
     _phoneController = TextEditingController(
@@ -54,7 +54,7 @@ class _EditHospitalState extends State<EditHospital> {
       appBar: AppBar(
         backgroundColor: Color(0xFF43aa8b),
         title: Text(
-          "편집 : ${widget.list[widget.index]['name']}",
+          "편집 : '${widget.list[widget.index]['name']}'",
           style: TextStyle(
             fontWeight: FontWeight.w900,
             fontSize: 20,
@@ -65,7 +65,7 @@ class _EditHospitalState extends State<EditHospital> {
       ),
       body: Form(
         child: ListView(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(30.0),
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -113,11 +113,11 @@ class _EditHospitalState extends State<EditHospital> {
                   title: TextFormField(
                     controller: _publicPhoneController,
                     validator: (value) {
-                      if (value!.isEmpty) return "PublicPhone";
+                      if (value!.isEmpty) return "publicPhone";
                     },
                     decoration: InputDecoration(
-                      hintText: "PublicPhone",
-                      labelText: "PublicPhone",
+                      hintText: "publicPhone",
+                      labelText: "publicPhone",
                     ),
                   ),
                 ),
@@ -135,14 +135,19 @@ class _EditHospitalState extends State<EditHospital> {
                     ),
                   ),
                 ),
-                const Divider(
+                Divider(
                   height: 1.0,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                 ),
                 RaisedButton(
-                  child: Text("Edit"),
+                  child: Text("Edit",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
                   color: Colors.blueAccent,
                   onPressed: () {
                     databaseHelper.updateHospital(

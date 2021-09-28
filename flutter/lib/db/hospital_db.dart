@@ -21,27 +21,6 @@ class HospitalDBHelper {
 
 
   //AddUser - Crud
-  // Future<Hospital> addHospital(String name, String phone, String publicPhone, String email) async {
-  //   final response = await http.post(
-  //     Uri.parse('http://54.180.102.153:18080/api/hospitals'),
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //     body: jsonEncode(<String, String>{
-  //       'hospitalName' : name,
-  //       'hospitalPhone' : phone,
-  //       'hospitalPublicPhone' : publicPhone,
-  //       'hospitalEmail' : email,
-  //     }),
-  //   );
-  //   print('Response status: ${response.statusCode}');
-  //   print('name: ${name} ');
-  //   if (response.statusCode == 200) {
-  //     return Hospital.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Failed to load hospital');
-  //   }
-  // }
   Future<http.Response> addHospital(String name, String phone, String publicPhone, String email) async {
 
     Map hospital = {
@@ -65,47 +44,27 @@ class HospitalDBHelper {
 
 
   // update or put
-  Future<Hospital> updateHospital(String id, String name, String phone, String publicPhone, String email) async {
-    final response = await http.put(
-      Uri.parse('http://54.180.102.153:18080/api/hospitals/'+ id),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'hospitalId' : id,
-        'hospitalName' : name,
-        'hospitalPhone' : phone,
-        'hospitalPublicPhone' : publicPhone,
-        'hospitalEmail' : email,
-      }),
-    );
-    print('Response status: ${response.statusCode}');
-    print('name: ${name}');
+  Future<http.Response> updateHospital(String id, String name, String phone, String publicPhone, String email) async {
 
-    if (response.statusCode == 200) {
-      return Hospital.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to update hospitals.');
-    }
+    var url = 'http://54.180.102.153:18080/api/hospitals/'+ id;
+
+    Map hospital = {
+      'id' : id,
+      'name' : name,
+      'phone' : phone,
+      'publicPhone' : publicPhone,
+      'email' : email
+    };
+
+    var body = json.encode(hospital);
+
+    var response = await http.put(Uri.parse(url),
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body: body);
+    print('${response.statusCode}');
+    print('${response.body}');
+    return response;
   }
-  // Future<http.Response> updateHospital(String id, String name, String phone, String publicPhone, String email) async {
-  //   Map data = {
-  //     'id' : id,
-  //     'name' : name,
-  //     'phone' : phone,
-  //     'publicPhone' : publicPhone,
-  //     'email' : email
-  //   };
-  //
-  //   var body = json.encode(data);
-  //
-  //   var response = await http.put(Uri.parse('http://54.180.102.153:18080/api/hospitals/{id}'),
-  //       headers: {'Content-Type': 'application/json; charset=UTF-8'},
-  // body: body);
-  //   print('${response.statusCode}');
-  //   print('${response.body}');
-  //   return response;
-  // }
 
 
   //delete
