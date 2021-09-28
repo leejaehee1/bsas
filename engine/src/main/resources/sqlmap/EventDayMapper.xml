@@ -7,7 +7,6 @@
         SELECT id
              , title
              , img_url
-             , contents
         FROM event_day
     </select>
 
@@ -15,21 +14,19 @@
         SELECT id
         , title
         , img_url
-        , contents
         FROM event_day
         WHERE id = #{id}
     </select>
 
     <insert id="insertEventDay" parameterType="com.jsoftware.platform.model.EventDay">
-        INSERT INTO event_day (title, img_url, contents)
-        VALUES (#{title}, #{img_url}, #{contents})
+        INSERT INTO event_day (title, img_url)
+        VALUES (#{title}, #{img_url})
     </insert>
 
     <update id="updateEventDay" parameterType="com.jsoftware.platform.model.EventDay">
         UPDATE event_day
         SET title = #{title},
         img_url = #{img_url},
-        contents = #{contents}
         WHERE id = #{id}
     </update>
 

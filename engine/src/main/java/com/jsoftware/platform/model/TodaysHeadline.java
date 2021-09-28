@@ -16,5 +16,4 @@ public class TodaysHeadline {
     private int id;
     private String title;
     private String img_url;
-    private String contents;
 }

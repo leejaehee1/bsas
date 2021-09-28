@@ -7,7 +7,6 @@
         SELECT id
              , title
              , img_url
-             , contents
         FROM todaysheadline
     </select>
 
@@ -15,21 +14,19 @@
         SELECT id
         , title
         , img_url
-        , contents
         FROM todaysheadline
         WHERE id = #{id}
     </select>
 
     <insert id="insertTodaysHeadline" parameterType="com.jsoftware.platform.model.TodaysHeadline">
-        INSERT INTO todaysheadline (title, img_url, contents)
-        VALUES (#{title}, #{img_url}, #{contents})
+        INSERT INTO todaysheadline (title, img_url)
+        VALUES (#{title}, #{img_url})
     </insert>
 
     <update id="updateTodaysHeadline" parameterType="com.jsoftware.platform.model.TodaysHeadline">
         UPDATE todaysheadline
         SET title = #{title},
         img_url = #{img_url},
-        contents = #{contents}
         WHERE id = #{id}
     </update>
 
