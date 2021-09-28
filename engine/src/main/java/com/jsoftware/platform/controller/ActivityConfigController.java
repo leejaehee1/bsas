@@ -12,16 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import javassist.NotFoundException;
-import lombok.extern.log4j.Log4j;
-import lombok.var;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;
 
@@ -126,10 +117,17 @@ public class ActivityConfigController {
     // U update update put
     // D delete delete delete
 
-    @PutMapping("/api/hospitals/{id}")
-    public Hospital putHospital(/*@PathVariable("id") int id, */@RequestBody Hospital hospital) {
+/*    @PutMapping("/api/hospitals/{id}")
+    public Hospital putHospital(*//*@PathVariable("id") int id, *//*@RequestBody Hospital hospital) {
 //        hospital.setId(id);
         System.out.println("Modify Hospital");
+        return activityConfigService.updateHospital(hospital);
+    }*/
+
+    @PutMapping("/api/hospitals/{id}")
+    public Hospital putHospital(@PathVariable("id") int id, @RequestBody Hospital hospital) {
+        hospital.setId(id);
+        System.out.println("Modify gogo");
         return activityConfigService.updateHospital(hospital);
     }
 
