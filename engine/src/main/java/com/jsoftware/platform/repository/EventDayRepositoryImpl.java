@@ -42,7 +42,8 @@ public class EventDayRepositoryImpl implements EventDayRepository{
     }
 
     @Override
-    public void deleteEventDay(int id) {
+    public String deleteEventDay(int id) {
         sqlSessionTemplate.delete("deleteEventDay", id);
+        return "id" + id;
     }
 }

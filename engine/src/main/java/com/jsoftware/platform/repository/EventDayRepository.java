@@ -16,5 +16,5 @@ public interface EventDayRepository {
 
     void updateEventDay(EventDay eventDay);
 
-    void deleteEventDay(int id);
+    String deleteEventDay(int id);
 }

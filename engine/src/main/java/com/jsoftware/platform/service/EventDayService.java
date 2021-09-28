@@ -40,7 +40,8 @@ public class EventDayService {
     }
 
     @Transactional
-    public void deleteEventDay(int id) {
+    public String deleteEventDay(int id) {
         repository.deleteEventDay(id);
+        return "id" +id;
     }
 }

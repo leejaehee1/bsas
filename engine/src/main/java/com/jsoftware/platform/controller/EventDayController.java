@@ -23,28 +23,34 @@ public class EventDayController {
 
     @GetMapping("/api/eventDay")
     public List<EventDay> getEventDays() {
-        System.out.println("******GET1 register");
+        System.out.println("****** EventDay list");
         return Service.readEventDays();
     }
 
     @GetMapping("/api/eventDay/{id}")
     public EventDay getEventDay(@PathVariable("id") int id) {
-        System.out.println(id);
+        System.out.println("****** getById EventDay" + id);
         return Service.readEventDay(id);
     }
 
     @PostMapping("/api/eventDay")
     public EventDay createEventDay(@RequestBody EventDay eventDay) {
+        System.out.println("****** Create EventDay");
         return Service.createEventDay(eventDay);
     }
 
     @PutMapping("/api/eventDay/{id}")
-    public EventDay updateEventDay(@RequestBody EventDay eventDay) {
+    public EventDay updateEventDay(@PathVariable("id") int id, @RequestBody EventDay eventDay) {
+        eventDay.setId(id);
+        System.out.println("****** Modify EventDay");
         return Service.updateEventDay(eventDay);
     }
 
     @DeleteMapping("/api/eventDay/{id}")
-    public void DeleteEventDay(@PathVariable("id") int id) {
+    public String DeleteEventDay(@PathVariable("id") int id) {
+        System.out.println("delete EventDay" + id);
         Service.deleteEventDay(id);
+        System.out.println(id + "delete EventDay complete ****** ");
+        return "delete id" + id;
     }
 }
