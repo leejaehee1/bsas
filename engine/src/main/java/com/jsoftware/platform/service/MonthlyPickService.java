@@ -40,8 +40,9 @@ public class MonthlyPickService {
     }
 
     @Transactional
-    public void deleteMonthlyPick(int id) {
+    public String deleteMonthlyPick(int id) {
         repository.deleteMonthlyPick(id);
+        return "id" +id;
     }
 
 }

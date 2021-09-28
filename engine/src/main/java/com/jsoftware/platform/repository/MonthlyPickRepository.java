@@ -17,5 +17,5 @@ public interface MonthlyPickRepository {
 
     void updateMonthlyPick(MonthlyPick monthlyPick);
 
-    void deleteMonthlyPick(int id);
+    String deleteMonthlyPick(int id);
 }

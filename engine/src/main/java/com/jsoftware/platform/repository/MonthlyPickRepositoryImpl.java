@@ -42,7 +42,8 @@ public class MonthlyPickRepositoryImpl implements MonthlyPickRepository{
     }
 
     @Override
-    public void deleteMonthlyPick(int id) {
+    public String deleteMonthlyPick(int id) {
         sqlSessionTemplate.delete("deleteMonthlyPick", id);
+        return "id" + id;
     }
 }
