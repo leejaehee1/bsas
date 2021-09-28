@@ -40,8 +40,9 @@ public class RecommendActivityService {
     }
 
     @Transactional
-    public void deleteRecommendActivity(int id) {
+    public String deleteRecommendActivity(int id) {
         repository.deleteRecommendActivity(id);
+        return "id" +id;
     }
 
 }

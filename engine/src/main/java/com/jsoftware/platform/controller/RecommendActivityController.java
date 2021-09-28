@@ -23,28 +23,34 @@ public class RecommendActivityController {
 
     @GetMapping("/api/recommendActivity")
     public List<RecommendActivity> getRecommendActivity() {
-        System.out.println("******GET1 register");
+        System.out.println("****** RecommendActivity list");
         return activityService.readRecommendActivities();
     }
 
     @GetMapping("/api/recommendActivity/{id}")
     public RecommendActivity getRecommendActivity(@PathVariable("id") int id) {
-        System.out.println(id);
+        System.out.println("****** RecommendActivity: " + id);
         return activityService.readRecommendActivity(id);
     }
 
     @PostMapping("/api/recommendActivity")
     public RecommendActivity createRecommendActivity(@RequestBody RecommendActivity recommendActivity) {
+        System.out.println("******Create RecommendActivity");
         return activityService.createRecommendActivity(recommendActivity);
     }
 
     @PutMapping("/api/recommendActivity/{id}")
-    public RecommendActivity updateRecommendActivity(@RequestBody RecommendActivity recommendActivity) {
+    public RecommendActivity updateRecommendActivity(@PathVariable("id") int id, @RequestBody RecommendActivity recommendActivity) {
+        recommendActivity.setId(id);
+        System.out.println("******Update RecommendActivity");
         return activityService.updateRecommendActivity(recommendActivity);
     }
 
     @DeleteMapping("/api/recommendActivity/{id}")
-    public void DeleteRecommendActivity(@PathVariable("id") int id) {
+    public String DeleteRecommendActivity(@PathVariable("id") int id) {
+        System.out.println("******Delete RecommendActivity");
         activityService.deleteRecommendActivity(id);
+        System.out.println("******Delete Hotspot RecommendActivity");
+        return "delete id" + id;
     }
 }

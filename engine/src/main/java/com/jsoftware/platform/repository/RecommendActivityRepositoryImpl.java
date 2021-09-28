@@ -42,7 +42,8 @@ public class RecommendActivityRepositoryImpl implements RecommendActivityReposit
     }
 
     @Override
-    public void deleteRecommendActivity(int id) {
+    public String deleteRecommendActivity(int id) {
         sqlSessionTemplate.delete("deleteRecommendActivity", id);
+        return "id" +id;
     }
 }

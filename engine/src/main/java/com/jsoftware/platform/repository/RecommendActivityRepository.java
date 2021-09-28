@@ -16,5 +16,5 @@ public interface RecommendActivityRepository {
 
     void updateRecommendActivity(RecommendActivity recommendActivity);
 
-    void deleteRecommendActivity(int id);
+    String deleteRecommendActivity(int id);
 }
