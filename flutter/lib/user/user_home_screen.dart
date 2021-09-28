@@ -17,7 +17,7 @@ class HomeScreenState extends State {
   late List list;
 
   Future<List> getData() async {
-    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/users"));
+    var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/users"));
     return json.decode(response.body);
   }
 
@@ -30,6 +30,7 @@ class HomeScreenState extends State {
       setState(() {});
     }
   }
+
 
 
 
