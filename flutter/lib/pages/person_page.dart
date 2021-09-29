@@ -78,19 +78,23 @@ class _PersonPageState extends State<PersonPage> {
 
   // 헤드라인 data 불러오기
   List? data;
-
-  Future<dynamic> getHeadline() async {
+  Future<List> getHeadline() async {
     var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/todaysHeadline"));
-    print("Response : ${response.statusCode}");
-    print(response.body);
-
-    setState(() {
-      var dataConvertedToJson = json.decode(response.body);
-      List result = dataConvertedToJson['headlines'];
-      data!.addAll(result);
-    });
-    return response.body;
+    return json.decode(response.body);
   }
+
+  // Future<dynamic> getHeadline() async {
+  //   var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/todaysHeadline"));
+  //   print("Response : ${response.statusCode}");
+  //   print(response.body);
+  //
+  //   setState(() {
+  //     var dataConvertedToJson = json.decode(response.body);
+  //     List result = dataConvertedToJson['headlines'];
+  //     data!.addAll(result);
+  //   });
+  //   return response.body;
+  // }
 
   @override
   void initState() {
@@ -244,25 +248,18 @@ class _PersonPageState extends State<PersonPage> {
                   // 오늘의 헤드라인 widget 불러오기
                   child: Card(
 
-                    child: Center(
-                      child: data!.length == 0
-                          ? Text(
-                        '데이터가 존재하지 않습니다.\n검색해주세요',
-                        style: TextStyle(fontSize: 20),
-                        textAlign: TextAlign.center,
-                      )
-                          :  ListView.builder(
-                          shrinkWrap: true,
-                            padding: EdgeInsets.all(8.0),
-                            itemCount: data!.length,
-                            // itemCount: _loadedHeadlines == null ? 0 : _loadedHeadlines.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                  leading: Image.network(data![index]['image'], width: 50, height: 50),
-                                  title: Text(data![index]['title'],)
-                              );
-                            }
-                        ),
+                    child: FutureBuilder<List>(
+                      future: getHeadline(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) print(snapshot.error);
+                        return snapshot.hasData
+                            ? _buildHeadline(
+                          list: snapshot.data!,
+                        )
+                            : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
                       ),
                     ),
                   ),
@@ -515,6 +512,7 @@ class _PersonPageState extends State<PersonPage> {
  }
 
  // todays_headline widget
+
  //  Widget _buildHeadline(BuildContext context) {
  //   return Card(
  //       child: ListView.builder(
@@ -988,3 +986,87 @@ class _PersonPageState extends State<PersonPage> {
     );
   }
 }
+
+class _buildHeadline extends StatelessWidget {
+  final List list;
+  _buildHeadline({required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: list.length,
+      itemBuilder: (context, i) {
+        return Card(
+          // shape: StadiumBorder(),
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: ListTile(
+              dense: true,
+              leading: Image.network(list[i]['image'].toString()),
+              title: Text(list[i]['title'].toString()),
+            ),
+          ),
+        );
+        //   Column(
+        //   children: [
+        //     Container(
+        //       padding: const EdgeInsets.all(10.0),
+        //       child: GestureDetector(
+        //         onTap: () => Navigator.push(context,
+        //             MaterialPageRoute(builder: (context) => UserDetail(
+        //               list: list,
+        //               index: i,
+        //             ))
+        //         ),
+        //         child: Container(
+        //           //color: Colors.black,
+        //           height: 100.3,
+        //           child: Card(
+        //             color: Colors.white,
+        //             child: Column(
+        //               mainAxisSize: MainAxisSize.min, // add this
+        //               crossAxisAlignment: CrossAxisAlignment.center,
+        //               children: [
+        //                 Padding(
+        //                   padding: const EdgeInsets.all(10.0),
+        //                   child: Row(
+        //                     children: [
+        //                       Container(
+        //                         child: Text(
+        //                           list[i]['name'].toString(),
+        //                           style: TextStyle(
+        //                               fontSize: 20.0, color: Colors.black87),
+        //                         ),
+        //                       ),
+        //                     ],
+        //                   ),
+        //                 ),
+        //                 Padding(
+        //                   padding: EdgeInsets.all(10.0),
+        //                   child: Row(
+        //                     children: [
+        //                       Container(
+        //                         child: Text(
+        //                           list[i]['phone'].toString(),
+        //                           style: TextStyle(
+        //                               fontSize: 20.0, color: Colors.black87),
+        //                         ),
+        //                       )
+        //                     ],
+        //                   ),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // );
+      },
+    );
+  }
+}
+

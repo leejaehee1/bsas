@@ -39,6 +39,8 @@ dependencies:
   google_maps_flutter:
   youtube_player_flutter:
   location:
+  carousel_slider:
+  carousel_pro:
 
 
 
