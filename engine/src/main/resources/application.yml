@@ -44,11 +44,11 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
   session:
     store-type: redis
-  redis:
-    host: localhost
-    #    password:
-    password:
-    port: 6379
+#  redis:
+#    host: localhost
+#    #    password:
+#    password:
+#    port: 6379
   security:
     user:
       name: sergey
@@ -68,3 +68,8 @@ management:
     web:
       exposure:
         include: "*"
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:static/
+    add-mappings: true

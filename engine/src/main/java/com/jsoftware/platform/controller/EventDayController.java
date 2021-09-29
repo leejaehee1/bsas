@@ -3,14 +3,19 @@ package com.jsoftware.platform.controller;
 import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.service.EventDayService;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -19,16 +24,36 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EventDayController {
 
-    /*이미지 배너 형식: 1~5개를 좌우 제스처로 보여줌
+    /*이미지 배너 형식: 1~5개를 좌우 스크롤로 보여줌
             -> 이미지를 전달할 수 있는 방법
             -> static resource 구조 형식
             -> css, js, img 등 resources 이하 권한 없이 접근 할 수 있는 url 작성
 
             -> MVC
             -> 느낌상 WebConfig에서 설정 해줘야 할 것 같고,
-            -> 검색해보니 Devtools로 실시간 반영하는 게 있음
+            -> 검색해보니 Devtools로 실시간 반영하는 게 있음. 유용할까?
             -> Controller, WebConfig, application.yml 등만 수정하게 될 것 같음
             */
+
+    // 이미지 직접 불러오기는 됨
+    // http://localhost:18080/mint.PNG
+
+    @PostMapping("/api/eventDay/{file}")
+    public String upload(@PathVariable("file") MultipartFile file,
+                         @RequestParam("name") String fileName,
+                         Model model) throws IllegalStateException, IOException {
+
+        if(!file.isEmpty()) {
+            File f = new File("c:\\upload", file.getOriginalFilename());
+            file.transferTo(f);
+        }
+
+        model.addAttribute("fileName", fileName);
+
+        return "upload_ok";
+    }
+
+
 
 
 
