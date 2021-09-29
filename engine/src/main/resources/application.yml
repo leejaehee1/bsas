@@ -69,7 +69,7 @@ management:
       exposure:
         include: "*"
   mvc:
-    static-path-pattern: /resources/**
+    static-path-pattern: /static/**
   resources:
-    static-locations: classpath:resources/
+    static-locations: classpath:static/
     add-mappings: true
