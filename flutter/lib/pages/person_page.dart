@@ -1,13 +1,60 @@
-import 'package:bsas/components/event_list.dart';
-import 'package:bsas/db/event_day_db.dart';
-import 'package:bsas/model/event_banner.dart';
+// import 'package:bsas/db/event_day_db.dart';
+// import 'package:bsas/model/event_banner.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:bsas/model/event_banner.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'dart:convert';
+
+final List<String> imgList = [
+  'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+  'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
+];
+
+//event_banner
+final List<Widget> imageSliders = imgList
+    .map((item) => Container(
+  child: Container(
+    margin: EdgeInsets.all(5.0),
+    child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        child: Stack(
+          children: <Widget>[
+            Image.network(item, fit: BoxFit.cover, width: 1000.0),
+            Positioned(
+              bottom: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(200, 0, 0, 0),
+                      Color.fromARGB(0, 0, 0, 0)
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 20.0),
+                child: Text(
+                  'No. ${imgList.indexOf(item)} image',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        )),
+  ),
+))
+    .toList();
 
 class PersonPage extends StatefulWidget {
   @override
@@ -33,24 +80,24 @@ class _PersonPageState extends State<PersonPage> {
   late List list;
 
   //img db 불러오기
-  Future<dynamic> getBanner() async {
-    var url = "img_url";
-    var response = await http.get(Uri.parse(url));
-    print(response.body);
-
-    setState(() {
-      var imageConvertedToJson = json.decode(response.body);
-      List result = imageConvertedToJson['img'];
-      list.addAll(result);
-    });
-    return response.body;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.getBanner();
-  }
+  // Future<dynamic> getBanner() async {
+  //   var url = "img_url";
+  //   var response = await http.get(Uri.parse(url));
+  //   print(response.body);
+  //
+  //   setState(() {
+  //     var imageConvertedToJson = json.decode(response.body);
+  //     List result = imageConvertedToJson['img'];
+  //     list.addAll(result);
+  //   });
+  //   return response.body;
+  // }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   this.getBanner();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +111,8 @@ class _PersonPageState extends State<PersonPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 10),
+              // banner 넣기
+              _eventBanner(context),
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 10),
                 child: Text(
@@ -430,44 +479,56 @@ class _PersonPageState extends State<PersonPage> {
                   ),
                 ),
               ),
-              // 긴급 호출 버튼 및 페이지 연결
-              // SizedBox(height: 20),
-              // GestureDetector(
-              //   onTap: (){
-              //     Navigator.push(context, MaterialPageRoute(builder: (builder) => EmergencyPage()));
-              //   },
-              //   child: Container(
-              //     height: 60,
-              //     margin:EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-              //     decoration: BoxDecoration(
-              //         color: Colors.red,
-              //         borderRadius: BorderRadius.circular(10),
-              //         // boxShadow: [
-              //         //   BoxShadow(
-              //         //       color: Colors.grey.withOpacity(0.4),
-              //         //       offset: Offset(2,5)
-              //         //   ),
-              //         // ]
-              //     ),
-              //     child: Center(
-              //       child: Text(
-              //         "긴급호출",
-              //         style: TextStyle(
-              //           fontWeight: FontWeight.bold,
-              //           fontSize: 30,
-              //           color: Colors.white,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 10)
             ],
           ),
         )
     );
   }
 
+  int _current = 0;
+  final CarouselController _bannerController = CarouselController();
+
+ Widget _eventBanner(context) {
+   return Column(
+     children: [
+       Container(
+         child: CarouselSlider(
+           items: imageSliders,
+           carouselController: _bannerController,
+           options: CarouselOptions(
+             autoPlay: true,
+             enlargeCenterPage: true,
+             aspectRatio: 2.0,
+             onPageChanged: (index, reason){
+               setState(() {
+                 _current = index;
+               });
+             }
+           ),
+         ),
+       ),
+       Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: imgList.asMap().entries.map((entry) {
+           return GestureDetector(
+             onTap: () => _bannerController.animateToPage(entry.key),
+             child: Container(
+               width: 12.0,
+               height: 12.0,
+               margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+               decoration: BoxDecoration(
+                   shape: BoxShape.circle,
+                   color: (Theme.of(context).brightness == Brightness.dark
+                       ? Colors.white
+                       : Colors.black)
+                       .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+             ),
+           );
+         }).toList(),
+       ),
+     ],
+   );
+ }
 
   // 차트
   LineChartData mainData() {
