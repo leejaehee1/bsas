@@ -46,19 +46,6 @@ public class EventDayController {
 
     //http://[서버]:18080/static/mint.PNG
 
-    /*@PostMapping("/eventDay")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<String> upload(@RequestPart List<MultipartFile> files) throws Exception {
-        List<String> list = new ArrayList<>();
-        for (MultipartFile file : files) {
-            String originalfileName = file.getOriginalFilename();
-            File dest = new File("C:/Image/" + originalfileName);
-            file.transferTo(dest);
-            // TODO
-        }
-        return list;
-    }*/
-
     /* 주석
     private EventDayService Service;
 

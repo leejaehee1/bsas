@@ -25,17 +25,6 @@ public class WebConfig implements WebMvcConfigurer {
                         .setCachePeriod(20);
     }
 
-    /*@Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("resources/js/**")
-                .addResourceLocations("classpath:/static/")
-                .setCacheControl(CacheControl.noCache().cachePrivate());
-        registry.addResourceHandler("resources/css/**")
-                .addResourceLocations("classpath:/static/")
-                .setCachePeriod(0); }*/
-
-
-
     /*@Bean
     public WebMvcConfigurer webMvcConfigurer() {
         return new WebMvcConfigurer() {
