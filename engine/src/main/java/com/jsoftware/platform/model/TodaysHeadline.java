@@ -16,4 +16,9 @@ public class TodaysHeadline {
     private int id;
     private String title;
     private String img_url;
+
+    @Override
+    public String toString() {
+        return String.format("todaysheadline[id='%d', title='%s', img_url='%s']", id, title, img_url);
+    }
 }
