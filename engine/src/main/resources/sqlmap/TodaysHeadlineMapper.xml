@@ -26,7 +26,7 @@
     <update id="updateTodaysHeadline" parameterType="com.jsoftware.platform.model.TodaysHeadline">
         UPDATE todaysheadline
         SET title = #{title},
-        img_url = #{img_url},
+        img_url = #{img_url}
         WHERE id = #{id}
     </update>
 
