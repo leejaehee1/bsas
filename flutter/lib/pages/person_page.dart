@@ -1,9 +1,10 @@
+import 'package:bsas/model/todays_headline.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -78,25 +79,24 @@ class _PersonPageState extends State<PersonPage> {
 
   late List list;
 
-  //img db 불러오기
-  // Future<dynamic> getBanner() async {
-  //   var url = "img_url";
-  //   var response = await http.get(Uri.parse(url));
-  //   print(response.body);
-  //
-  //   setState(() {
-  //     var imageConvertedToJson = json.decode(response.body);
-  //     List result = imageConvertedToJson['img'];
-  //     list.addAll(result);
-  //   });
-  //   return response.body;
-  // }
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   this.getBanner();
-  // }
+  // 헤드라인 data 불러오기
+  Future<List> getHeadline() async {
+    var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/users"));
+    print(response.body);
+
+    setState(() {
+      // var imageConvertedToJson = json.decode(response.body);
+      // List result = imageConvertedToJson['img'];
+      // list.addAll(result);
+    });
+    return json.decode(response.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getHeadline();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -237,40 +237,6 @@ class _PersonPageState extends State<PersonPage> {
                   ),
                 ),
               ),
-              // Container(
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(5.0),
-              //     child: Center(
-              //       child: FutureBuilder<List>(
-              //         future: getEventDay(),
-              //         builder: (context, snapshot) {
-              //          if (snapshot.hasData)
-              //            return Center(
-              //              child: CircularProgressIndicator(),
-              //            );
-              //          return ListView.builder(
-              //              itemCount: list == null ? 0 : list.length,
-              //              itemBuilder: (context, i) {
-              //                return Card(
-              //                  child: Column(
-              //                    mainAxisSize: MainAxisSize.min,
-              //                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //                    children: [
-              //                      // 활동 내역
-              //                      ListTile(
-              //                          leading: Image.network(list[i]['img_url'].toString()),
-              //                          title: Text(list[i]['title'].toString())
-              //                      ),
-              //                    ],
-              //                  ),
-              //                );
-              //              }
-              //          );
-              //         },
-              //       ),
-              //     ),
-              //   ),
-              // ),
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 10),
@@ -287,27 +253,30 @@ class _PersonPageState extends State<PersonPage> {
               Container(
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // 활동 내역
-                        ListTile(
-                          leading: Icon(Icons.sick_rounded, color: Colors.red),
-                          title: Text('강추위에 뇌졸중 환자 급증'),
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.zoom_in_rounded, color: Colors.red),
-                          title: Text('뇌졸중에 좋은 보양 음식 추천'),
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.fact_check, color: Colors.red),
-                          title: Text('최근 10년간 뇌졸중 발병 추이 분석'),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: _buildHeadlineBody(context),  // 오늘의 헤드라인 widget 불러오기
+                  // child: Card(
+                  //   // 오늘의 헤드라인 widget 불러오기
+                  //   child: Column(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       // 활동 내역
+                  //       ListTile(
+                  //         // leading: Icon(Icons.sick_rounded, color: Colors.red),
+                  //         leading: Image.network('url'),
+                  //         title: Text('강추위에 뇌졸중 환자 급증'),
+                  //       ),
+                  //       ListTile(
+                  //         leading: Icon(Icons.zoom_in_rounded, color: Colors.red),
+                  //         title: Text('뇌졸중에 좋은 보양 음식 추천'),
+                  //       ),
+                  //       ListTile(
+                  //         leading: Icon(Icons.fact_check, color: Colors.red),
+                  //         title: Text('최근 10년간 뇌졸중 발병 추이 분석'),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ),
               ),
               SizedBox(height: 10),
@@ -533,6 +502,54 @@ class _PersonPageState extends State<PersonPage> {
      ],
    );
  }
+ 
+ // todays_headline widget
+  FutureBuilder<List<TodaysHeadline>> _buildHeadlineBody(context) {
+   return FutureBuilder(
+       builder: (context, snapshot) {
+         if(snapshot.connectionState == ConnectionState.done) {
+           final List<TodaysHeadline> headlines = snapshot.data!;
+           return _buildHeadline(context, headlines);
+         } else {
+           return Center(
+             child: CircularProgressIndicator(),
+           );
+         }
+       });
+  }
+  ListView _buildHeadline(BuildContext context, List<TodaysHeadline> headlines) {
+   return ListView.builder(
+     itemCount: headlines.length,
+       itemBuilder: (context, index) {
+       return Card(
+         // 오늘의 헤드라인 widget 불러오기
+         child: Column(
+           mainAxisSize: MainAxisSize.min,
+           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           children: [
+             // 활동 내역
+             ListTile(
+               // leading: Icon(Icons.sick_rounded, color: Colors.red),
+               leading: Image.network(headlines[index].img_url!,
+                   // width: 50, height: 50
+               ),
+               title: Text(headlines[index].title!),
+             ),
+             ListTile(
+               leading: Image.network(headlines[index].img_url!),
+               title: Text(headlines[index].title!),
+             ),
+             ListTile(
+               leading: Image.network(headlines[index].img_url!),
+               title: Text(headlines[index].title!),
+             ),
+           ],
+         ),
+       );
+       });
+  }
+
+
 
   // 차트
   LineChartData mainData() {
