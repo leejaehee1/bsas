@@ -1,19 +1,18 @@
-// import 'package:bsas/db/event_day_db.dart';
-// import 'package:bsas/model/event_banner.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'package:bsas/model/event_banner.dart';
 // import 'package:http/http.dart' as http;
 // import 'dart:convert';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
   'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
+  // img 파일일 경우 img파일 경로를 불러오면 됨 예) images(파일명)/image.png(이미지 이름+확장자),
+  'http://54.180.102.153:18080/static/mint.PNG',
 ];
 
-//event_banner
+//event_banner ui
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
   child: Container(
@@ -41,7 +40,7 @@ final List<Widget> imageSliders = imgList
                 padding: EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 20.0),
                 child: Text(
-                  'No. ${imgList.indexOf(item)} image',
+                  '${imgList.indexOf(item)} / ${imgList.length}',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -112,7 +111,7 @@ class _PersonPageState extends State<PersonPage> {
             children: <Widget>[
               SizedBox(height: 10),
               // banner 넣기
-              _eventBanner(context),
+              _eventBanner(context), // image_banner 호출 위젯으로 이동
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 10),
                 child: Text(
@@ -484,26 +483,31 @@ class _PersonPageState extends State<PersonPage> {
         )
     );
   }
-
+  // event_banner widget
   int _current = 0;
   final CarouselController _bannerController = CarouselController();
 
  Widget _eventBanner(context) {
    return Column(
      children: [
-       Container(
-         child: CarouselSlider(
-           items: imageSliders,
-           carouselController: _bannerController,
-           options: CarouselOptions(
-             autoPlay: true,
-             enlargeCenterPage: true,
-             aspectRatio: 2.0,
-             onPageChanged: (index, reason){
-               setState(() {
-                 _current = index;
-               });
-             }
+       Padding(
+         padding: EdgeInsets.all(16.0),
+         child: Container(
+           child: CarouselSlider(
+             items: imageSliders,
+             carouselController: _bannerController,
+             options: CarouselOptions(
+               autoPlay: true, // 자동 paly
+               enlargeCenterPage: true,
+               height: 150, //image 높이 조절
+               viewportFraction: 1.0, // 페이지가 차지하는 영역 비율
+               // aspectRatio: 2.0,
+               onPageChanged: (index, reason){
+                 setState(() {
+                   _current = index;
+                 });
+               }
+             ),
            ),
          ),
        ),
