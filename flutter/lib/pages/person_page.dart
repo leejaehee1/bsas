@@ -83,19 +83,6 @@ class _PersonPageState extends State<PersonPage> {
     return json.decode(response.body);
   }
 
-  // Future<dynamic> getHeadline() async {
-  //   var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/todaysHeadline"));
-  //   print("Response : ${response.statusCode}");
-  //   print(response.body);
-  //
-  //   setState(() {
-  //     var dataConvertedToJson = json.decode(response.body);
-  //     List result = dataConvertedToJson['headlines'];
-  //     data!.addAll(result);
-  //   });
-  //   return response.body;
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -247,7 +234,6 @@ class _PersonPageState extends State<PersonPage> {
                   padding: const EdgeInsets.all(5.0),
                   // 오늘의 헤드라인 widget 불러오기
                   child: Card(
-
                     child: FutureBuilder<List>(
                       future: getHeadline(),
                       builder: (context, snapshot) {
@@ -510,27 +496,6 @@ class _PersonPageState extends State<PersonPage> {
      ],
    );
  }
-
- // todays_headline widget
-
- //  Widget _buildHeadline(BuildContext context) {
- //   return Card(
- //       child: ListView.builder(
- //         padding: EdgeInsets.all(8.0),
- //         itemCount: _loadedHeadlines == null ? 0 : _loadedHeadlines.length,
- //           itemBuilder: (BuildContext context, index) {
- //           return ListTile(
- //           leading: Image.network(_loadedHeadlines[index]['image']),
- //            title: Text(_loadedHeadlines[index]['title'],
- //           )
- //           // Column(
- //           //   mainAxisSize: MainAxisSize.min,
- //           //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
- //           );
- //           }
- //           ),
- //     );
- //  }
 
   // 차트
   LineChartData mainData() {
@@ -1009,62 +974,6 @@ class _buildHeadline extends StatelessWidget {
             ),
           ),
         );
-        //   Column(
-        //   children: [
-        //     Container(
-        //       padding: const EdgeInsets.all(10.0),
-        //       child: GestureDetector(
-        //         onTap: () => Navigator.push(context,
-        //             MaterialPageRoute(builder: (context) => UserDetail(
-        //               list: list,
-        //               index: i,
-        //             ))
-        //         ),
-        //         child: Container(
-        //           //color: Colors.black,
-        //           height: 100.3,
-        //           child: Card(
-        //             color: Colors.white,
-        //             child: Column(
-        //               mainAxisSize: MainAxisSize.min, // add this
-        //               crossAxisAlignment: CrossAxisAlignment.center,
-        //               children: [
-        //                 Padding(
-        //                   padding: const EdgeInsets.all(10.0),
-        //                   child: Row(
-        //                     children: [
-        //                       Container(
-        //                         child: Text(
-        //                           list[i]['name'].toString(),
-        //                           style: TextStyle(
-        //                               fontSize: 20.0, color: Colors.black87),
-        //                         ),
-        //                       ),
-        //                     ],
-        //                   ),
-        //                 ),
-        //                 Padding(
-        //                   padding: EdgeInsets.all(10.0),
-        //                   child: Row(
-        //                     children: [
-        //                       Container(
-        //                         child: Text(
-        //                           list[i]['phone'].toString(),
-        //                           style: TextStyle(
-        //                               fontSize: 20.0, color: Colors.black87),
-        //                         ),
-        //                       )
-        //                     ],
-        //                   ),
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // );
       },
     );
   }
