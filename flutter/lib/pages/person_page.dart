@@ -78,6 +78,24 @@ class _PersonPageState extends State<PersonPage> {
 
   // 헤드라인 data 불러오기
   List? data;
+  List? imagesUrl = [];
+
+  // Future<String> getHeadline() async {
+  //   var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/todaysHeadline"));
+  //   var fetchData = jsonDecode(response.body);
+  //
+  //   setState(() {
+  //     // data = fetchData;
+  //     // data!.forEach((element) {
+  //     //   imagesUrl!.add(element['url']);
+  //     // });
+  //     data = json.decode(response.body)['result'];
+  //   });
+  //
+  //   // return json.decode(response.body);
+  //   // return fetchData;
+  //   return "successful";
+  // }
   Future<List> getHeadline() async {
     var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/todaysHeadline"));
     return json.decode(response.body);
@@ -969,7 +987,7 @@ class _buildHeadline extends StatelessWidget {
             margin: EdgeInsets.all(10),
             child: ListTile(
               dense: true,
-              leading: Image.network(list[i]['image'].toString()),
+              leading: Image.network(list[i].toString()),
               title: Text(list[i]['title'].toString()),
             ),
           ),
