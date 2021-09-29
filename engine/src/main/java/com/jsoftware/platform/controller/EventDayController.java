@@ -36,10 +36,10 @@ public class EventDayController {
             */
 
     // 이미지 직접 불러오기는 됨
-    // http://localhost:18080/static/mint.PNG
+    // http://localhost:18080/mint.PNG
 
-    @PostMapping("/api/eventDay")
-    public String upload(@RequestParam("file") MultipartFile file,
+    @PostMapping("/api/eventDay/{file}")
+    public String upload(@PathVariable("file") MultipartFile file,
                          @RequestParam("name") String fileName,
                          Model model) throws IllegalStateException, IOException {
 

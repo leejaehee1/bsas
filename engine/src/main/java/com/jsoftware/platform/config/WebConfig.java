@@ -15,11 +15,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                registry.addResourceHandler("/static/**")
+                registry.addResourceHandler("/resources/**")
                         // 사용자의 요청을 Resource로 맵핑할 경로를  적어준다.
                         // /static/ 이하로 오는 모든 요청을 resourceHandler에서 처리하겠다는 의미
                         // /resources/** 패턴 요청 시 classpath의 /m/ 디렉토리에서 정적 리소스를 찾아 응답하도록 하는 설정
-                        .addResourceLocations("classpath:/static/")
+                        .addResourceLocations("classpath:/resources/")
                         // 요청에 맵핑될 정적 자원들의 위치를 지정한다.
                         // setCachePeriod를 통해 캐싱 전략을 설정(초단위)
                         .setCachePeriod(20);
