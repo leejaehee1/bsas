@@ -3,6 +3,7 @@ package com.jsoftware.platform.controller;
 import com.jsoftware.platform.model.EventDay;
 import com.jsoftware.platform.service.EventDayService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -35,27 +39,25 @@ public class EventDayController {
             -> Controller, WebConfig, application.yml 등만 수정하게 될 것 같음
             */
 
-    // 이미지 직접 불러오기는 됨
+    // static 이하 폴더에 있는 파일들은 직접 불러오기는 됨
     // http://localhost:18080/mint.PNG
+    // http://localhost:18080/mint.html
+    // http://localhost:18080/hello.html
 
-    @PostMapping("/api/eventDay/{file}")
-    public String upload(@PathVariable("file") MultipartFile file,
-                         @RequestParam("name") String fileName,
-                         Model model) throws IllegalStateException, IOException {
+    //http://[서버]:18080/static/mint.PNG
 
-        if(!file.isEmpty()) {
-            File f = new File("c:\\upload", file.getOriginalFilename());
-            file.transferTo(f);
+    /*@PostMapping("/eventDay")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<String> upload(@RequestPart List<MultipartFile> files) throws Exception {
+        List<String> list = new ArrayList<>();
+        for (MultipartFile file : files) {
+            String originalfileName = file.getOriginalFilename();
+            File dest = new File("C:/Image/" + originalfileName);
+            file.transferTo(dest);
+            // TODO
         }
-
-        model.addAttribute("fileName", fileName);
-
-        return "upload_ok";
-    }
-
-
-
-
+        return list;
+    }*/
 
     /* 주석
     private EventDayService Service;

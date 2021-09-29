@@ -2,7 +2,6 @@ server:
 #  address: localhost
   port: 18080
 #  18080
-
 spring:
   application:
     name: ERP Basic Management Module
@@ -52,7 +51,7 @@ spring:
   security:
     user:
       name: sergey
-      password: sergey
+      password: sergeyvm
       roles: manager
   thymeleaf:
     prefix: classpath:templates/
