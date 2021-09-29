@@ -267,29 +267,6 @@ class _PersonPageState extends State<PersonPage> {
                       ),
                     ),
                   ),
-                    // child: Card(
-                    //   // 오늘의 헤드라인 widget 불러오기
-                    //   child: Column(
-                    //     mainAxisSize: MainAxisSize.min,
-                    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //     children: [
-                    //       // 활동 내역
-                    //       ListTile(
-                    //         // leading: Icon(Icons.sick_rounded, color: Colors.red),
-                    //         leading: Image.network('url'),
-                    //         title: Text()
-                    //       ),
-                    //       ListTile(
-                    //         leading: Icon(Icons.zoom_in_rounded, color: Colors.red),
-                    //         title: Text('뇌졸중에 좋은 보양 음식 추천'),
-                    //       ),
-                    //       ListTile(
-                    //         leading: Icon(Icons.fact_check, color: Colors.red),
-                    //         title: Text('최근 10년간 뇌졸중 발병 추이 분석'),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ),
               SizedBox(height: 10),
               Padding(
