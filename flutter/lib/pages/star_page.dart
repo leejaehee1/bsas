@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'package:bsas/db/monthly_pick_db.dart';
+import 'package:bsas/model/monthly_pick.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:http/http.dart' as http;
 
 class StarPage extends StatefulWidget {
   @override
@@ -32,6 +35,18 @@ class _StarPageState extends State<StarPage> {
     // Map<String, double>();
     // dataMap.putIfAbsent("latitude", 37.66809443);
     // dataMap.putIfAbsent("longitude", 126.74454984);
+  }
+
+  Future<List<MonthlyPick>> monthlyPick(http.Client client) async {
+    final response =
+    await client.get(Uri.parse("http://54.180.102.153:18080/api/monthlyPick"));
+    return parsePhotos(response.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.monthlyPick(http.Client());
   }
 
   Widget _contanier(String text, String url) {
@@ -154,35 +169,6 @@ class _StarPageState extends State<StarPage> {
                   ],
                 ),
               ),
-              //헬스 투어 정보
-              // Container(
-              //   padding: EdgeInsets.only(left: 16, top: 25),
-              //   child: Text(
-              //     '헬스 투어 정보', //gesture로 page 간 연결 필요
-              //     style: TextStyle(
-              //       fontSize: 30,
-              //       fontWeight: FontWeight.bold,
-              //       color: Colors.black,
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 5),
-              // Container(
-              //   height: MediaQuery.of(context).size.height * 3.5/7,
-              //   child: GridView.count(
-              //     primary: false,
-              //     padding: const EdgeInsets.all(20),
-              //     crossAxisSpacing: 10,
-              //     mainAxisSpacing: 10,
-              //     crossAxisCount: 2,
-              //     children: <Widget>[
-              //       _contanier('설문/투표', 'image/vote.jpg'),
-              //       _contanier('우리가게', 'image/market.jpg'),
-              //       _contanier('공간공유', 'image/space.jpg'),
-              //       _contanier('지식/재능공유', 'image/share.jpg'),
-              //     ],
-              //   ),
-              // ),
               //이달의 픽
               Container(
                 padding: EdgeInsets.only(left: 16, top: 25),
@@ -208,15 +194,28 @@ class _StarPageState extends State<StarPage> {
               ),
               SizedBox(height: 10),
               Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('image/share.jpg'),
-                      fit: BoxFit.fill
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Card(
+                    child: FutureBuilder<List<MonthlyPick>>(
+                      future: monthlyPick(http.Client()),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) print(snapshot.error);
+
+                        return snapshot.hasData
+                            ? _buildMonthlyPcik(
+                          list: snapshot.data!,
+                        )
+                            : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 10),
+              // 테마별 추천장소
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisAlignment: MainAxisAlignment.start,
@@ -297,6 +296,39 @@ class _StarPageState extends State<StarPage> {
             ],
           ),
         )
+    );
+  }
+}
+
+//monthly pick
+class _buildMonthlyPcik extends StatelessWidget {
+  final List<MonthlyPick> list;
+  _buildMonthlyPcik({required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: list.length,
+      itemBuilder: (context, index){
+        return Card(
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Container(
+            margin: EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Container(
+                  child: Image.network(list[index].img_url, width: 100, height: 50),
+                ),
+                ListTile(
+                  title: Text(list[index].title),
+                  subtitle: Text(list[index].contents),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
