@@ -1,9 +1,7 @@
 package com.jsoftware.platform.service;
 
 import com.jsoftware.platform.model.Board;
-import com.jsoftware.platform.model.Product;
 import com.jsoftware.platform.repository.BoardRepositoryImpl;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +17,37 @@ public class BoardService {
     }
 
     @Transactional
-    public void addBoard(Board board) {
-        repository.addBoard(board);
+    public Board getBoardOne(int id) {
+        Board board = new Board();
+        board.setId(id);
+        return repository.getBoardOne(id);
     }
 
-    public List<Board> getBoard(){
-        return repository.getBoard();
+    @Transactional
+    public List<Board> getBoards() {
+        return repository.getBoards();
     }
+
+    @Transactional
+    public Board addBoard(Board board) {
+        repository.addBoard(board);
+        return board;
+    }
+
+    @Transactional
+    public Board updateBoard(Board board) {
+        repository.updateBoard(board);
+        return board;
+    }
+
+    @Transactional
+    public void deleteBoard(int id) {
+        repository.deleteBoard(id);
+    }
+
+
+
+
 
 //    @Cacheable(key = "#size", value = "getBoards")
 //    public List<Board> getBoards(String size) {
