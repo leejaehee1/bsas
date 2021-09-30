@@ -7,7 +7,7 @@ List<MonthlyPick> parsePhotos(String responseBody) {
   return parsed.map<MonthlyPick>((json) => MonthlyPick.fromJson(json)).toList();
 }
 
-Future<List<MonthlyPick>> fetchPhotos(http.Client client) async {
+Future<List<MonthlyPick>> monthlyPick(http.Client client) async {
   final response =
   await client.get(Uri.parse("http://54.180.102.153:18080/api/monthlyPick"));
   return parsePhotos(response.body);
