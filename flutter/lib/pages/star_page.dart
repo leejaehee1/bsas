@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:bsas/db/monthly_pick_db.dart';
+import 'package:bsas/db/recommend_activity_db.dart';
 import 'package:bsas/model/monthly_pick.dart';
+import 'package:bsas/model/recommend_activity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -37,16 +39,25 @@ class _StarPageState extends State<StarPage> {
     // dataMap.putIfAbsent("longitude", 126.74454984);
   }
 
+  // monthly pick 호출
   Future<List<MonthlyPick>> monthlyPick(http.Client client) async {
     final response =
     await client.get(Uri.parse("http://54.180.102.153:18080/api/monthlyPick"));
     return parsePhotos(response.body);
   }
 
+  // recommend activity 호출
+  Future<List<RecommendActivity>> recommendActivity(http.Client client) async {
+    final response =
+    await client.get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
+    return recommendAct(response.body);
+  }
+
   @override
   void initState() {
     super.initState();
     this.monthlyPick(http.Client());
+    this.recommendActivity(http.Client());
   }
 
   Widget _contanier(String text, String url) {
@@ -180,7 +191,7 @@ class _StarPageState extends State<StarPage> {
               Container(
                 padding: EdgeInsets.only(left: 16, top: 25),
                 child: Text(
-                  '이달의 Pick',
+                  '추천활동',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -188,14 +199,38 @@ class _StarPageState extends State<StarPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
+              SizedBox(height: 10),
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Card(
+                    child: FutureBuilder<List<RecommendActivity>>(
+                      future: recommendActivity(http.Client()),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) print(snapshot.error);
+
+                        return snapshot.hasData
+                            ? _buildRecommendActivity(
+                          list: snapshot.data!,
+                        )
+                            : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              // 추천활동
+              //이달의 픽
+              Container(
+                padding: EdgeInsets.only(left: 16, top: 25),
                 child: Text(
-                  '코로나 시대 올바른 건강관리 ',
+                  '이달의 Pick',
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -220,7 +255,7 @@ class _StarPageState extends State<StarPage> {
                     ),
                   ),
                 ),
-              ), //
+              ),
               SizedBox(height: 10),
               Column(
                 children: [
@@ -332,6 +367,42 @@ class _buildMonthlyPick extends StatelessWidget {
             );
           },
         ),
+    );
+  }
+}
+
+//monthly pick
+class _buildRecommendActivity extends StatelessWidget {
+  final List<RecommendActivity> list;
+  _buildRecommendActivity({required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: list.length,
+        itemBuilder: (context, index){
+          return GestureDetector(
+            onTap: (){
+              // Navigator.push(context, MaterialPageRoute(builder: (_) => )); // 각 listview를 page에 연결
+            },
+            child: Container(
+              child: Card(
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: ListTile(
+                    leading: Image.network(list[index].img_url),
+                    title: Text(list[index].title),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
