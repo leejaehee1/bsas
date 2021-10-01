@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StarPage extends StatefulWidget {
   @override
@@ -343,37 +345,43 @@ class _buildMonthlyPick extends StatelessWidget {
           shrinkWrap: true,
           itemCount: list.length,
           itemBuilder: (context, index){
-            return GestureDetector(
-              onTap: (){
-                // Navigator.push(context, MaterialPageRoute(builder: (_) => )); // 각 listview를 page에 연결
-              },
-              child: Container(
-                child: Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                  child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Container(
-                              child: Image.network(list[index].img_url, height: 200)),
-                        ),
-                        Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
-                        SizedBox(height: 2),
-                        Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
-                      ],
-                    ),
+            return Container(
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Container(
+                            child: Image.network(list[index].img_url, height: 200)),
+                      ),
+                      Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
+                      SizedBox(height: 2),
+                      Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
+                    ],
                   ),
-              ),
+                ),
             );
           },
         ),
     );
   }
+
+  _launchMonthlyPick() async{
+    const url = 'http://54.180.102.153:18080/api/monthlyPick';
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not Launch %url';
+    }
+  }
 }
+
 
 //monthly pick
 class _buildRecommendActivity extends StatelessWidget {
   final List<RecommendActivity> list;
+
   _buildRecommendActivity({required this.list});
 
   @override
@@ -383,16 +391,14 @@ class _buildRecommendActivity extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: list.length,
-        itemBuilder: (context, index){
-          return GestureDetector(
-            onTap: (){
-              // Navigator.push(context, MaterialPageRoute(builder: (_) => )); // 각 listview를 page에 연결
-            },
-            child: Container(
-              child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Container(
-                  margin: EdgeInsets.all(10),
+        itemBuilder: (context, index) {
+          return Container(
+            child: Card(
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: InkWell(
+                  onTap: _launchRecommendActivity,
                   child: ListTile(
                     leading: Image.network(list[index].img_url),
                     title: Text(list[index].title),
@@ -404,5 +410,15 @@ class _buildRecommendActivity extends StatelessWidget {
         },
       ),
     );
+  }
+
+  // recommend activity url 이동
+  _launchRecommendActivity() async {
+    const url = 'http://54.180.102.153:18080/api/recommendActivity';
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not Launch %url';
+    }
   }
 }
