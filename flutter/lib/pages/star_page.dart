@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StarPage extends StatefulWidget {
@@ -336,52 +335,59 @@ class _buildMonthlyPick extends StatelessWidget {
   final List<MonthlyPick> list;
   _buildMonthlyPick({required this.list});
 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 300,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: list.length,
-          itemBuilder: (context, index){
-            return Container(
-              child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: InkWell(
-                          onTap: _launchMonthlyPick,
-                          child: Container(
-                              child: Image.network(list[index].img_url, height: 200)),
-                        ),
-                      ),
-                      Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
-                      SizedBox(height: 2),
-                      Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
-                    ],
-                  ),
-                ),
-            );
-          },
-        ),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: list.length,
+        itemBuilder: (context, index){
+          return Container( // card를 container로 감싸고
+            child: Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              child: Column(
+                // margin: EdgeInsets.all(10.0),
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: InkWell(
+                      // onTap: _launchMonthlyPick(index),
+                      child: Container(
+                          child: Image.network(list[index].img_url, height: 200)),
+                    ),
+                  ), // 기존 list tile을 제거하고 text 그대로 가져옴
+                  Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
+                  SizedBox(height: 2),
+                  Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
-  _launchMonthlyPick() async{
-    const url = 'http://54.180.102.153:18080/api/monthlyPick';
-    if (await canLaunch(url)) {
-      await launch(url, forceWebView: true);
-    } else {
-      throw 'Could not Launch %url';
-    }
-  }
+// List<String> _urlMonthlyPic = [
+//   'http://54.180.102.153:18080/api/monthlyPick/{id}',
+//   // 'http://54.180.102.153:18080/api/monthlyPick/5',
+//   // 'http://54.180.102.153:18080/api/monthlyPick/6',
+// ];
+//
+// _launchMonthlyPick(index) async{
+//   if (await canLaunch(_urlMonthlyPic[index])) {
+//     await launch(_urlMonthlyPic[index]);
+//   } else {
+//     throw 'Could not Launch $_urlMonthlyPic';
+//   }
+// }
 }
 
 
-//monthly pick
+//recommend activity pick
 class _buildRecommendActivity extends StatelessWidget {
   final List<RecommendActivity> list;
 
@@ -401,7 +407,7 @@ class _buildRecommendActivity extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: InkWell(
-                  onTap: _launchRecommendActivity,
+                  onTap: _launchRecommendActivity(index),
                   child: ListTile(
                     leading: Image.network(list[index].img_url),
                     title: Text(list[index].title),
@@ -416,12 +422,27 @@ class _buildRecommendActivity extends StatelessWidget {
   }
 
   // recommend activity url 이동
-  _launchRecommendActivity() async {
-    const url = 'http://54.180.102.153:18080/api/recommendActivity';
-    if (await canLaunch(url)) {
-      await launch(url, forceWebView: true);
+  // _launchRecommendActivity() async {
+  //   var url = 'http://54.180.102.153:18080/api/recommendActivity/';
+  //   if (await canLaunch(url)) {
+  //     await launch(url, forceWebView: true);
+  //   } else {
+  //     throw 'Could not Launch %url';
+  //   }
+  // }
+
+  List<String> _urlRecommendActivity = [
+    // 'http://54.180.102.153:18080/api/recommendActivity/{id}',
+    'http://54.180.102.153:18080/api/recommendActivity/4',
+    'http://54.180.102.153:18080/api/recommendActivity/5',
+    'http://54.180.102.153:18080/api/recommendActivity/6',
+  ];
+
+  _launchRecommendActivity(index) async{
+    if (await canLaunch(_urlRecommendActivity[index])) {
+      await launch(_urlRecommendActivity[index]);
     } else {
-      throw 'Could not Launch %url';
+      throw 'Could not Launch $_urlRecommendActivity';
     }
   }
 }
