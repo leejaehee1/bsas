@@ -62,8 +62,7 @@ CREATE TABLE `monthlypick` (
 CREATE TABLE `recommend_activity` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '번호',
   `title` varchar(100) NOT NULL COMMENT '제목',
-  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL',
-  `contents` varchar(3000) NOT NULL COMMENT '내용',
+  `img_url` varchar(3000) NOT NULL COMMENT '이미지URL'
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='추천활동';
 
