@@ -122,12 +122,16 @@ class _StarPageState extends State<StarPage> {
               ),
               SizedBox(height: 5),
               Container(
-                height: MediaQuery.of(context).size.height * 3.5 / 7,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 3.5 / 7,
                 child: GoogleMap(
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
-                        currentLocation!.latitude!, currentLocation!.longitude!),
+                        currentLocation!.latitude!,
+                        currentLocation!.longitude!),
                     // LatLng(37.66809443, 126.74454984),
                     zoom: 16,
                   ),
@@ -140,7 +144,7 @@ class _StarPageState extends State<StarPage> {
                 ),
               ),
               //////////////////////Googlemap end
-          // 커뮤니티
+              // 커뮤니티
               Container(
                 padding: EdgeInsets.only(left: 16, top: 25),
                 child: Text(
@@ -154,7 +158,10 @@ class _StarPageState extends State<StarPage> {
               ),
               SizedBox(height: 5),
               Container(
-                height: MediaQuery.of(context).size.height * 3.5/7,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 3.5 / 7,
                 child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.all(20),
@@ -203,7 +210,7 @@ class _StarPageState extends State<StarPage> {
                         if (snapshot.hasError) print(snapshot.error);
 
                         return snapshot.hasData
-                            ? _buildMonthlyPcik(
+                            ? _buildMonthlyPick(
                           list: snapshot.data!,
                         )
                             : Center(
@@ -213,22 +220,7 @@ class _StarPageState extends State<StarPage> {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              // 테마별 추천장소
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _text('테마 별 추천 장소'),
-                  SizedBox(height: 10),
-                  _subTitle('1. [서울]뚝섬한강공원'),
-                  _subTitle('2. [춘천]소양강스카이워크'),
-                  _subTitle('3. [강원]속초등대해수욕장'),
-                  _subTitle('4. [부산]감천문화마을'),
-                  _subTitle('5. [여수]하화도꽃섬길'),
-                ],
-              ),//
+              ), //
               SizedBox(height: 10),
               Column(
                 children: [
@@ -239,7 +231,7 @@ class _StarPageState extends State<StarPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                         _button(),
+                          _button(),
                           _button(),
                           _button(),
                         ],
@@ -282,7 +274,9 @@ class _StarPageState extends State<StarPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _text('나눔 정보'),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.add_box_rounded, ))// icon 컬러, size, navigator
+                      IconButton(
+                          onPressed: () {}, icon: Icon(Icons.add_box_rounded,))
+                      // icon 컬러, size, navigator
                     ],
                   ),
                   SizedBox(height: 10),
@@ -301,34 +295,44 @@ class _StarPageState extends State<StarPage> {
 }
 
 //monthly pick
-class _buildMonthlyPcik extends StatelessWidget {
+class _buildMonthlyPick extends StatelessWidget {
   final List<MonthlyPick> list;
-  _buildMonthlyPcik({required this.list});
+  _buildMonthlyPick({required this.list});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: list.length,
-      itemBuilder: (context, index){
-        return Card(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Container(
-            margin: EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Container(
-                  child: Image.network(list[index].img_url, width: 100, height: 50),
-                ),
-                ListTile(
-                  title: Text(list[index].title),
-                  subtitle: Text(list[index].contents),
-                )
-              ],
-            ),
-          ),
-        );
-      },
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: list.length,
+          itemBuilder: (context, index){
+            return GestureDetector(
+              onTap: (){
+                // Navigator.push(context, MaterialPageRoute(builder: (_) => )); // 각 listview를 page에 연결
+              },
+              child: Container(
+                child: Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                  child: Column(
+                    // margin: EdgeInsets.all(10.0),
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Container(
+                              child: Image.network(list[index].img_url, height: 200)),
+                        ),
+                        Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
+                        SizedBox(height: 2),
+                        Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
+                      ],
+                    ),
+                  ),
+              ),
+            );
+          },
+        ),
     );
   }
 }
