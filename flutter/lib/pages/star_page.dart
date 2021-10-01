@@ -352,8 +352,11 @@ class _buildMonthlyPick extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Container(
-                            child: Image.network(list[index].img_url, height: 200)),
+                        child: InkWell(
+                          onTap: _launchMonthlyPick,
+                          child: Container(
+                              child: Image.network(list[index].img_url, height: 200)),
+                        ),
                       ),
                       Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
                       SizedBox(height: 2),
