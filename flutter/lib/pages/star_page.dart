@@ -316,7 +316,6 @@ class _buildMonthlyPick extends StatelessWidget {
                 child: Card(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
                   child: Column(
-                    // margin: EdgeInsets.all(10.0),
                       children: [
                         Padding(
                           padding: EdgeInsets.all(8.0),
