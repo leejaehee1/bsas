@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+//
+
 @RestController
 public class ActivityConfigController {
 
@@ -70,6 +72,7 @@ public class ActivityConfigController {
         return activityConfigService.readUser(id);
     }*/
 
+    // 예외 처리 1. UserNotFoundException 클래스 생성
     @GetMapping("/api/users/{id}")
     public User readUser(@PathVariable("id") int id) {
         User user = activityConfigService.readUser(id);
