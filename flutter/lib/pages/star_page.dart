@@ -348,20 +348,27 @@ class _buildMonthlyPick extends StatelessWidget {
           return Container( // card를 container로 감싸고
             child: Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              child: Column(
-                // margin: EdgeInsets.all(10.0),
+              child: Stack(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: InkWell(
-                      // onTap: _launchMonthlyPick(index),
-                      child: Container(
-                          child: Image.network(list[index].img_url, height: 200)),
-                    ),
-                  ), // 기존 list tile을 제거하고 text 그대로 가져옴
-                  Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
-                  SizedBox(height: 2),
-                  Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
+                  Positioned(
+                      child: Column(
+                        children: [
+                          InkWell(
+                            onTap: _launchMonthlyPick(index),
+                              child: Image.network(list[index].img_url, height: 200,)),
+                          Text(list[index].title),
+                          SizedBox(height: 2),
+                          Text(list[index].contents)
+                        ],
+                      ))
+                  // Padding(
+                  //   padding: EdgeInsets.all(8.0),
+                  //   child: Container(
+                  //       child: Image.network(list[index].img_url, height: 200, width: 200,)),
+                  // ), // 기존 list tile을 제거하고 text 그대로 가져옴
+                  // Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
+                  // SizedBox(height: 2),
+                  // Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
                 ],
               ),
             ),
@@ -371,23 +378,23 @@ class _buildMonthlyPick extends StatelessWidget {
     );
   }
 
-// List<String> _urlMonthlyPic = [
-//   'http://54.180.102.153:18080/api/monthlyPick/{id}',
-//   // 'http://54.180.102.153:18080/api/monthlyPick/5',
-//   // 'http://54.180.102.153:18080/api/monthlyPick/6',
-// ];
-//
-// _launchMonthlyPick(index) async{
-//   if (await canLaunch(_urlMonthlyPic[index])) {
-//     await launch(_urlMonthlyPic[index]);
-//   } else {
-//     throw 'Could not Launch $_urlMonthlyPic';
-//   }
-// }
+List<String> _urlMonthlyPic = [
+  // 'http://54.180.102.153:18080/api/monthlyPick/{id}',
+  'http://54.180.102.153:18080/api/monthlyPick/5',
+  'http://54.180.102.153:18080/api/monthlyPick/6',
+];
+
+_launchMonthlyPick(index) async{
+  if (await canLaunch(_urlMonthlyPic[index])) {
+    await launch(_urlMonthlyPic[index]);
+  } else {
+    throw 'Could not Launch $_urlMonthlyPic';
+  }
+}
 }
 
 
-//recommend activity pick
+//recommend activity
 class _buildRecommendActivity extends StatelessWidget {
   final List<RecommendActivity> list;
 
@@ -406,12 +413,12 @@ class _buildRecommendActivity extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Container(
                 margin: EdgeInsets.all(10),
-                child: InkWell(
-                  onTap: _launchRecommendActivity(index),
-                  child: ListTile(
-                    leading: Image.network(list[index].img_url),
-                    title: Text(list[index].title),
-                  ),
+                child: ListTile(
+                  onTap: (){
+                    _launchRecommendActivity(index);
+                  },
+                  leading: Image.network(list[index].img_url),
+                  title: Text(list[index].title),
                 ),
               ),
             ),
@@ -421,22 +428,20 @@ class _buildRecommendActivity extends StatelessWidget {
     );
   }
 
-  // recommend activity url 이동
-  // _launchRecommendActivity() async {
-  //   var url = 'http://54.180.102.153:18080/api/recommendActivity/';
+  List<String> _urlRecommendActivity = [
+    // 'http://54.180.102.153:18080/api/recommendActivity/${id}',
+    'http://54.180.102.153:18080/api/recommendActivity/4',
+    'http://54.180.102.153:18080/api/recommendActivity/5',
+    'http://54.180.102.153:18080/api/recommendActivity/6',
+  ];
+  // Future<dynamic> _urlRecommendActivity(String id) async {
+  //   var url = 'http://54.180.102.153:18080/api/recommendActivity/' + id;
   //   if (await canLaunch(url)) {
   //     await launch(url, forceWebView: true);
   //   } else {
   //     throw 'Could not Launch %url';
   //   }
   // }
-
-  List<String> _urlRecommendActivity = [
-    // 'http://54.180.102.153:18080/api/recommendActivity/{id}',
-    'http://54.180.102.153:18080/api/recommendActivity/4',
-    'http://54.180.102.153:18080/api/recommendActivity/5',
-    'http://54.180.102.153:18080/api/recommendActivity/6',
-  ];
 
   _launchRecommendActivity(index) async{
     if (await canLaunch(_urlRecommendActivity[index])) {

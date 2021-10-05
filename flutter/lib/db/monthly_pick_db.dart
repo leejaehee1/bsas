@@ -14,11 +14,11 @@ Future<List<MonthlyPick>> monthlyPick(http.Client client) async {
   return parsePhotos(response.body);
 }
 
-Future<void> _launchMonthlyPick(String url, String id) async {
-  var url = 'http://54.180.102.153:18080/api/recommendActivity/' + id;
-  if (await canLaunch(url)) {
-    await launch(url, forceWebView: true);
-  } else {
-    throw 'Could not Launch %url';
-  }
-}
+// Future<void> _launchMonthlyPick(String url, String id) async {
+//   var url = 'http://54.180.102.153:18080/api/recommendActivity/' + id;
+//   if (await canLaunch(url)) {
+//     await launch(url, forceWebView: true);
+//   } else {
+//     throw 'Could not Launch %url';
+//   }
+// }
