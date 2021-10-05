@@ -20,8 +20,8 @@ public abstract class AbstractEbloBaseException extends RuntimeException {
         super(e);
     }
 
-    public AbstractEbloBaseException(String errorMessge, Throwable e) {
-        super(errorMessge, e);
+    public AbstractEbloBaseException(String errorMessage, Throwable e) {
+        super(errorMessage, e);
     }
 
     public abstract HttpStatus getHttpStatus();

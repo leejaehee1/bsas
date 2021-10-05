@@ -14,12 +14,12 @@ public class EbloNotFoundException extends AbstractEbloBaseException {
         super(e);
     }
 
-    public EbloNotFoundException(String errorMessge) {
-        super(errorMessge);
+    public EbloNotFoundException(String errorMessage) {
+        super(errorMessage);
     }
 
-    public EbloNotFoundException(String errorMessge, Throwable e) {
-        super(errorMessge, e);
+    public EbloNotFoundException(String errorMessage, Throwable e) {
+        super(errorMessage, e);
     }
 
     public HttpStatus getHttpStatus() {
@@ -31,4 +31,3 @@ public class EbloNotFoundException extends AbstractEbloBaseException {
         return null;
     }
 }
-
