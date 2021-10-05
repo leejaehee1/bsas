@@ -16,10 +16,9 @@ public class RecommendActivity {
     private int id;
     private String title;
     private String img_url;
-    private String contents;
 
     @Override
     public String toString() {
-        return String.format("recommend_activity[id='%d', title='%s', img_url='%s', contents='%s']", id, title, img_url, contents);
+        return String.format("recommend_activity[id='%d', title='%s', img_url='%s', contents='%s']", id, title, img_url);
     }
 }

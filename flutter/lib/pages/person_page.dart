@@ -1,3 +1,5 @@
+import 'package:bsas/db/todays_headline_db.dart';
+import 'package:bsas/model/todays_headline.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +42,7 @@ final List<Widget> imageSliders = imgList
                 padding: EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 20.0),
                 child: Text(
-                  '${imgList.indexOf(item)} / ${imgList.length}',
+                  '${imgList.indexOf(item)+1} / ${imgList.length}',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -77,35 +79,17 @@ class _PersonPageState extends State<PersonPage> {
   bool showAvg = false;
 
   // 헤드라인 data 불러오기
-  List? data;
-  List? imagesUrl = [];
-
-  // Future<String> getHeadline() async {
-  //   var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/todaysHeadline"));
-  //   var fetchData = jsonDecode(response.body);
-  //
-  //   setState(() {
-  //     // data = fetchData;
-  //     // data!.forEach((element) {
-  //     //   imagesUrl!.add(element['url']);
-  //     // });
-  //     data = json.decode(response.body)['result'];
-  //   });
-  //
-  //   // return json.decode(response.body);
-  //   // return fetchData;
-  //   return "successful";
-  // }
-  Future<List> getHeadline() async {
-    var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/todaysHeadline"));
-    return json.decode(response.body);
+  Future<List<TodaysHeadline>> fetchPhotos(http.Client client) async {
+    final response =
+    await client.get(Uri.parse("http://54.180.102.153:18080/api/todaysHeadline"));
+    return parsePhotos(response.body);
   }
 
   @override
   void initState() {
     super.initState();
-    this.getHeadline();
-  }
+    this.fetchPhotos(http.Client());
+  } //
 
   @override
   Widget build(BuildContext context) {
@@ -252,10 +236,11 @@ class _PersonPageState extends State<PersonPage> {
                   padding: const EdgeInsets.all(5.0),
                   // 오늘의 헤드라인 widget 불러오기
                   child: Card(
-                    child: FutureBuilder<List>(
-                      future: getHeadline(),
+                    child: FutureBuilder<List<TodaysHeadline>>(
+                      future: fetchPhotos(http.Client()),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) print(snapshot.error);
+
                         return snapshot.hasData
                             ? _buildHeadline(
                           list: snapshot.data!,
@@ -948,7 +933,7 @@ class _PersonPageState extends State<PersonPage> {
 }
 
 class _buildHeadline extends StatelessWidget {
-  final List list;
+  final List<TodaysHeadline> list;
   _buildHeadline({required this.list});
 
   @override
@@ -956,7 +941,7 @@ class _buildHeadline extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: list.length,
-      itemBuilder: (context, i) {
+      itemBuilder: (context, index) {
         return Card(
           // shape: StadiumBorder(),
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -964,8 +949,8 @@ class _buildHeadline extends StatelessWidget {
             margin: EdgeInsets.all(10),
             child: ListTile(
               dense: true,
-              leading: Image.network(list[i].toString()),
-              title: Text(list[i]['title'].toString()),
+              leading: Image.network(list[index].img_url),
+              title: Text(list[index].title),
             ),
           ),
         );

@@ -1,34 +1,27 @@
-import 'package:flutter/cupertino.dart';
 
 class MonthlyPick{
-  int? id;
-  String? title;
-  String? img_url;
-  String? contents;
-
+  final int id;
+  final String title;
+  final String contents;
+  final String img_url;
+  final String url;
 
   MonthlyPick({
+    required this.id,
     required this.title,
-    required this.img_url,
     required this.contents,
+    required this.img_url,
+    required this.url,
   });
-
-  MonthlyPick.withId({
-    this.id,
-    this.title,
-    this.img_url,
-    this.contents,
-  });
-
 
   //json 변환
   factory MonthlyPick.fromJson(Map<String, dynamic> json){
-    return MonthlyPick.withId(
-      // id : int.parse(json['id'].toString()),
+    return MonthlyPick(
       id: json['id'],
-      title: json['title'],
-      img_url: json['img_url'],
-      contents: json['contents'],
+      title: json['title'] as String,
+      contents: json['contents'] as String,
+      img_url: json['img_url'] as String,
+      url : json['url'] as String,
     );
   }
 }

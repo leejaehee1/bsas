@@ -2,15 +2,13 @@ import 'dart:convert';
 import 'package:bsas/model/recommend_activity.dart';
 import 'package:http/http.dart' as http;
 
-class RecommendActDb{
-  Future<RecommendActivity> getRecommendActivity() async {
-    var response = await http.get(Uri.parse("http://3.36.200.118:18080/api/recommendActivity")); //주소 넣기
-    print('Response status: ${response.statusCode}');
+List<RecommendActivity> recommendAct(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<RecommendActivity>((json) => RecommendActivity.fromJson(json)).toList();
+}
 
-    if (response.statusCode == 400) {
-      return RecommendActivity.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load user');
-    }
-  }
+Future<List<RecommendActivity>> recommendActivity(http.Client client) async {
+  final response =
+  await client.get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
+  return recommendAct(response.body);
 }

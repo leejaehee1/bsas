@@ -1,6 +1,7 @@
 package com.jsoftware.platform.repository;
 
 import com.jsoftware.platform.model.Board;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,8 +10,11 @@ import java.util.List;
 public interface BoardRepository {
 
     void addBoard(Board board);
-    public List<Board> getBoard();
-    public Board getBoardOne(Long id);
+    List<Board> getBoards();
+    Board getBoardOne(int id);
+    void updateBoard(Board board);
+    String deleteBoard(int id);
+
 
 //    public boolean addReply(Reply reply);
 //    public List<Reply> getReply(int boardIdx);

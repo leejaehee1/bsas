@@ -1,8 +1,14 @@
 import 'dart:async';
+import 'package:bsas/db/monthly_pick_db.dart';
+import 'package:bsas/db/recommend_activity_db.dart';
+import 'package:bsas/model/monthly_pick.dart';
+import 'package:bsas/model/recommend_activity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class StarPage extends StatefulWidget {
   @override
@@ -32,6 +38,27 @@ class _StarPageState extends State<StarPage> {
     // Map<String, double>();
     // dataMap.putIfAbsent("latitude", 37.66809443);
     // dataMap.putIfAbsent("longitude", 126.74454984);
+  }
+
+  // monthly pick 호출
+  Future<List<MonthlyPick>> monthlyPick(http.Client client) async {
+    final response =
+    await client.get(Uri.parse("http://54.180.102.153:18080/api/monthlyPick"));
+    return parsePhotos(response.body);
+  }
+
+  // recommend activity 호출
+  Future<List<RecommendActivity>> recommendActivity(http.Client client) async {
+    final response =
+    await client.get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
+    return recommendAct(response.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.monthlyPick(http.Client());
+    this.recommendActivity(http.Client());
   }
 
   Widget _contanier(String text, String url) {
@@ -107,12 +134,16 @@ class _StarPageState extends State<StarPage> {
               ),
               SizedBox(height: 5),
               Container(
-                height: MediaQuery.of(context).size.height * 3.5 / 7,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 3.5 / 7,
                 child: GoogleMap(
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
-                        currentLocation!.latitude!, currentLocation!.longitude!),
+                        currentLocation!.latitude!,
+                        currentLocation!.longitude!),
                     // LatLng(37.66809443, 126.74454984),
                     zoom: 16,
                   ),
@@ -125,7 +156,7 @@ class _StarPageState extends State<StarPage> {
                 ),
               ),
               //////////////////////Googlemap end
-          // 커뮤니티
+              // 커뮤니티
               Container(
                 padding: EdgeInsets.only(left: 16, top: 25),
                 child: Text(
@@ -139,7 +170,10 @@ class _StarPageState extends State<StarPage> {
               ),
               SizedBox(height: 5),
               Container(
-                height: MediaQuery.of(context).size.height * 3.5/7,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 3.5 / 7,
                 child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.all(20),
@@ -154,35 +188,41 @@ class _StarPageState extends State<StarPage> {
                   ],
                 ),
               ),
-              //헬스 투어 정보
-              // Container(
-              //   padding: EdgeInsets.only(left: 16, top: 25),
-              //   child: Text(
-              //     '헬스 투어 정보', //gesture로 page 간 연결 필요
-              //     style: TextStyle(
-              //       fontSize: 30,
-              //       fontWeight: FontWeight.bold,
-              //       color: Colors.black,
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 5),
-              // Container(
-              //   height: MediaQuery.of(context).size.height * 3.5/7,
-              //   child: GridView.count(
-              //     primary: false,
-              //     padding: const EdgeInsets.all(20),
-              //     crossAxisSpacing: 10,
-              //     mainAxisSpacing: 10,
-              //     crossAxisCount: 2,
-              //     children: <Widget>[
-              //       _contanier('설문/투표', 'image/vote.jpg'),
-              //       _contanier('우리가게', 'image/market.jpg'),
-              //       _contanier('공간공유', 'image/space.jpg'),
-              //       _contanier('지식/재능공유', 'image/share.jpg'),
-              //     ],
-              //   ),
-              // ),
+              //이달의 픽
+              Container(
+                padding: EdgeInsets.only(left: 16, top: 25),
+                child: Text(
+                  '추천활동',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Card(
+                    child: FutureBuilder<List<RecommendActivity>>(
+                      future: recommendActivity(http.Client()),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) print(snapshot.error);
+
+                        return snapshot.hasData
+                            ? _buildRecommendActivity(
+                          list: snapshot.data!,
+                        )
+                            : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              // 추천활동
               //이달의 픽
               Container(
                 padding: EdgeInsets.only(left: 16, top: 25),
@@ -195,41 +235,28 @@ class _StarPageState extends State<StarPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                  '코로나 시대 올바른 건강관리 ',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54,
-                  ),
-                ),
-              ),
               SizedBox(height: 10),
               Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('image/share.jpg'),
-                      fit: BoxFit.fill
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Card(
+                    child: FutureBuilder<List<MonthlyPick>>(
+                      future: monthlyPick(http.Client()),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) print(snapshot.error);
+
+                        return snapshot.hasData
+                            ? _buildMonthlyPick(
+                          list: snapshot.data!,
+                        )
+                            : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _text('테마 별 추천 장소'),
-                  SizedBox(height: 10),
-                  _subTitle('1. [서울]뚝섬한강공원'),
-                  _subTitle('2. [춘천]소양강스카이워크'),
-                  _subTitle('3. [강원]속초등대해수욕장'),
-                  _subTitle('4. [부산]감천문화마을'),
-                  _subTitle('5. [여수]하화도꽃섬길'),
-                ],
-              ),//
               SizedBox(height: 10),
               Column(
                 children: [
@@ -240,7 +267,7 @@ class _StarPageState extends State<StarPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                         _button(),
+                          _button(),
                           _button(),
                           _button(),
                         ],
@@ -283,7 +310,9 @@ class _StarPageState extends State<StarPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _text('나눔 정보'),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.add_box_rounded, ))// icon 컬러, size, navigator
+                      IconButton(
+                          onPressed: () {}, icon: Icon(Icons.add_box_rounded,))
+                      // icon 컬러, size, navigator
                     ],
                   ),
                   SizedBox(height: 10),
@@ -298,5 +327,122 @@ class _StarPageState extends State<StarPage> {
           ),
         )
     );
+  }
+}
+
+//monthly pick
+class _buildMonthlyPick extends StatelessWidget {
+  final List<MonthlyPick> list;
+  _buildMonthlyPick({required this.list});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: list.length,
+        itemBuilder: (context, index){
+          return Container( // card를 container로 감싸고
+            child: Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              child: Column(
+                // margin: EdgeInsets.all(10.0),
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: InkWell(
+                      // onTap: _launchMonthlyPick(index),
+                      child: Container(
+                          child: Image.network(list[index].img_url, height: 200)),
+                    ),
+                  ), // 기존 list tile을 제거하고 text 그대로 가져옴
+                  Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
+                  SizedBox(height: 2),
+                  Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+// List<String> _urlMonthlyPic = [
+//   'http://54.180.102.153:18080/api/monthlyPick/{id}',
+//   // 'http://54.180.102.153:18080/api/monthlyPick/5',
+//   // 'http://54.180.102.153:18080/api/monthlyPick/6',
+// ];
+//
+// _launchMonthlyPick(index) async{
+//   if (await canLaunch(_urlMonthlyPic[index])) {
+//     await launch(_urlMonthlyPic[index]);
+//   } else {
+//     throw 'Could not Launch $_urlMonthlyPic';
+//   }
+// }
+}
+
+
+//recommend activity pick
+class _buildRecommendActivity extends StatelessWidget {
+  final List<RecommendActivity> list;
+
+  _buildRecommendActivity({required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          return Container(
+            child: Card(
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: InkWell(
+                  onTap: _launchRecommendActivity(index),
+                  child: ListTile(
+                    leading: Image.network(list[index].img_url),
+                    title: Text(list[index].title),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // recommend activity url 이동
+  // _launchRecommendActivity() async {
+  //   var url = 'http://54.180.102.153:18080/api/recommendActivity/';
+  //   if (await canLaunch(url)) {
+  //     await launch(url, forceWebView: true);
+  //   } else {
+  //     throw 'Could not Launch %url';
+  //   }
+  // }
+
+  List<String> _urlRecommendActivity = [
+    // 'http://54.180.102.153:18080/api/recommendActivity/{id}',
+    'http://54.180.102.153:18080/api/recommendActivity/4',
+    'http://54.180.102.153:18080/api/recommendActivity/5',
+    'http://54.180.102.153:18080/api/recommendActivity/6',
+  ];
+
+  _launchRecommendActivity(index) async{
+    if (await canLaunch(_urlRecommendActivity[index])) {
+      await launch(_urlRecommendActivity[index]);
+    } else {
+      throw 'Could not Launch $_urlRecommendActivity';
+    }
   }
 }

@@ -1,68 +1,97 @@
 package com.jsoftware.platform.controller;
 
 import com.jsoftware.platform.model.Board;
-import com.jsoftware.platform.model.User;
 import com.jsoftware.platform.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class BoardController {
 
-    @Autowired
     private BoardService service;
 
     public BoardController(BoardService service) {
         this.service = service;
     }
 
+    @PostMapping("/api/boards")
+    public Board addBoard(@RequestBody Board board) {
+        System.out.println("Create Board");
+        return service.addBoard(board);
+    }
+
+    @GetMapping("/api/boards")
+    public List<Board> getBoards() {
+        System.out.printf("Board list ------");
+        return service.getBoards();
+    }
+
+    @GetMapping("/api/boards/{id}")
+    public Board getBoardOne(@PathVariable("id") int id) {
+        System.out.println("Board" + id);
+        return service.getBoardOne(id);
+    }
+
+    @PutMapping("/api/boards/{id}")
+    public Board updateBoard(@RequestBody Board board) {
+        System.out.println("Modify Board");
+        return service.updateBoard(board);
+    }
+
+    @DeleteMapping("/api/boards/{id}")
+    public String deleteBoard(@PathVariable("id") int id) {
+        System.out.println("delete Board" + id);
+        service.deleteBoard(id);
+        System.out.println(id + "delete Board complete");
+        return "delete id" + id;
+    }
+
+    // ----------------------------------------------------------------
+
+    /*// ui 화면으로 출력해냄
     @GetMapping("/board")
     public String board() {
         return "board";
     }
 
+    // json 타입으로 출력해냄
     @GetMapping("/boardList")
     @ResponseBody
-    public List<Board> getBoard(){
-        return service.getBoard();
+    public List<Board> getBoards(){
+        return service.getBoards();
     }
 
+    // ui 화면 (html)
     @GetMapping("/write")
     public String write() {
         return "write";
     }
 
+    // get support가 없음
     @PostMapping("/writeAction")
     public String writeAction(@RequestBody Board board) {
         service.addBoard(board);
         return "board";
     }
 
-//    @PostMapping("/writeAction")
-//    public String writeAction(
-//            HttpServletRequest req,
-////            @RequestParam("file") MultipartFile file,
-//            @RequestParam("title")String title,
-//            @RequestParam("contents")String contents) throws IllegalStateException, IOException {
-//        String PATH = req.getSession().getServletContext().getRealPath("/") + "resources/";
-////        if (!file.getOriginalFilename().isEmpty()) {
-////            file.transferTo(new File(PATH + file.getOriginalFilename()));
-////        }
-//        service.addBoard(board);
-////                new Board(0, title, contents
-////                , file.getOriginalFilename()));
-//        return "board";
-//    }
+    // id로 get하는 화면이 필요함
+    @GetMapping("/boardView")
+    public String view() {
+        return "view";
+    }
+
+
+    @GetMapping("/boardView/{id}")
+    public Board getBoardOne(@PathVariable int id) {
+        return service.getBoardOne(id);
+    }*/
+
+
+    // ---------------------------------------------
+    // 이하는 원래 있던 코드
 
 //    @GetMapping("/contents")
 //    public String getContents(Model model, String idx) {

@@ -26,13 +26,24 @@ public class BoardRepositoryImpl implements BoardRepository{
     }
 
     @Override
-    public List<Board> getBoard() {
+    public List<Board> getBoards() {
         return sqlSessionTemplate.selectList("selectAllBoards");
     }
 
     @Override
-    public Board getBoardOne(Long id) {
+    public Board getBoardOne(int id) {
         return sqlSessionTemplate.selectOne("selectBoardById", id);
+    }
+
+    @Override
+    public void updateBoard(Board board) {
+        sqlSessionTemplate.update("updateBoard", board);
+    }
+
+    @Override
+    public String deleteBoard(int id) {
+        sqlSessionTemplate.delete("deleteBoard", id);
+        return "id" + id;
     }
 
 //    @Override

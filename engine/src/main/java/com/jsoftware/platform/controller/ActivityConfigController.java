@@ -1,5 +1,6 @@
 package com.jsoftware.platform.controller;
 
+import com.jsoftware.platform.exception.UserNotFoundException;
 import com.jsoftware.platform.model.Center;
 import com.jsoftware.platform.model.Hospital;
 import com.jsoftware.platform.model.User;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class ActivityConfigController {
@@ -60,10 +64,22 @@ public class ActivityConfigController {
     // Restfull api에서 id 값으로 호출할 때에는,
     // id 값을 호출하여 url에 맞춰서 binding하는 @PathVariable 쓰는 게 맞다.
 
-    @GetMapping("/api/users/{id}")
+    /*@GetMapping("/api/users/{id}")
     public User readUser(@PathVariable("id") int id) {
         System.out.println("****** getById User" + id);
         return activityConfigService.readUser(id);
+    }*/
+
+    @GetMapping("/api/users/{id}")
+    public User readUser(@PathVariable("id") int id) {
+        User user = activityConfigService.readUser(id);
+
+        if (user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        System.out.println("****** getById User" + id);
+        return user;
     }
 
     @GetMapping("/api/hospitals/{id}")
