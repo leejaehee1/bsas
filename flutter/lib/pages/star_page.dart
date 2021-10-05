@@ -372,7 +372,6 @@ class _buildMonthlyPick extends StatelessWidget {
   }
 
 List<String> _urlMonthlyPic = [
-  // 'http://54.180.102.153:18080/api/monthlyPick/{id}',
   'http://54.180.102.153:18080/api/monthlyPick/4',
   'http://54.180.102.153:18080/api/monthlyPick/5',
   'http://54.180.102.153:18080/api/monthlyPick/6',
