@@ -4,6 +4,7 @@ class RecommendActivity{
   final String title;
   final String img_url;
 
+
   RecommendActivity({
     required this.id,
     required this.title,
