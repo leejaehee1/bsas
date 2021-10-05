@@ -353,22 +353,15 @@ class _buildMonthlyPick extends StatelessWidget {
                   Positioned(
                       child: Column(
                         children: [
-                          InkWell(
-                            onTap: _launchMonthlyPick(index),
-                              child: Image.network(list[index].img_url, height: 200,)),
-                          Text(list[index].title),
+                          Center(child: InkWell(onTap: () => _launchMonthlyPick(index),
+                              child: Image.network(list[index].img_url, height: 200, width:320, fit: BoxFit.cover))),
                           SizedBox(height: 2),
-                          Text(list[index].contents)
+                          Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),),
+                          SizedBox(height: 2),
+                          Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),)
                         ],
-                      ))
-                  // Padding(
-                  //   padding: EdgeInsets.all(8.0),
-                  //   child: Container(
-                  //       child: Image.network(list[index].img_url, height: 200, width: 200,)),
-                  // ), // 기존 list tile을 제거하고 text 그대로 가져옴
-                  // Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),),
-                  // SizedBox(height: 2),
-                  // Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),),
+                      )
+                  )
                 ],
               ),
             ),
@@ -380,11 +373,12 @@ class _buildMonthlyPick extends StatelessWidget {
 
 List<String> _urlMonthlyPic = [
   // 'http://54.180.102.153:18080/api/monthlyPick/{id}',
+  'http://54.180.102.153:18080/api/monthlyPick/4',
   'http://54.180.102.153:18080/api/monthlyPick/5',
   'http://54.180.102.153:18080/api/monthlyPick/6',
 ];
 
-_launchMonthlyPick(index) async{
+ _launchMonthlyPick(index) async{
   if (await canLaunch(_urlMonthlyPic[index])) {
     await launch(_urlMonthlyPic[index]);
   } else {
