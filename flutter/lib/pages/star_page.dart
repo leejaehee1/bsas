@@ -26,7 +26,7 @@ class _StarPageState extends State<StarPage> {
   // currentLocation.longitude = 126.74454984;
 
   void _currentLocation() async {
-    var location = new Location();
+    var location = Location();
     Map<String, double> dataMap = {
       'latitude': 37.66809443,
       'longitude': 126.74454984
@@ -42,15 +42,15 @@ class _StarPageState extends State<StarPage> {
 
   // monthly pick 호출
   Future<List<MonthlyPick>> monthlyPick(http.Client client) async {
-    final response =
-    await client.get(Uri.parse("http://54.180.102.153:18080/api/monthlyPick"));
+    final response = await client
+        .get(Uri.parse("http://54.180.102.153:18080/api/monthlyPick"));
     return parsePhotos(response.body);
   }
 
   // recommend activity 호출
   Future<List<RecommendActivity>> recommendActivity(http.Client client) async {
-    final response =
-    await client.get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
+    final response = await client
+        .get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
     return recommendAct(response.body);
   }
 
@@ -102,7 +102,7 @@ class _StarPageState extends State<StarPage> {
     return RaisedButton(
       color: Color(0xFF43aa8b),
       onPressed: () {},
-      child: Text(
+      child: const Text(
         'Label',
         style: TextStyle(
           color: Colors.white,
@@ -111,21 +111,20 @@ class _StarPageState extends State<StarPage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     _currentLocation();
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //google map
               Container(
-                padding: EdgeInsets.only(left: 16, top: 25),
-                child: Text(
+                padding: const EdgeInsets.only(left: 16, top: 25),
+                child: const Text(
                   '스마트 맵',
                   style: TextStyle(
                     fontSize: 30,
@@ -134,17 +133,13 @@ class _StarPageState extends State<StarPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 3.5 / 7,
+                height: MediaQuery.of(context).size.height * 3.5 / 7,
                 child: GoogleMap(
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                        currentLocation!.latitude!,
+                    target: LatLng(currentLocation!.latitude!,
                         currentLocation!.longitude!),
                     // LatLng(37.66809443, 126.74454984),
                     zoom: 16,
@@ -160,8 +155,8 @@ class _StarPageState extends State<StarPage> {
               //////////////////////Googlemap end
               // 커뮤니티
               Container(
-                padding: EdgeInsets.only(left: 16, top: 25),
-                child: Text(
+                padding: const EdgeInsets.only(left: 16, top: 25),
+                child: const Text(
                   '커뮤니티', //gesture로 page 간 연결 필요
                   style: TextStyle(
                     fontSize: 30,
@@ -172,10 +167,7 @@ class _StarPageState extends State<StarPage> {
               ),
               SizedBox(height: 5),
               Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 3.5 / 7,
+                height: MediaQuery.of(context).size.height * 3.5 / 7,
                 child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.all(20),
@@ -203,45 +195,74 @@ class _StarPageState extends State<StarPage> {
                 ),
               ),
               SizedBox(height: 15),
-              Container(
-                child: Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              ListTile(
-                                leading: Icon(Icons.health_and_safety_rounded, color: Colors.green, size: 40,),
-                                title: Text('건강정보', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
-                                trailing: IconButton(icon: Icon(Icons.arrow_forward_ios_rounded), onPressed: () {  },), // 건강정보 페이지로 이동
-                              ),
-                              SizedBox(height: 15),
-                              ListTile(
-                                leading: Icon(Icons.run_circle_rounded, color: Colors.blueAccent, size: 40,),
-                                title: Text('추천운동', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
-                                trailing: IconButton(icon: Icon(Icons.arrow_forward_ios_rounded), onPressed: () {  },), // 건강정보 페이지로 이동
-                              ),
-                              SizedBox(height: 15),
-                              ListTile(
-                                leading: Icon(Icons.wb_sunny_rounded, color: Colors.redAccent, size: 40,),
-                                title: Text('환경정보', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
-                                trailing: IconButton(icon: Icon(Icons.arrow_forward_ios_rounded), onPressed: () {  },), // 건강정보 페이지로 이동
-                              ),
-                            ],
-                          )
-                      )
-                    ],
-                  ),
+              Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Stack(
+                  children: [
+                    Positioned(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const ListTile(
+                          leading: Icon(
+                            Icons.health_and_safety_rounded,
+                            color: Colors.green,
+                            size: 40,
+                          ),
+                          title: Text(
+                            '건강정보',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          trailing: IconButton(
+                              icon: Icon(Icons.arrow_forward_ios_rounded),
+                              onPressed: _launchHealthInfo), // 건강정보 페이지로 이동
+                        ),
+                        const SizedBox(height: 15),
+                       const ListTile(
+                          leading: Icon(
+                            Icons.run_circle_rounded,
+                            color: Colors.blueAccent,
+                            size: 40,
+                          ),
+                          title: Text(
+                            '추천운동',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(Icons.arrow_forward_ios_rounded),
+                            onPressed: _launchRecommendEx,
+                          ), // 건강정보 페이지로 이동
+                        ),
+                        const SizedBox(height: 15),
+                        const ListTile(
+                          leading: Icon(
+                            Icons.wb_sunny_rounded,
+                            color: Colors.redAccent,
+                            size: 40,
+                          ),
+                          title: Text(
+                            '환경정보',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(Icons.arrow_forward_ios_rounded),
+                            onPressed: _launchEnvironmentInfo,
+                          ), // 건강정보 페이지로 이동
+                        ),
+                      ],
+                    ))
+                  ],
                 ),
               ),
               // 추천활동
               //이달의 픽
               Container(
-                padding: EdgeInsets.only(left: 16, top: 25),
-                child: Text(
+                padding: const EdgeInsets.only(left: 16, top: 25),
+                child: const Text(
                   '이달의 Pick',
                   style: TextStyle(
                     fontSize: 30,
@@ -250,33 +271,31 @@ class _StarPageState extends State<StarPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
-              Container(
-                child: Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Card(
-                    child: FutureBuilder<List<MonthlyPick>>(
-                      future: monthlyPick(http.Client()),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) print(snapshot.error);
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Card(
+                  child: FutureBuilder<List<MonthlyPick>>(
+                    future: monthlyPick(http.Client()),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) print(snapshot.error);
 
-                        return snapshot.hasData
-                            ? _buildMonthlyPick(
-                          list: snapshot.data!,
-                        )
-                            : Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                    ),
+                      return snapshot.hasData
+                          ? _buildMonthlyPick(
+                              list: snapshot.data!,
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                    },
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Column(
                 children: [
                   _text('지금 찾는 키워드'),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Column(
                     children: [
                       Row(
@@ -305,19 +324,17 @@ class _StarPageState extends State<StarPage> {
                   )
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               _text('인기 명소 top5'),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 height: 200,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('image/share.jpg'),
-                      fit: BoxFit.fill
-                  ),
+                      image: AssetImage('image/share.jpg'), fit: BoxFit.fill),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -326,11 +343,14 @@ class _StarPageState extends State<StarPage> {
                     children: [
                       _text('나눔 정보'),
                       IconButton(
-                          onPressed: () {}, icon: Icon(Icons.add_box_rounded,))
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.add_box_rounded,
+                          ))
                       // icon 컬러, size, navigator
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   _subTitle('1. [무료][서울 강남구] 신형 진단 키트 나눔'),
                   _subTitle('2. [직거래][서울 노원구] 2020년 진단 키드 쿨거래'),
                   _subTitle('3. [무료][서울 강서구] 의료 3.0 세미나 입장권'),
@@ -340,8 +360,34 @@ class _StarPageState extends State<StarPage> {
               ),
             ],
           ),
-        )
-    );
+        ));
+  }
+}
+// 건강정보
+_launchHealthInfo() async {
+  const _healthInfo = 'url';
+  if (await canLaunch(_healthInfo)) {
+    await launch(_healthInfo);
+  } else {
+    throw 'Could not Launch $_healthInfo';
+  }
+}
+// 추천운동
+_launchRecommendEx() async {
+  const _recommendEx = 'url';
+  if (await canLaunch(_recommendEx)) {
+    await launch(_recommendEx);
+  } else {
+    throw 'Could not Launch $_recommendEx';
+  }
+}
+// 환경정보
+_launchEnvironmentInfo() async {
+  const _environmentInfo = 'https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&qvt=0&query=%EC%A0%84%EA%B5%AD%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80';
+  if (await canLaunch(_environmentInfo)) {
+    await launch(_environmentInfo);
+  } else {
+    throw 'Could not Launch $_environmentInfo';
   }
 }
 
@@ -360,25 +406,23 @@ class _buildMonthlyPick extends StatelessWidget {
         shrinkWrap: true,
         itemCount: list.length,
         itemBuilder: (context, index){
-          return Container( // card를 container로 감싸고
-            child: Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              child: Stack(
-                children: [
-                  Positioned(
-                      child: Column(
-                        children: [
-                          Center(child: InkWell(onTap: () => _launchMonthlyPick(index),
-                              child: Image.network(list[index].img_url, height: 200, width:320, fit: BoxFit.cover))),
-                          SizedBox(height: 2),
-                          Text(list[index].title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),),
-                          SizedBox(height: 2),
-                          Text(list[index].contents, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),)
-                        ],
-                      )
-                  )
-                ],
-              ),
+          return Card(
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            child: Stack(
+              children: [
+                Positioned(
+                    child: Column(
+                      children: [
+                        Center(child: InkWell(onTap: () => _launchMonthlyPick(index),
+                            child: Image.network(list[index].img_url, height: 200, width:320, fit: BoxFit.cover))),
+                        const SizedBox(height: 2),
+                        Text(list[index].title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20),),
+                        const SizedBox(height: 2),
+                        Text(list[index].contents, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),)
+                      ],
+                    )
+                )
+              ],
             ),
           );
         },
@@ -386,21 +430,20 @@ class _buildMonthlyPick extends StatelessWidget {
     );
   }
 
-List<String> _urlMonthlyPic = [
-  'https://map.naver.com/v5/search/%EC%B9%B4%ED%8E%98', // 맛집
-  'https://map.naver.com/v5/search/%EB%AC%B8%ED%99%94%EC%8B%9C%EC%84%A4?c=14136802.1946183,4513331.8124654,13,0,0,0,dh', // 문화시설
-  'https://map.naver.com/v5/search/%EA%B3%B5%EC%9B%90?c=14139806.0954176,4512188.3281197,15,0,0,0,dh', // 공원
-];
+  List<String> _urlMonthlyPic = [
+    'https://map.naver.com/v5/search/%EC%B9%B4%ED%8E%98', // 맛집
+    'https://map.naver.com/v5/search/%EB%AC%B8%ED%99%94%EC%8B%9C%EC%84%A4?c=14136802.1946183,4513331.8124654,13,0,0,0,dh', // 문화시설
+    'https://map.naver.com/v5/search/%EA%B3%B5%EC%9B%90?c=14139806.0954176,4512188.3281197,15,0,0,0,dh', // 공원
+  ];
 
- _launchMonthlyPick(index) async{
-  if (await canLaunch(_urlMonthlyPic[index])) {
-    await launch(_urlMonthlyPic[index]);
-  } else {
-    throw 'Could not Launch $_urlMonthlyPic';
+  _launchMonthlyPick(index) async{
+    if (await canLaunch(_urlMonthlyPic[index])) {
+      await launch(_urlMonthlyPic[index]);
+    } else {
+      throw 'Could not Launch $_urlMonthlyPic';
+    }
   }
 }
-}
-
 
 //recommend activity
 class _buildRecommendActivity extends StatelessWidget {
@@ -416,18 +459,16 @@ class _buildRecommendActivity extends StatelessWidget {
         shrinkWrap: true,
         itemCount: list.length,
         itemBuilder: (context, index) {
-          return Container(
-            child: Card(
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Container(
-                margin: EdgeInsets.all(10),
-                child: ListTile(
-                  onTap: (){
-                    _launchRecommendActivity(index);
-                  },
-                  leading: Image.network(list[index].img_url),
-                  title: Text(list[index].title),
-                ),
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                onTap: () {
+                  _launchRecommendActivity(index);
+                },
+                leading: Image.network(list[index].img_url),
+                title: Text(list[index].title),
               ),
             ),
           );
@@ -451,7 +492,7 @@ class _buildRecommendActivity extends StatelessWidget {
   //   }
   // }
 
-  _launchRecommendActivity(index) async{
+  _launchRecommendActivity(index) async {
     if (await canLaunch(_urlRecommendActivity[index])) {
       await launch(_urlRecommendActivity[index]);
     } else {
