@@ -63,20 +63,44 @@ class _StarPageState extends State<StarPage> {
     recommendActivity(http.Client());
   }
 
-  Widget _contanier(String text, String url) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            text,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-          )),
-      decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(url), fit: BoxFit.fill)),
+  Widget _contanier(String text, String contents, String url) {
+    return InkWell(
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              text,
+              style: const TextStyle(
+                  color: Colors.black87, fontSize: 23, fontWeight: FontWeight.bold),
+            )
+          ),
+            SizedBox(height: 2),
+            Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  contents,
+                  style: const TextStyle(
+                      color: Color(0xFF487BEA), fontSize: 15, fontWeight: FontWeight.bold),
+                )
+            ),
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Image.asset(url, width: 50, height: 50,)
+            ),
+        ]
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Color(0xFF165DC0).withOpacity(0.1), //0xffafdbde
+        ),
+      ),
+      onTap: (){url;},
     );
   }
+
 
   Widget _text(String text) {
     return Text(
@@ -177,10 +201,10 @@ class _StarPageState extends State<StarPage> {
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,
                   children: <Widget>[
-                    _contanier('설문/투표', 'image/vote.jpg'),
-                    _contanier('우리가게', 'image/market.jpg'),
-                    _contanier('공간공유', 'image/space.jpg'),
-                    _contanier('지식/재능공유', 'image/share.jpg'),
+                    _contanier('수다방', 'contents', 'image/speech-bubble.png'),
+                    _contanier('병원후기', 'contents', 'image/hospital.png'),
+                    _contanier('질의응답', 'contents', 'image/doctor.png'),
+                    _contanier('의사정보', 'contents', 'image/stethoscope.png'),
                   ],
                 ),
               ),
