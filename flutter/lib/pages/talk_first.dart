@@ -10,6 +10,8 @@ import 'package:bsas/User/user_home_screen.dart';
 import 'chat_page.dart';
 
 class TalkPageFirst extends StatefulWidget {
+  const TalkPageFirst({Key? key}) : super(key: key);
+
   @override
   _TalkPageFirststate createState() => _TalkPageFirststate();
 }
@@ -101,23 +103,23 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
     showingPerson = rawPerson;
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.amber,
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => ChatScreen()));
         },
-        child: Icon(Icons.mark_chat_unread_rounded),
+        child: const Icon(Icons.mark_chat_unread_rounded),
       ),
       body: ListView(
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         children: <Widget>[
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 25, top: 50),
             child: Text(
               '활동 내용',
@@ -128,283 +130,266 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 10),
           Container(
-            // height: 220,
-            margin: EdgeInsets.only(left: 16, right: 16),
+            margin: const EdgeInsets.only(left: 16, right: 16),
             child: Column(
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8),
-                        padding: EdgeInsets.only(left: 16),
-                        // height: 64, // 픽셀 에러로 삭제
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              elevation: 0.0,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => HomeScreen()));
-                              },
-                              color: Color(0xFFDCEDC8),
-                              child: Icon(
-                                Icons.people_alt_rounded,
-                                color: Colors.red[300],
-                                size: 30,
-                              ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: Text(
-                                '지인등록',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                Container(
+                  height: 280,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8),
-                        padding: EdgeInsets.only(left: 16),
-                        // height: 64, // 픽셀 에러로 삭제
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              elevation: 0.0,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => CenterHomeScreen()));
-                              },
-                              color: Color(0xFFDCEDC8),
-                              child: Icon(
-                                Icons.apartment_rounded,
-                                color: Colors.pink,
-                                size: 30,
+                    child: Column(
+                        children: [
+                          const SizedBox(height: 25),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.only(left: 16),
+                              // height: 64, // 픽셀 에러로 삭제
+                              child: Column(
+                                children: [
+                                  MaterialButton(
+                                    elevation: 0.0,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => HomeScreen()));
+                                    },
+                                    color: const Color(0xFFDCEDC8),
+                                    child: Icon(
+                                      Icons.people_alt_rounded,
+                                      color: Colors.red[300],
+                                      size: 30,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    shape: const CircleBorder(),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    '지인등록',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
                             ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: Text(
-                                '센터등록',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.only(left: 16),
+                              // height: 64, // 픽셀 에러로 삭제
+                              child: Column(
+                                children: [
+                                  MaterialButton(
+                                    elevation: 0.0,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => CenterHomeScreen()));
+                                    },
+                                    color: const Color(0xFFDCEDC8),
+                                    child: const Icon(
+                                      Icons.apartment_rounded,
+                                      color: Colors.pink,
+                                      size: 30,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    shape: const CircleBorder(),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    '센터등록',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.only(left: 16),
+                              // height: 64, // 픽셀 에러로 삭제
+                              child: Column(
+                                children: [
+                                  MaterialButton(
+                                    elevation: 0.0,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => HosHomeScreen()));
+                                    },
+                                    color: const Color(0xFFDCEDC8),
+                                    child: const Icon(
+                                      Icons.local_hospital_rounded,
+                                      color: Colors.deepOrangeAccent,
+                                      size: 30,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    shape: const CircleBorder(),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    '병원등록',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8),
-                        padding: EdgeInsets.only(left: 16),
-                        // height: 64, // 픽셀 에러로 삭제
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              elevation: 0.0,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => HosHomeScreen()));
-                              },
-                              color: Color(0xFFDCEDC8),
-                              child: Icon(
-                                Icons.local_hospital_rounded,
-                                color: Colors.deepOrangeAccent,
-                                size: 30,
+                      const SizedBox(height: 20),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.only(left: 16),
+                              // height: 64, // 픽셀 에러로 삭제
+                              child: Column(
+                                children: [
+                                  MaterialButton(
+                                    elevation: 0.0,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => SearchCenterPage()));
+                                    },
+                                    color: const Color(0xFFDCEDC8),
+                                    child: const Icon(
+                                      Icons.location_on_rounded,
+                                      color: Colors.red,
+                                      size: 30,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    shape: const CircleBorder(),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    '센터찾기',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
                             ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: Text(
-                                '병원등록',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.only(left: 16),
+                              // height: 64, // 픽셀 에러로 삭제
+                              child: Column(
+                                children: [
+                                  MaterialButton(
+                                    elevation: 0.0,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => SirenExamplePage()));
+                                    },
+                                    color: const Color(0xFFDCEDC8),
+                                    child: const Icon(
+                                      Icons.add_alert_rounded,
+                                      color: Colors.red,
+                                      size: 30,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    shape: const CircleBorder(),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    '병원찾기',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.only(left: 16),
+                              // height: 64, // 픽셀 에러로 삭제
+                              child: Column(
+                                children: [
+                                  MaterialButton(
+                                    elevation: 0.0,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => SettingMessagePage()));
+                                    },
+                                    color: const Color(0xFFDCEDC8),
+                                    child: const Icon(
+                                      Icons.sick_rounded,
+                                      color: Colors.blueAccent,
+                                      size: 30,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    shape: const CircleBorder(),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    '약국찾기',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                    ]
                     ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8),
-                        padding: EdgeInsets.only(left: 16),
-                        // height: 64, // 픽셀 에러로 삭제
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              elevation: 0.0,
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (_)=> SettingAlarmPage()));
-                              },
-                              color: Color(0xFFDCEDC8),
-                              child: Icon(
-                                Icons.alarm_add_rounded,
-                                color: Colors.indigo,
-                                size: 30,
-                              ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: Text(
-                                '알람설정',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 3,
+                          blurRadius: 10,
+                          offset: const Offset(0,3),
+                        )
+                      ]
+                  ),
                 ),
-                SizedBox(height: 30),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8),
-                        padding: EdgeInsets.only(left: 16),
-                        // height: 64, // 픽셀 에러로 삭제
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              elevation: 0.0,
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (_) => SearchCenterPage()));
-                              },
-                              color: Color(0xFFDCEDC8),
-                              child: Icon(
-                                Icons.location_on_rounded,
-                                color: Colors.red,
-                                size: 30,
-                              ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: Text(
-                                '센터찾기',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8),
-                        padding: EdgeInsets.only(left: 16),
-                        // height: 64, // 픽셀 에러로 삭제
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              elevation: 0.0,
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (_) => SirenExamplePage()));
-                              },
-                              color: Color(0xFFDCEDC8),
-                              child: Icon(
-                                Icons.add_alert,
-                                color: Colors.red,
-                                size: 30,
-                              ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: Text(
-                                '경보사례',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8),
-                        padding: EdgeInsets.only(left: 16),
-                        // height: 64, // 픽셀 에러로 삭제
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              elevation: 0.0,
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (_)=>SettingMessagePage()));
-                              },
-                              color: Color(0xFFDCEDC8),
-                              child: Icon(
-                                Icons.mark_chat_unread_rounded,
-                                color: Colors.blueAccent,
-                                size: 30,
-                              ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: Text(
-                                '메세지설정',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 // 자가 진단
                 AspectRatio(
                   aspectRatio: 1,
@@ -412,7 +397,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
-                    color: Color(0xFF2d365c),
+                    color: const Color(0xFF2d365c),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -432,7 +417,9 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               const Text(
                                 '자가진단',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -582,7 +569,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
-                    color: Color(0xFF2d365c),
+                    color: const Color(0xFF2d365c),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -602,8 +589,9 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               const Text(
                                 '인구통계',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 22,
-                                fontWeight: FontWeight.bold),
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -647,28 +635,30 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                                             List.of(rawPopulationGroups);
                                         if (touchedGroupIndex != -1) {
                                           var sum = 0.0;
-                                          for (var rod in showingPopulationGroups[
-                                          touchedGroupIndex]
-                                              .barRods) {
+                                          for (var rod
+                                              in showingPopulationGroups[
+                                                      touchedGroupIndex]
+                                                  .barRods) {
                                             sum += rod.y;
                                           }
                                           final avg = sum /
                                               showingPopulationGroups[
-                                              touchedGroupIndex]
+                                                      touchedGroupIndex]
                                                   .barRods
                                                   .length;
 
-                                          showingPopulationGroups[touchedGroupIndex] =
+                                          showingPopulationGroups[
+                                                  touchedGroupIndex] =
                                               showingPopulationGroups[
-                                              touchedGroupIndex]
+                                                      touchedGroupIndex]
                                                   .copyWith(
-                                                barRods: showingPopulationGroups[
-                                                touchedGroupIndex]
-                                                    .barRods
-                                                    .map((rod) {
-                                                  return rod.copyWith(y: avg);
-                                                }).toList(),
-                                              );
+                                            barRods: showingPopulationGroups[
+                                                    touchedGroupIndex]
+                                                .barRods
+                                                .map((rod) {
+                                              return rod.copyWith(y: avg);
+                                            }).toList(),
+                                          );
                                         }
                                       });
                                     }),
@@ -679,10 +669,10 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                                   bottomTitles: SideTitles(
                                     showTitles: true,
                                     getTextStyles: (context, value) =>
-                                    const TextStyle(
-                                        color: Color(0xff7589a2),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
+                                        const TextStyle(
+                                            color: Color(0xff7589a2),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
                                     margin: 20,
                                     getTitles: (double value) {
                                       switch (value.toInt()) {
@@ -708,10 +698,10 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                                   leftTitles: SideTitles(
                                     showTitles: true,
                                     getTextStyles: (context, value) =>
-                                    const TextStyle(
-                                        color: Color(0xff7589a2),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12),
+                                        const TextStyle(
+                                            color: Color(0xff7589a2),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 12),
                                     margin: 8,
                                     reservedSize: 28,
                                     interval: 1,
@@ -753,7 +743,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
-                    color: Color(0xFF2d365c),
+                    color: const Color(0xFF2d365c),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -773,8 +763,9 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               const Text(
                                 'MY진료내역',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 22,
-                                fontWeight: FontWeight.bold),
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -799,8 +790,7 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                                           response.spot == null) {
                                         setState(() {
                                           touchedGroupIndex = -1;
-                                          showingPerson =
-                                              List.of(rawPerson);
+                                          showingPerson = List.of(rawPerson);
                                         });
                                         return;
                                       }
@@ -810,36 +800,32 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                                         if (!event
                                             .isInterestedForInteractions) {
                                           touchedGroupIndex = -1;
-                                          showingPerson =
-                                              List.of(rawPerson);
+                                          showingPerson = List.of(rawPerson);
                                           return;
                                         }
-                                        showingPerson =
-                                            List.of(rawPerson);
+                                        showingPerson = List.of(rawPerson);
                                         if (touchedGroupIndex != -1) {
                                           var sum = 0.0;
                                           for (var rod in showingPerson[
-                                          touchedGroupIndex]
+                                                  touchedGroupIndex]
                                               .barRods) {
                                             sum += rod.y;
                                           }
                                           final avg = sum /
-                                              showingPerson[
-                                              touchedGroupIndex]
+                                              showingPerson[touchedGroupIndex]
                                                   .barRods
                                                   .length;
 
                                           showingPerson[touchedGroupIndex] =
-                                              showingPerson[
-                                              touchedGroupIndex]
+                                              showingPerson[touchedGroupIndex]
                                                   .copyWith(
-                                                barRods: showingPerson[
-                                                touchedGroupIndex]
+                                            barRods:
+                                                showingPerson[touchedGroupIndex]
                                                     .barRods
                                                     .map((rod) {
-                                                  return rod.copyWith(y: avg);
-                                                }).toList(),
-                                              );
+                                              return rod.copyWith(y: avg);
+                                            }).toList(),
+                                          );
                                         }
                                       });
                                     }),
@@ -850,10 +836,10 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                                   bottomTitles: SideTitles(
                                     showTitles: true,
                                     getTextStyles: (context, value) =>
-                                    const TextStyle(
-                                        color: Color(0xff7589a2),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
+                                        const TextStyle(
+                                            color: Color(0xff7589a2),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
                                     margin: 20,
                                     getTitles: (double value) {
                                       switch (value.toInt()) {
@@ -889,10 +875,10 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                                   leftTitles: SideTitles(
                                     showTitles: true,
                                     getTextStyles: (context, value) =>
-                                    const TextStyle(
-                                        color: Color(0xff7589a2),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
+                                        const TextStyle(
+                                            color: Color(0xff7589a2),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
                                     margin: 8,
                                     reservedSize: 28,
                                     interval: 1,
@@ -927,7 +913,6 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                     ),
                   ),
                 ),
-
               ],
             ),
           ),
@@ -947,11 +932,12 @@ BarChartGroupData makeGroupData(int x, double y1, double y2) {
     ),
     BarChartRodData(
       y: y2,
-      colors: [Color(0xffff5182)],
+      colors: [const Color(0xffff5182)],
       width: 7,
     ),
   ]);
 }
+
 Widget makeTransactionsIcon() {
   const width = 4.5;
   const space = 3.5;
@@ -1015,6 +1001,7 @@ BarChartGroupData populationData(int x, double y1, double y2) {
     ),
   ]);
 }
+
 Widget populationTransactionsIcon() {
   const width = 4.5;
   const space = 3.5;
@@ -1078,6 +1065,7 @@ BarChartGroupData personData(int x, double y1, double y2) {
     ),
   ]);
 }
+
 Widget personTransactionsIcon() {
   const width = 4.5;
   const space = 3.5;
@@ -1125,4 +1113,3 @@ Widget personTransactionsIcon() {
     ],
   );
 }
-
