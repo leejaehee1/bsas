@@ -204,23 +204,33 @@ class _StarPageState extends State<StarPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const ListTile(
-                          leading: Icon(
-                            Icons.health_and_safety_rounded,
-                            color: Colors.green,
-                            size: 40,
+                        Container(
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.health_and_safety_rounded,
+                              color: Colors.green,
+                              size: 40,
+                            ),
+                            title: Text(
+                              '건강정보',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w600),
+                            ),
+                            trailing: IconButton(
+                                icon: Icon(Icons.arrow_forward_ios_rounded),
+                                onPressed: _launchHealthInfo), // 건강정보 페이지로 이동
                           ),
-                          title: Text(
-                            '건강정보',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(
+                                width: 2.0, color: Colors.black12
+                              )
+                            )
                           ),
-                          trailing: IconButton(
-                              icon: Icon(Icons.arrow_forward_ios_rounded),
-                              onPressed: _launchHealthInfo), // 건강정보 페이지로 이동
                         ),
-                        const SizedBox(height: 15),
-                       const ListTile(
+
+                        SizedBox(height: 15),
+                       ListTile(
                           leading: Icon(
                             Icons.run_circle_rounded,
                             color: Colors.blueAccent,
@@ -236,22 +246,31 @@ class _StarPageState extends State<StarPage> {
                             onPressed: _launchRecommendEx,
                           ), // 건강정보 페이지로 이동
                         ),
-                        const SizedBox(height: 15),
-                        const ListTile(
-                          leading: Icon(
-                            Icons.wb_sunny_rounded,
-                            color: Colors.redAccent,
-                            size: 40,
+                        SizedBox(height: 15),
+                        Container(
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.wb_sunny_rounded,
+                              color: Colors.redAccent,
+                              size: 40,
+                            ),
+                            title: Text(
+                              '환경정보',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w600),
+                            ),
+                            trailing: IconButton(
+                              icon: Icon(Icons.arrow_forward_ios_rounded),
+                              onPressed: _launchEnvironmentInfo,
+                            ), // 건강정보 페이지로 이동
                           ),
-                          title: Text(
-                            '환경정보',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 2.0, color: Colors.black12
+                                  )
+                              )
                           ),
-                          trailing: IconButton(
-                            icon: Icon(Icons.arrow_forward_ios_rounded),
-                            onPressed: _launchEnvironmentInfo,
-                          ), // 건강정보 페이지로 이동
                         ),
                       ],
                     ))
@@ -478,7 +497,7 @@ class _buildRecommendActivity extends StatelessWidget {
   }
 
   List<String> _urlRecommendActivity = [
-    // 'http://54.180.102.153:18080/api/recommendActivity/${id}',
+    // 'http://54.180.102.153:18080/api/recommendActivity/{id}',
     'http://54.180.102.153:18080/api/recommendActivity/4',
     'http://54.180.102.153:18080/api/recommendActivity/5',
     'http://54.180.102.153:18080/api/recommendActivity/6',
