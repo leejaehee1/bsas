@@ -111,10 +111,12 @@ class _StarPageState extends State<StarPage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     _currentLocation();
     return Scaffold(
+      backgroundColor: Colors.white,
         body: SingleChildScrollView(
           padding: EdgeInsets.all(8.0),
           child: Column(
@@ -192,33 +194,46 @@ class _StarPageState extends State<StarPage> {
               Container(
                 padding: EdgeInsets.only(left: 16, top: 25),
                 child: Text(
-                  '추천활동',
+                  '추천정보',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Container(
                 child: Padding(
                   padding: EdgeInsets.all(5.0),
-                  child: Card(
-                    child: FutureBuilder<List<RecommendActivity>>(
-                      future: recommendActivity(http.Client()),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) print(snapshot.error);
-
-                        return snapshot.hasData
-                            ? _buildRecommendActivity(
-                          list: snapshot.data!,
-                        )
-                            : Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                    ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ListTile(
+                                leading: Icon(Icons.health_and_safety_rounded, color: Colors.green, size: 40,),
+                                title: Text('건강정보', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
+                                trailing: IconButton(icon: Icon(Icons.arrow_forward_ios_rounded), onPressed: () {  },), // 건강정보 페이지로 이동
+                              ),
+                              SizedBox(height: 15),
+                              ListTile(
+                                leading: Icon(Icons.run_circle_rounded, color: Colors.blueAccent, size: 40,),
+                                title: Text('추천운동', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
+                                trailing: IconButton(icon: Icon(Icons.arrow_forward_ios_rounded), onPressed: () {  },), // 건강정보 페이지로 이동
+                              ),
+                              SizedBox(height: 15),
+                              ListTile(
+                                leading: Icon(Icons.wb_sunny_rounded, color: Colors.redAccent, size: 40,),
+                                title: Text('환경정보', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
+                                trailing: IconButton(icon: Icon(Icons.arrow_forward_ios_rounded), onPressed: () {  },), // 건강정보 페이지로 이동
+                              ),
+                            ],
+                          )
+                      )
+                    ],
                   ),
                 ),
               ),
@@ -372,9 +387,9 @@ class _buildMonthlyPick extends StatelessWidget {
   }
 
 List<String> _urlMonthlyPic = [
-  'http://54.180.102.153:18080/api/monthlyPick/4',
-  'http://54.180.102.153:18080/api/monthlyPick/5',
-  'http://54.180.102.153:18080/api/monthlyPick/6',
+  'https://map.naver.com/v5/search/%EC%B9%B4%ED%8E%98', // 맛집
+  'https://map.naver.com/v5/search/%EB%AC%B8%ED%99%94%EC%8B%9C%EC%84%A4?c=14136802.1946183,4513331.8124654,13,0,0,0,dh', // 문화시설
+  'https://map.naver.com/v5/search/%EA%B3%B5%EC%9B%90?c=14139806.0954176,4512188.3281197,15,0,0,0,dh', // 공원
 ];
 
  _launchMonthlyPick(index) async{
