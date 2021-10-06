@@ -17,7 +17,7 @@ public class BoardController {
         this.service = service;
     }
 
-    @PostMapping("/api/boards")
+    /*@PostMapping("/api/boards")
     public Board addBoard(@RequestBody Board board) {
         System.out.println("Create Board");
         return service.addBoard(board);
@@ -47,11 +47,11 @@ public class BoardController {
         service.deleteBoard(id);
         System.out.println(id + "delete Board complete");
         return "delete id" + id;
-    }
+    }*/
 
     // ----------------------------------------------------------------
 
-    /*// ui 화면으로 출력해냄
+    // ui 화면으로 출력해냄
     @GetMapping("/board")
     public String board() {
         return "board";
@@ -87,7 +87,7 @@ public class BoardController {
     @GetMapping("/boardView/{id}")
     public Board getBoardOne(@PathVariable int id) {
         return service.getBoardOne(id);
-    }*/
+    }
 
 
     // ---------------------------------------------
