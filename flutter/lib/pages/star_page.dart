@@ -220,11 +220,11 @@ class _StarPageState extends State<StarPage> {
               Container(
                 padding: const EdgeInsets.only(left: 16, top: 25),
                 child: const Text(
-                  '커뮤니티', //gesture로 page 간 연결 필요
+                  '정보가 필요하신가요?', //gesture로 page 간 연결 필요
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Colors.black87,
                   ),
                 ),
               ),
@@ -476,7 +476,6 @@ _launchEnvironmentInfo() async {
 class _buildMonthlyPick extends StatelessWidget {
   final List<MonthlyPick> list;
   _buildMonthlyPick({required this.list});
-
 
   @override
   Widget build(BuildContext context) {
