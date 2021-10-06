@@ -63,7 +63,7 @@ class _StarPageState extends State<StarPage> {
     recommendActivity(http.Client());
   }
 
-  Widget _contanier(String text, String contents, String url) {
+  Widget _contanier(String text, String contents, String url, dynamic _url) {
     return InkWell(
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -97,8 +97,45 @@ class _StarPageState extends State<StarPage> {
           color: Color(0xFF165DC0).withOpacity(0.1), //0xffafdbde
         ),
       ),
-      onTap: (){url;},
+      onTap: _url,
     );
+  }
+
+  // 수다방 url
+  _launchTalk() async{
+    const _talkUrl = 'url';
+    if (await canLaunch(_talkUrl)) {
+      await launch(_talkUrl);
+    } else {
+      throw 'Could not Launch $_talkUrl';
+    }
+  }
+  // 병원후기 url
+  _launchHospital() async{
+    const _hospitalUrl = 'url';
+    if (await canLaunch(_hospitalUrl)) {
+      await launch(_hospitalUrl);
+    } else {
+      throw 'Could not Launch $_hospitalUrl';
+    }
+  }
+  // 질의응답 url
+  _launchQA() async{
+    const _QAurl = 'url';
+    if (await canLaunch(_QAurl)) {
+      await launch(_QAurl);
+    } else {
+      throw 'Could not Launch $_QAurl';
+    }
+  }
+  // 의사정보 url
+  _launchDoctor() async{
+    const _doctorUrl = 'https://github.com/leejaehee1/bsas/blob/master/flutter/lib/pages/star_page.dart'; //test url
+    if (await canLaunch(_doctorUrl)) {
+      await launch(_doctorUrl);
+    } else {
+      throw 'Could not Launch $_doctorUrl';
+    }
   }
 
 
@@ -201,10 +238,10 @@ class _StarPageState extends State<StarPage> {
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,
                   children: <Widget>[
-                    _contanier('수다방', 'contents', 'image/speech-bubble.png'),
-                    _contanier('병원후기', 'contents', 'image/hospital.png'),
-                    _contanier('질의응답', 'contents', 'image/doctor.png'),
-                    _contanier('의사정보', 'contents', 'image/stethoscope.png'),
+                    _contanier('수다방', 'contents', 'image/speech-bubble.png', _launchTalk ),
+                    _contanier('병원후기', 'contents', 'image/hospital.png', _launchHospital),
+                    _contanier('질의응답', 'contents', 'image/doctor.png', _launchQA),
+                    _contanier('의사정보', 'contents', 'image/stethoscope.png', _launchDoctor),
                   ],
                 ),
               ),
