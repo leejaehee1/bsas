@@ -11,6 +11,8 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 class StarPage extends StatefulWidget {
+  const StarPage({Key? key}) : super(key: key);
+
   @override
   _StarPageState createState() => _StarPageState();
 }
@@ -57,8 +59,8 @@ class _StarPageState extends State<StarPage> {
   @override
   void initState() {
     super.initState();
-    this.monthlyPick(http.Client());
-    this.recommendActivity(http.Client());
+    monthlyPick(http.Client());
+    recommendActivity(http.Client());
   }
 
   Widget _contanier(String text, String url) {
@@ -68,7 +70,7 @@ class _StarPageState extends State<StarPage> {
           alignment: Alignment.bottomCenter,
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
           )),
       decoration: BoxDecoration(
@@ -79,7 +81,7 @@ class _StarPageState extends State<StarPage> {
   Widget _text(String text) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 30,
         color: Colors.black,
@@ -90,7 +92,7 @@ class _StarPageState extends State<StarPage> {
   Widget _subTitle(String text) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w600,
         color: Colors.black54,
@@ -100,7 +102,7 @@ class _StarPageState extends State<StarPage> {
 
   Widget _button() {
     return RaisedButton(
-      color: Color(0xFF43aa8b),
+      color: const Color(0xFF43aa8b),
       onPressed: () {},
       child: const Text(
         'Label',
@@ -134,7 +136,7 @@ class _StarPageState extends State<StarPage> {
                 ),
               ),
               const SizedBox(height: 5),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 3.5 / 7,
                 child: GoogleMap(
                   mapType: MapType.normal,
@@ -165,8 +167,8 @@ class _StarPageState extends State<StarPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 5),
-              Container(
+              const SizedBox(height: 5),
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 3.5 / 7,
                 child: GridView.count(
                   primary: false,
@@ -184,8 +186,8 @@ class _StarPageState extends State<StarPage> {
               ),
               //이달의 픽
               Container(
-                padding: EdgeInsets.only(left: 16, top: 25),
-                child: Text(
+                padding: const EdgeInsets.only(left: 16, top: 25),
+                child: const Text(
                   '추천정보',
                   style: TextStyle(
                     fontSize: 25,
@@ -194,9 +196,9 @@ class _StarPageState extends State<StarPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Padding(
-                padding: EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Stack(
                   children: [
                     Positioned(
@@ -205,7 +207,7 @@ class _StarPageState extends State<StarPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Container(
-                          child: ListTile(
+                          child: const ListTile(
                             leading: Icon(
                               Icons.health_and_safety_rounded,
                               color: Colors.green,
@@ -220,7 +222,7 @@ class _StarPageState extends State<StarPage> {
                                 icon: Icon(Icons.arrow_forward_ios_rounded),
                                 onPressed: _launchHealthInfo), // 건강정보 페이지로 이동
                           ),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                               top: BorderSide(
                                 width: 2.0, color: Colors.black12
@@ -228,9 +230,8 @@ class _StarPageState extends State<StarPage> {
                             )
                           ),
                         ),
-
-                        SizedBox(height: 15),
-                       ListTile(
+                        const SizedBox(height: 15),
+                       const ListTile(
                           leading: Icon(
                             Icons.run_circle_rounded,
                             color: Colors.blueAccent,
@@ -246,9 +247,9 @@ class _StarPageState extends State<StarPage> {
                             onPressed: _launchRecommendEx,
                           ), // 건강정보 페이지로 이동
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Container(
-                          child: ListTile(
+                          child: const ListTile(
                             leading: Icon(
                               Icons.wb_sunny_rounded,
                               color: Colors.redAccent,
@@ -264,7 +265,7 @@ class _StarPageState extends State<StarPage> {
                               onPressed: _launchEnvironmentInfo,
                             ), // 건강정보 페이지로 이동
                           ),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               border: Border(
                                   bottom: BorderSide(
                                       width: 2.0, color: Colors.black12
