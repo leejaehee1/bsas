@@ -127,7 +127,7 @@ class _NavigatorPageState extends State<NavigatorPage>
               )
             ],
           ),
-          backgroundColor: const Color(0xFF43aa8b), // or white
+          backgroundColor: const Color(0xFF0ab27d), // or white 0xFF0ab27d)
         ),
         body: TabBarView(
           controller: controller,
