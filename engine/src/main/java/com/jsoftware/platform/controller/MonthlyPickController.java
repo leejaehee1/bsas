@@ -15,6 +15,9 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 
+// 이달의Pick -> 추천장소 ( 브라우저 카테고리 맵 url 연결)
+// 이달의Pick api 사용은 -> 문의사항
+
 @RestController
 @AllArgsConstructor
 public class MonthlyPickController {

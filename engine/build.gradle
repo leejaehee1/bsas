@@ -49,6 +49,7 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 
+	compile 'org.webjars:bootstrap:4.5.0'
 	compileOnly "org.springframework.boot:spring-boot-starter-actuator"
 	compileOnly 'org.projectlombok:lombok'
 	testCompileOnly 'org.projectlombok:lombok'

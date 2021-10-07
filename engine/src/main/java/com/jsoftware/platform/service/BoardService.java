@@ -38,11 +38,11 @@ public class BoardService {
         repository.updateBoard(board);
     }
 
-    /*
     @Transactional
-    public void deleteBoard(int id) {
-        repository.deleteBoard(id);
-    }*/
+    public String deleteBoard(int idx) {
+        repository.deleteBoard(idx);
+        return "idx" +idx;
+    }
 
 
 

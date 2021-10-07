@@ -41,14 +41,11 @@ public class BoardRepositoryImpl implements BoardRepository{
     }
 
 
-    /*
-
-
     @Override
-    public String deleteBoard(int id) {
-        sqlSessionTemplate.delete("deleteBoard", id);
-        return "id" + id;
-    }*/
+    public String deleteBoard(int idx) {
+        sqlSessionTemplate.delete("deleteBoard", idx);
+        return "idx" + idx;
+    }
 
 //    @Override
 //    public boolean addReply(Reply reply);
