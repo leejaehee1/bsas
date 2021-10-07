@@ -1,12 +1,9 @@
 import 'package:bsas/center/center_home_screen.dart';
 import 'package:bsas/hospital/hospital_home_screen.dart';
-import 'package:bsas/pages/search_center_page.dart';
-import 'package:bsas/pages/setting_alarm_page.dart';
-import 'package:bsas/pages/setting_message_page.dart';
-import 'package:bsas/pages/siren_example_page.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:bsas/User/user_home_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'chat_page.dart';
 
 class TalkPageFirst extends StatefulWidget {
@@ -102,6 +99,8 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
 
     showingPerson = rawPerson;
   }
+  // url_launcher
+
 
   @override
   Widget build(BuildContext context) {
@@ -268,26 +267,21 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               padding: const EdgeInsets.only(left: 16),
                               // height: 64, // 픽셀 에러로 삭제
                               child: Column(
-                                children: [
+                                children: const [
                                   MaterialButton(
                                     elevation: 0.0,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => SearchCenterPage()));
-                                    },
-                                    color: const Color(0xFFDCEDC8),
-                                    child: const Icon(
+                                    onPressed: _launchCenterUrl,
+                                    color: Color(0xFFDCEDC8),
+                                    child: Icon(
                                       Icons.location_on_rounded,
                                       color: Colors.red,
                                       size: 30,
                                     ),
-                                    padding: const EdgeInsets.all(16),
-                                    shape: const CircleBorder(),
+                                    padding: EdgeInsets.all(16),
+                                    shape: CircleBorder(),
                                   ),
-                                  const SizedBox(height: 10),
-                                  const Text(
+                                  SizedBox(height: 10),
+                                  Text(
                                     '센터찾기',
                                     style: TextStyle(
                                       fontSize: 15,
@@ -305,26 +299,21 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               padding: const EdgeInsets.only(left: 16),
                               // height: 64, // 픽셀 에러로 삭제
                               child: Column(
-                                children: [
+                                children: const [
                                   MaterialButton(
                                     elevation: 0.0,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => SirenExamplePage()));
-                                    },
-                                    color: const Color(0xFFDCEDC8),
-                                    child: const Icon(
+                                    onPressed: _launchHospitalUrl,
+                                    color: Color(0xFFDCEDC8),
+                                    child: Icon(
                                       Icons.add_alert_rounded,
                                       color: Colors.red,
                                       size: 30,
                                     ),
-                                    padding: const EdgeInsets.all(16),
-                                    shape: const CircleBorder(),
+                                    padding: EdgeInsets.all(16),
+                                    shape: CircleBorder(),
                                   ),
-                                  const SizedBox(height: 10),
-                                  const Text(
+                                  SizedBox(height: 10),
+                                  Text(
                                     '병원찾기',
                                     style: TextStyle(
                                       fontSize: 15,
@@ -342,26 +331,21 @@ class _TalkPageFirststate extends State<TalkPageFirst> {
                               padding: const EdgeInsets.only(left: 16),
                               // height: 64, // 픽셀 에러로 삭제
                               child: Column(
-                                children: [
+                                children: const [
                                   MaterialButton(
                                     elevation: 0.0,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => SettingMessagePage()));
-                                    },
-                                    color: const Color(0xFFDCEDC8),
-                                    child: const Icon(
+                                    onPressed: _launchMedicineUrl,
+                                    color: Color(0xFFDCEDC8),
+                                    child: Icon(
                                       Icons.sick_rounded,
                                       color: Colors.blueAccent,
                                       size: 30,
                                     ),
-                                    padding: const EdgeInsets.all(16),
-                                    shape: const CircleBorder(),
+                                    padding: EdgeInsets.all(16),
+                                    shape: CircleBorder(),
                                   ),
-                                  const SizedBox(height: 10),
-                                  const Text(
+                                  SizedBox(height: 10),
+                                  Text(
                                     '약국찾기',
                                     style: TextStyle(
                                       fontSize: 15,
@@ -1112,4 +1096,33 @@ Widget personTransactionsIcon() {
       ),
     ],
   );
+}
+
+//url_launcher
+// 센터 찾기
+_launchCenterUrl() async {
+  const _centerUrl = 'https://map.naver.com/v5/search/%EC%9A%94%EC%96%91%EC%84%BC%ED%84%B0?c=14140528.5032531,4513331.8124654,15,0,0,0,dh';
+  if (await canLaunch(_centerUrl)) {
+    await launch(_centerUrl);
+  } else {
+    throw 'Could not launch $_centerUrl';
+  }
+}
+// 병원찾기
+_launchHospitalUrl() async {
+  const _hospitalUrl = 'https://map.naver.com/v5/search/%EB%87%8C%EC%A1%B8%EC%A4%91%EB%B3%91%EC%9B%90?c=14138829.3893373,4515250.8841434,15,0,0,0,dh';
+  if (await canLaunch(_hospitalUrl)) {
+    await launch(_hospitalUrl);
+  } else {
+    throw 'Could not launch $_hospitalUrl';
+  }
+}
+// 약국찾기
+_launchMedicineUrl() async {
+  const _medicineUrl = 'https://map.naver.com/v5/search/%EC%95%BD%EA%B5%AD?c=14138829.3893373,4515250.8841434,15,0,0,0,dh';
+  if (await canLaunch(_medicineUrl)) {
+    await launch(_medicineUrl);
+  } else {
+    throw 'Could not launch $_medicineUrl';
+  }
 }
