@@ -174,6 +174,28 @@ class _StarPageState extends State<StarPage> {
     );
   }
 
+  Widget _recommendPlace(String text, String image, String imgUrl, dynamic url) {
+    return InkWell(
+      child: Container(
+        child: GridTile(
+          child: FadeInImage(
+            placeholder: AssetImage(image),
+            image: AssetImage(imgUrl),
+            fit: BoxFit.fill,
+          ),
+          footer: GridTileBar(
+            backgroundColor: Colors.black54,
+            title: Text(text, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
+          ),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      onTap: url,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _currentLocation();
@@ -238,7 +260,7 @@ class _StarPageState extends State<StarPage> {
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,
                   children: <Widget>[
-                    _contanier('수다방', 'contents', 'image/speech-bubble.png', _launchTalk ),
+                    _contanier('수다방', 'contents', 'image/speech-bubble.png', _launchTalk),
                     _contanier('병원후기', 'contents', 'image/hospital.png', _launchHospital),
                     _contanier('질의응답', 'contents', 'image/doctor.png', _launchQA),
                     _contanier('의사정보', 'contents', 'image/stethoscope.png', _launchDoctor),
@@ -353,23 +375,21 @@ class _StarPageState extends State<StarPage> {
                 ),
               ),
               const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Card(
-                  child: FutureBuilder<List<MonthlyPick>>(
-                    future: monthlyPick(http.Client()),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) print(snapshot.error);
-
-                      return snapshot.hasData
-                          ? _buildMonthlyPick(
-                              list: snapshot.data!,
-                            )
-                          : const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                    },
-                  ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 3.5/7,
+                // height: 300,
+                child: GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
+                  children: <Widget>[ // 위에 생성한 _recommendPlace 위젯을 사용해줌
+                    _recommendPlace('맛집', 'image/dining.jpg', 'image/dining.jpg', _launchRestaurant ),
+                    _recommendPlace('우리시장', 'image/marketplace.jpg', 'image/marketplace.jpg', _launchMarket),
+                    _recommendPlace('문화시설', 'image/culture.jpg', 'image/culture.jpg', _launchCulture),
+                    _recommendPlace('공원', 'image/park.jpg', 'image/park.jpg', _launchPark),
+                  ],
                 ),
               ),
               const SizedBox(height: 10),
@@ -444,6 +464,7 @@ class _StarPageState extends State<StarPage> {
         ));
   }
 }
+// url
 // 건강정보
 _launchHealthInfo() async {
   const _healthInfo = 'url';
@@ -472,111 +493,44 @@ _launchEnvironmentInfo() async {
   }
 }
 
-//monthly pick
-class _buildMonthlyPick extends StatelessWidget {
-  final List<MonthlyPick> list;
-  _buildMonthlyPick({required this.list});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: list.length,
-        itemBuilder: (context, index){
-          return Card(
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            child: Stack(
-              children: [
-                Positioned(
-                    child: Column(
-                      children: [
-                        Center(child: InkWell(onTap: () => _launchMonthlyPick(index),
-                            child: Image.network(list[index].img_url, height: 200, width:320, fit: BoxFit.cover))),
-                        const SizedBox(height: 2),
-                        Text(list[index].title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20),),
-                        const SizedBox(height: 2),
-                        Text(list[index].contents, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),)
-                      ],
-                    )
-                )
-              ],
-            ),
-          );
-        },
-      ),
-    );
+//recommendPlace url
+// 맛집 url
+_launchRestaurant() async{
+  const _restaurantUrl = 'https://map.naver.com/v5/search/%EB%A7%9B%EC%A7%91?c=14139780.2915596,4510320.8142796,15,0,0,0,dh';
+  if (await canLaunch(_restaurantUrl)) {
+    await launch(_restaurantUrl);
+  } else {
+    throw 'Could not Launch $_restaurantUrl';
   }
-
-  List<String> _urlMonthlyPic = [
-    'https://map.naver.com/v5/search/%EC%B9%B4%ED%8E%98', // 맛집
-    'https://map.naver.com/v5/search/%EB%AC%B8%ED%99%94%EC%8B%9C%EC%84%A4?c=14136802.1946183,4513331.8124654,13,0,0,0,dh', // 문화시설
-    'https://map.naver.com/v5/search/%EA%B3%B5%EC%9B%90?c=14139806.0954176,4512188.3281197,15,0,0,0,dh', // 공원
-  ];
-
-  _launchMonthlyPick(index) async{
-    if (await canLaunch(_urlMonthlyPic[index])) {
-      await launch(_urlMonthlyPic[index]);
-    } else {
-      throw 'Could not Launch $_urlMonthlyPic';
-    }
+}
+// 우리시장 url
+_launchMarket() async{
+  const _marketUrl = 'https://map.naver.com/v5/search/%EC%8B%9C%EC%9E%A5?c=14139780.2915596,4510320.8142796,15,0,0,0,dh';
+  if (await canLaunch(_marketUrl)) {
+    await launch(_marketUrl);
+  } else {
+    throw 'Could not Launch $_marketUrl';
+  }
+}
+// 문화시설 url
+_launchCulture() async{
+  const _cultureUrl =   'https://map.naver.com/v5/search/%EB%AC%B8%ED%99%94%EC%8B%9C%EC%84%A4?c=14136802.1946183,4513331.8124654,13,0,0,0,dh';
+  if (await canLaunch(_cultureUrl)) {
+    await launch(_cultureUrl);
+  } else {
+    throw 'Could not Launch $_cultureUrl';
+  }
+}
+// 공원 url
+_launchPark() async{
+  const _parkUrl = 'https://map.naver.com/v5/search/%EA%B3%B5%EC%9B%90?c=14139806.0954176,4512188.3281197,15,0,0,0,dh';
+  if (await canLaunch(_parkUrl)) {
+    await launch(_parkUrl);
+  } else {
+    throw 'Could not Launch $_parkUrl';
   }
 }
 
-//recommend activity
-class _buildRecommendActivity extends StatelessWidget {
-  final List<RecommendActivity> list;
 
-  _buildRecommendActivity({required this.list});
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              child: ListTile(
-                onTap: () {
-                  _launchRecommendActivity(index);
-                },
-                leading: Image.network(list[index].img_url),
-                title: Text(list[index].title),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
 
-  List<String> _urlRecommendActivity = [
-    // 'http://54.180.102.153:18080/api/recommendActivity/{id}',
-    'http://54.180.102.153:18080/api/recommendActivity/4',
-    'http://54.180.102.153:18080/api/recommendActivity/5',
-    'http://54.180.102.153:18080/api/recommendActivity/6',
-  ];
-  // Future<dynamic> _urlRecommendActivity(String id) async {
-  //   var url = 'http://54.180.102.153:18080/api/recommendActivity/' + id;
-  //   if (await canLaunch(url)) {
-  //     await launch(url, forceWebView: true);
-  //   } else {
-  //     throw 'Could not Launch %url';
-  //   }
-  // }
-
-  _launchRecommendActivity(index) async {
-    if (await canLaunch(_urlRecommendActivity[index])) {
-      await launch(_urlRecommendActivity[index]);
-    } else {
-      throw 'Could not Launch $_urlRecommendActivity';
-    }
-  }
-}
