@@ -43,13 +43,13 @@ class _NavigatorPageState extends State<NavigatorPage>
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 30.0,
-              color: Colors.white,
+              color: Color(0xFF0ab27d),
             ),
           ),
           leading: IconButton(
             icon: const Icon(
               Icons.menu,
-              // color: Color(0xFF43aa8b),
+              color: Color(0xFF0ab27d),
             ),
             onPressed: () {}, // -> 추후에 페이지와 항목 적용할 수 있음
           ),
@@ -63,7 +63,7 @@ class _NavigatorPageState extends State<NavigatorPage>
                 width: 80,
                 margin:EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: Colors.redAccent,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Center(
@@ -84,7 +84,7 @@ class _NavigatorPageState extends State<NavigatorPage>
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15.0,
-                  color: Colors.white,
+                  color: Color(0xFF0ab27d),
                 ),
               ),
               onPressed: () {
@@ -96,7 +96,9 @@ class _NavigatorPageState extends State<NavigatorPage>
           // centerTitle: true,
           titleSpacing: 20,
           bottom: TabBar(
-            indicatorColor: Colors.white,
+            indicatorColor: Color(0xFF0ab27d),
+            labelColor: Color(0xFF0ab27d),
+            unselectedLabelColor: Colors.grey,
             controller: controller,
             tabs: const [
               Tab(
@@ -127,7 +129,9 @@ class _NavigatorPageState extends State<NavigatorPage>
               )
             ],
           ),
-          backgroundColor: const Color(0xFF0ab27d), // or white 0xFF0ab27d)
+          backgroundColor: Colors.white,
+            elevation: 0.5,
+          // const Color(0xFF0ab27d), // or white 0xFF0ab27d)
         ),
         body: TabBarView(
           controller: controller,

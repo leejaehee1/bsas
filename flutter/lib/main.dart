@@ -11,7 +11,6 @@ void main() async {
 
 MaterialColor MyGreen = const MaterialColor(0xFF43aa8b, {
   50: Color(0xffEAECC6),
-
   100: Color(0xff2BC0E4),
   200: Color(0xFF00C853), //메인으로 했던 컬러
   300: Color(0xFFDCEDC8), //
