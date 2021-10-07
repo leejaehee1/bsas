@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="board">
+<mapper namespace="test">
 
     <select id="selectBoardById" parameterType="com.jsoftware.platform.model.Board"
             resultType="com.jsoftware.platform.model.Board">
-        SELECT id
+        SELECT idx
              , title
              , contents
+             , image
         FROM board
-        WHERE id = #{id}
+        WHERE idx = #{idx}
     </select>
 
     <select id="selectAllBoards" resultType="com.jsoftware.platform.model.Board">
-        SELECT id
+        SELECT idx
              , title
              , contents
+             , image
         FROM board
-        ORDER BY id DESC
+        ORDER BY idx ASC
 <!--        DESC 내림차순, ASC 오름차순-->
     </select>
 
     <insert id="insertBoard" parameterType="com.jsoftware.platform.model.Board">
-        INSERT INTO board (title, contents)
-        VALUES (#{title}, #{contents})
+        INSERT INTO board (title, contents, image)
+        VALUES (#{title}, #{contents}, #{image})
     </insert>
 
     <update id="updateBoard" parameterType="com.jsoftware.platform.model.Board">
         UPDATE board
         set title    = #{title},
-            contents = #{contents}
-        WHERE id = #{id}
+            contents = #{contents},
+            image = #{image}
+        WHERE idx = #{idx}
     </update>
 
     <delete id="deleteBoard" parameterType="com.jsoftware.platform.model.Board">
         DELETE
         FROM board
-        WHERE id = #{id}
+        WHERE idx = #{idx}
     </delete>
 
 </mapper>
