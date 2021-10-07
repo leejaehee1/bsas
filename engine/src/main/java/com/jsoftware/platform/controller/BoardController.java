@@ -69,7 +69,7 @@ public class BoardController {
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
 //        String basePath = rootPath + "/" + "single"; // 바탕화면/single
-        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/" + "single"; // aws 서버 주소
+        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
 
         System.out.printf("****** file at Desktop");
 
