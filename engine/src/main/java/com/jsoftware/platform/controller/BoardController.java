@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.filechooser.FileSystemView;
 
 @Controller
 public class BoardController {
@@ -59,11 +60,33 @@ public class BoardController {
             HttpServletRequest req, @RequestParam("file") MultipartFile file,
             @RequestParam("title")String title,
             @RequestParam("contents")String contents) throws IllegalStateException, IOException {
-        String PATH = req.getSession().getServletContext().getRealPath("/") + "resources/";
+
+        /*String PATH = req.getSession().getServletContext().getRealPath("/") + "resources/";
+
         if (!file.getOriginalFilename().isEmpty()) {
-            file.transferTo(new File(PATH + file.getOriginalFilename()));
+            file.transferTo(new File("/" + file.getOriginalFilename()));
+        }*/
+
+        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
+        String basePath = rootPath + "/" + "single"; // 바탕화면/single
+
+        System.out.printf("****** file at Desktop");
+
+        String filePath = basePath + "/" + file.getOriginalFilename(); // 바탕화면/single/파일이름
+        System.out.printf("****** file at single");
+
+
+        if (!filePath.isEmpty()) {
+            File dest = new File(filePath);
+            file.transferTo(dest); // 파일 업로드 작업 수행
         }
+
+        System.out.printf("****** file upload");
+
         service.addBoard(new Board(0, title, contents, file.getOriginalFilename()));
+
+        System.out.printf("****** add board");
+
         return "redirect:/board";
     }
 

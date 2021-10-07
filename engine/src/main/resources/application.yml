@@ -4,12 +4,14 @@ server:
 #  18080
 spring:
   application:
-    name: ERP Basic Management Module
+    name: Brain Stroke Alarm System
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     generate-ddl: true
     database: mysql
+    hibernate:
+      ddl-auto=update: update
   boot:
     admin:
       client:
@@ -74,8 +76,7 @@ management:
     add-mappings: true
 
 # file upload
-logging.level.org.apache.coyote.http11: debug
-file.dir: C:\Users\yisel\Desktop
-
+spring.servlet.multipart.enabled: true
+spring.servlet.multipart.location: C:/Users/Sherry Yi/Desktop/single
 spring.http.multipart.maxFileSize: 10MB
 spring.http.multipart.maxRequestSize: 10MB
