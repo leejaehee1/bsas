@@ -115,6 +115,13 @@ public class BoardController {
         return "board";
     }
 
+    @DeleteMapping("/delete")
+    public String deleteBoard(int idx) {
+        System.out.println("delete Board" + idx);
+        service.deleteBoard(idx);
+        System.out.println(idx + "delete Board complete ****** ");
+        return "delete Board idx" + idx;
+    }
 
     // ---------------------------------------------
     // 이하는 원래 있던 코드

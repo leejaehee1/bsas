@@ -13,11 +13,12 @@ public interface BoardRepository {
     void addBoard(Board board);
     Board getBoardOne(int idx);
     void updateBoard(Board board);
+    String deleteBoard(int idx);
 
 /*
 
 
-    String deleteBoard(int idx);
+
 
 
     boolean addReply(Reply reply);
