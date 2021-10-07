@@ -9,15 +9,19 @@ import java.util.List;
 @Mapper
 public interface BoardRepository {
 
-    void addBoard(Board board);
     List<Board> getBoards();
-    Board getBoardOne(int id);
+    void addBoard(Board board);
+    Board getBoardOne(int idx);
     void updateBoard(Board board);
-    String deleteBoard(int id);
+
+/*
 
 
-//    public boolean addReply(Reply reply);
-//    public List<Reply> getReply(int boardIdx);
+    String deleteBoard(int idx);
+
+
+    boolean addReply(Reply reply);
+    List<Reply> getReply(int boardIdx);*/
 
 //    Board selectBoardById(Board board);
 //

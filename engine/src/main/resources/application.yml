@@ -72,3 +72,10 @@ management:
   resources:
     static-locations: classpath:static/
     add-mappings: true
+
+# file upload
+logging.level.org.apache.coyote.http11: debug
+file.dir: C:\Users\yisel\Desktop
+
+spring.http.multipart.maxFileSize: 10MB
+spring.http.multipart.maxRequestSize: 10MB

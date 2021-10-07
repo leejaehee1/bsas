@@ -17,33 +17,32 @@ public class BoardService {
     }
 
     @Transactional
-    public Board getBoardOne(int id) {
-        Board board = new Board();
-        board.setId(id);
-        return repository.getBoardOne(id);
-    }
-
-    @Transactional
     public List<Board> getBoards() {
         return repository.getBoards();
     }
 
     @Transactional
-    public Board addBoard(Board board) {
+    public void addBoard(Board board) {
         repository.addBoard(board);
-        return board;
     }
 
     @Transactional
-    public Board updateBoard(Board board) {
-        repository.updateBoard(board);
-        return board;
+    public Board getBoardOne(int idx) {
+        Board board = new Board();
+        board.setIdx(idx);
+        return repository.getBoardOne(idx);
     }
 
+    @Transactional
+    public void updateBoard(Board board) {
+        repository.updateBoard(board);
+    }
+
+    /*
     @Transactional
     public void deleteBoard(int id) {
         repository.deleteBoard(id);
-    }
+    }*/
 
 
 

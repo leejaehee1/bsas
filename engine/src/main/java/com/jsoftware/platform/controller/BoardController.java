@@ -2,11 +2,18 @@ package com.jsoftware.platform.controller;
 
 import com.jsoftware.platform.model.Board;
 import com.jsoftware.platform.service.BoardService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class BoardController {
@@ -17,43 +24,10 @@ public class BoardController {
         this.service = service;
     }
 
-    /*@PostMapping("/api/boards")
-    public Board addBoard(@RequestBody Board board) {
-        System.out.println("Create Board");
-        return service.addBoard(board);
-    }
-
-    @GetMapping("/api/boards")
-    public List<Board> getBoards() {
-        System.out.printf("Board list ------");
-        return service.getBoards();
-    }
-
-    @GetMapping("/api/boards/{id}")
-    public Board getBoardOne(@PathVariable("id") int id) {
-        System.out.println("Board" + id);
-        return service.getBoardOne(id);
-    }
-
-    @PutMapping("/api/boards/{id}")
-    public Board updateBoard(@RequestBody Board board) {
-        System.out.println("Modify Board");
-        return service.updateBoard(board);
-    }
-
-    @DeleteMapping("/api/boards/{id}")
-    public String deleteBoard(@PathVariable("id") int id) {
-        System.out.println("delete Board" + id);
-        service.deleteBoard(id);
-        System.out.println(id + "delete Board complete");
-        return "delete id" + id;
-    }*/
-
-    // ----------------------------------------------------------------
-
     // ui 화면으로 출력해냄
     @GetMapping("/board")
     public String board() {
+        System.out.printf("****** Board list");
         return "board";
     }
 
@@ -61,32 +35,61 @@ public class BoardController {
     @GetMapping("/boardList")
     @ResponseBody
     public List<Board> getBoards(){
+        System.out.printf("****** Board list");
         return service.getBoards();
     }
 
     // ui 화면 (html)
     @GetMapping("/write")
     public String write() {
+        System.out.printf("****** Board write");
         return "write";
     }
 
-    // get support가 없음
+    /*// writeAction
     @PostMapping("/writeAction")
-    public String writeAction(@RequestBody Board board) {
+    public String writeAction(Board board) {
         service.addBoard(board);
+        System.out.printf("****** Board write");
         return "board";
+    }*/
+
+    @PostMapping("/writeAction")
+    public String writeAction(
+            HttpServletRequest req, @RequestParam("file") MultipartFile file,
+            @RequestParam("title")String title,
+            @RequestParam("contents")String contents) throws IllegalStateException, IOException {
+        String PATH = req.getSession().getServletContext().getRealPath("/") + "resources/";
+        if (!file.getOriginalFilename().isEmpty()) {
+            file.transferTo(new File(PATH + file.getOriginalFilename()));
+        }
+        service.addBoard(new Board(0, title, contents, file.getOriginalFilename()));
+        return "redirect:/board";
     }
 
-    // id로 get하는 화면이 필요함
-    @GetMapping("/boardView")
+    @GetMapping("/view")
     public String view() {
+        System.out.printf("****** Board detail");
         return "view";
     }
 
+    @GetMapping("/boardView")
+    @ResponseBody
+    public Board boardList(@RequestParam("idx") int idx) {
+        System.out.printf("****** Board detail");
+        return service.getBoardOne(idx);
+    }
 
-    @GetMapping("/boardView/{id}")
-    public Board getBoardOne(@PathVariable int id) {
-        return service.getBoardOne(id);
+    // http://localhost:18080/view?idx=4
+    @PutMapping("/view")
+    public String updateBoard(@RequestParam("idx") int idx,
+                              @RequestBody Board board) {
+        System.out.printf("****** Board update 1-3");
+        service.getBoardOne(idx);
+        System.out.printf("****** Board update 2-3");
+        service.updateBoard(board);
+        System.out.printf("****** Board update 3-3");
+        return "board";
     }
 
 

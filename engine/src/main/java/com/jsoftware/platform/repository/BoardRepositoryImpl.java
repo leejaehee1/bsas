@@ -31,8 +31,8 @@ public class BoardRepositoryImpl implements BoardRepository{
     }
 
     @Override
-    public Board getBoardOne(int id) {
-        return sqlSessionTemplate.selectOne("selectBoardById", id);
+    public Board getBoardOne(int idx) {
+        return sqlSessionTemplate.selectOne("selectBoardById", idx);
     }
 
     @Override
@@ -40,11 +40,15 @@ public class BoardRepositoryImpl implements BoardRepository{
         sqlSessionTemplate.update("updateBoard", board);
     }
 
+
+    /*
+
+
     @Override
     public String deleteBoard(int id) {
         sqlSessionTemplate.delete("deleteBoard", id);
         return "id" + id;
-    }
+    }*/
 
 //    @Override
 //    public boolean addReply(Reply reply);
