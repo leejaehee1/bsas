@@ -18,7 +18,7 @@ class StarPage extends StatefulWidget {
 }
 
 class _StarPageState extends State<StarPage> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   late CameraPosition _googleMapCamera;
   Marker? marker;
@@ -77,7 +77,7 @@ class _StarPageState extends State<StarPage> {
                   color: Colors.black87, fontSize: 23, fontWeight: FontWeight.bold),
             )
           ),
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Align(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -94,7 +94,7 @@ class _StarPageState extends State<StarPage> {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xFF165DC0).withOpacity(0.1), //0xffafdbde
+          color: const Color(0xFF165DC0).withOpacity(0.1), //0xffafdbde
         ),
       ),
       onTap: _url,
@@ -176,23 +176,18 @@ class _StarPageState extends State<StarPage> {
 
   Widget _recommendPlace(String text, String image, String imgUrl, dynamic url) {
     return InkWell(
-      child: Container(
-        child: GridTile(
-          child: FadeInImage(
-            placeholder: AssetImage(image),
-            image: AssetImage(imgUrl),
-            fit: BoxFit.fill,
+          child: GridTile(
+            child: FadeInImage(
+              placeholder: AssetImage(image),
+              image: AssetImage(imgUrl),
+              fit: BoxFit.fill,
+            ),
+            footer: GridTileBar(
+              backgroundColor: Colors.black54,
+              title: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),),
+            ),
           ),
-          footer: GridTileBar(
-            backgroundColor: Colors.black54,
-            title: Text(text, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
-          ),
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      onTap: url,
+        onTap: url,
     );
   }
 
@@ -366,18 +361,17 @@ class _StarPageState extends State<StarPage> {
               Container(
                 padding: const EdgeInsets.only(left: 16, top: 25),
                 child: const Text(
-                  '이달의 Pick',
+                  '추천장소',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 3.5/7,
-                // height: 300,
                 child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.all(20),
@@ -391,7 +385,7 @@ class _StarPageState extends State<StarPage> {
                     _recommendPlace('공원', 'image/park.jpg', 'image/park.jpg', _launchPark),
                   ],
                 ),
-              ),
+                ),
               const SizedBox(height: 10),
               Column(
                 children: [
