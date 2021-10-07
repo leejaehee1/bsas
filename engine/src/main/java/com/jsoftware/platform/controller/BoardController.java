@@ -64,7 +64,7 @@ public class BoardController {
         /*String PATH = req.getSession().getServletContext().getRealPath("/") + "resources/";
 
         if (!file.getOriginalFilename().isEmpty()) {
-            file.transferTo(new File("/" + file.getOriginalFilename()));
+            file.transferTo(new File(PATH + file.getOriginalFilename()));
         }*/
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
@@ -76,7 +76,7 @@ public class BoardController {
         System.out.printf("****** file at single");
 
 
-        if (!filePath.isEmpty()) {
+        if (!file.getOriginalFilename().isEmpty()) {
             File dest = new File(filePath);
             file.transferTo(dest); // 파일 업로드 작업 수행
         }
