@@ -16,9 +16,9 @@ MaterialColor MyGreen = const MaterialColor(0xFF43aa8b, {
   300: Color(0xFFDCEDC8), //
   400: Color(0xFF009688), ////
   500: Color(0xFF43aa8b), //// good
-  600: Color(0xFF0ab27d),
-  700: Color(0xFF00BFA5), //메인컬러
-  800: Color(0xFF7C4DFF),
+  600: Color(0xFF0ab27d), // main
+  700: Color(0xFF00BFA5), //
+  800: Color(0xFF4CC87B), // SUB COLOR
   900: Color(0xFF7E57C2),
 });
 
