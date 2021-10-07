@@ -125,7 +125,7 @@ class _UserInformationState extends State<UserInformation> {
                           },
                           child: ListTile(
                             leading: Icon(Icons.question_answer_outlined),
-                            title: _text('문의사항'),
+                            title: _text('고객센터'),
                           ),
                         ),
                         // 공지사항
