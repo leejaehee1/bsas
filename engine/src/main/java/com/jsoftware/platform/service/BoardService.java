@@ -1,6 +1,7 @@
 package com.jsoftware.platform.service;
 
 import com.jsoftware.platform.model.Board;
+import com.jsoftware.platform.model.Reply;
 import com.jsoftware.platform.repository.BoardRepositoryImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,13 @@ public class BoardService {
     public String deleteBoard(int idx) {
         repository.deleteBoard(idx);
         return "idx" +idx;
+    }
+
+    public void addReply(Reply reply) {
+        repository.addReply(reply);
+    }
+    public List<Reply> getReply(int boardIdx) {
+        return repository.getReply(boardIdx);
     }
 
 

@@ -1,6 +1,7 @@
 package com.jsoftware.platform.repository;
 
 import com.jsoftware.platform.model.Board;
+import com.jsoftware.platform.model.Reply;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,14 +16,8 @@ public interface BoardRepository {
     void updateBoard(Board board);
     String deleteBoard(int idx);
 
-/*
-
-
-
-
-
-    boolean addReply(Reply reply);
-    List<Reply> getReply(int boardIdx);*/
+    public void addReply(Reply reply);
+    public List<Reply> getReply(int boardIdx);
 
 //    Board selectBoardById(Board board);
 //
