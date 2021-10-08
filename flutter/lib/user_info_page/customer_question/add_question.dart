@@ -105,14 +105,19 @@ class _AddQuestionState extends State<AddQuestion> {
               contents, _contentsController),
             SizedBox(height: 2),
             SizedBox(
-              width: 340,
+              width: 300,
               height: 50,
-              child: RaisedButton(onPressed: (){},
+              child: RaisedButton(onPressed: (){
+                questionDbHelper.addQuestion(
+                    _titleController.text,
+                    _contentsController.text);
+                Navigator.pop(context, true);
+              },
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)
+                  borderRadius: BorderRadius.circular(15)
                 ),
                 color: Color(0xFF4CC87B),
-              child: Text('사진 업로드', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
+              child: Text('문의하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
             )
           ],
         ),
