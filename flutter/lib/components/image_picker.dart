@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 void main() => runApp(MyApp());
@@ -11,8 +12,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   List<Asset> images = <Asset>[];
   String _error = 'No Error Dectected';
+
+  Future<String?> uploadImage(filepath, url) async {
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.files.add(await http.MultipartFile.fromPath('image', filepath));
+    var response = await request.send();
+    return response.reasonPhrase;
+  }
 
   @override
   void initState() {
