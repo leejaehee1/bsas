@@ -44,6 +44,7 @@ dependencies:
   url_launcher:
   js:
   footer:
+  image_picker:
 
 
 
