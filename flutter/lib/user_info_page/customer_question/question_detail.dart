@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
 
-class CustomerQuestionPage extends StatefulWidget {
+class QuestionDetail extends StatefulWidget {
+  List list;
+  int index;
+  QuestionDetail({required this.index, required this.list});
+
   @override
-  _CustomerQuestionState createState() => _CustomerQuestionState();
+  _QuestionDetailState createState() => _QuestionDetailState();
 }
 
-class _CustomerQuestionState extends State<CustomerQuestionPage> {
+class _QuestionDetailState extends State<QuestionDetail> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(Icons.arrow_back_ios_rounded),
         backgroundColor: Color(0xFF43aa8b),
         title: Text('문의',
           style: TextStyle(
