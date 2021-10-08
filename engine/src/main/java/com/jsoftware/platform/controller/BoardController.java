@@ -69,8 +69,8 @@ public class BoardController {
         }*/
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
-//        String basePath = rootPath + "/" + "single"; // 바탕화면/single
-        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
+        String basePath = rootPath + "/" + "single"; // 바탕화면/single
+//        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
 
         System.out.printf("****** file at Desktop");
 
@@ -106,7 +106,7 @@ public class BoardController {
     }
 
     // http://localhost:18080/view?idx=4
-    @PutMapping("/view")
+    @PutMapping("/update")
     public String updateBoard(@RequestParam("idx") int idx,
                               @RequestBody Board board) {
         System.out.printf("****** Board update 1-3");
@@ -118,11 +118,11 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteBoard(int idx) {
+    public String deleteBoard(@RequestParam("idx")int idx) {
         System.out.println("delete Board" + idx);
         service.deleteBoard(idx);
         System.out.println(idx + "delete Board complete ****** ");
-        return "delete Board idx" + idx;
+        return "board";
     }
 
     @GetMapping("/replyList")
