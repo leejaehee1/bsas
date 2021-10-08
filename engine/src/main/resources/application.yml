@@ -11,7 +11,7 @@ spring:
     generate-ddl: true
     database: mysql
     hibernate:
-      ddl-auto=update: update
+      ddl-auto: update
   boot:
     admin:
       client:
@@ -80,3 +80,7 @@ spring.servlet.multipart.enabled: true
 spring.servlet.multipart.location: C:/Users/Sherry Yi/Desktop/single
 spring.http.multipart.maxFileSize: 10MB
 spring.http.multipart.maxRequestSize: 10MB
+
+# devtools
+spring.devtools.livereload.enabled: true
+spring.freemarker.cache: false

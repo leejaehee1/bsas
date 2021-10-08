@@ -1,6 +1,7 @@
 package com.jsoftware.platform.controller;
 
 import com.jsoftware.platform.model.Board;
+import com.jsoftware.platform.model.Reply;
 import com.jsoftware.platform.service.BoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +123,21 @@ public class BoardController {
         service.deleteBoard(idx);
         System.out.println(idx + "delete Board complete ****** ");
         return "delete Board idx" + idx;
+    }
+
+    @GetMapping("/replyList")
+    @ResponseBody
+    public List<Reply> replyList(@RequestParam("idx")int boardIdx){
+        return service.getReply(boardIdx);
+    }
+
+    @PostMapping("/writeReply")
+    public String writeReply(
+            @RequestParam("idx")int idx,
+            @RequestParam("replyIdx")int replyIdx,
+            @RequestParam("contents")String contents) {
+        service.addReply(new Reply(0, idx,replyIdx, contents));
+        return "redirect:view?idx=" + idx;
     }
 
     // ---------------------------------------------

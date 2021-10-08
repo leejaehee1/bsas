@@ -1,6 +1,7 @@
 package com.jsoftware.platform.repository;
 
 import com.jsoftware.platform.model.Board;
+import com.jsoftware.platform.model.Reply;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -47,12 +48,14 @@ public class BoardRepositoryImpl implements BoardRepository{
         return "idx" + idx;
     }
 
-//    @Override
-//    public boolean addReply(Reply reply);
-//
-//    @Override
-//    public List<Reply> getReply(int boardIdx);
-//
+    public void addReply(Reply reply) {
+        sqlSessionTemplate.insert("addReply", reply);
+    }
+
+    public List<Reply> getReply(int boardIdx) {
+        return sqlSessionTemplate.selectList("getReply", boardIdx);
+    }
+
 //    public List<Board> createBySize(String size) {
 //        // DB 조회를 했다고 가정하여 카운트를 올린다.
 //        dbCount++;
