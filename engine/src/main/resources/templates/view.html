@@ -69,6 +69,7 @@ function drawReply(replys) {
 
   $.ajax({url: "boardView?idx="+IDX, success: function(result){
 	  $("#image").append('<img src="static/single/'+ result.image + '" style="width: 100%;">');
+<!--	  $("#image").append('<img src="C:/Users/Sherry Yi/Desktop/single/'+result.image+'" style="width: 100%;">');-->
 	  $("#title").text(result.title);
 	  $("#contents").text(result.contents);
    }});
@@ -76,6 +77,13 @@ function drawReply(replys) {
   $.ajax({url: "replyList?idx="+IDX, success: function(replys){
 	  drawReply(replys)
    }});
+
+  /* 삭제 버튼 */
+  $("#delete-btn").on("click", function(e){
+      form.attr("action", "/delete");
+      form.attr("method", "delete");
+      form.submit();
+  });
 
   </script>
 </head>
@@ -122,12 +130,12 @@ function drawReply(replys) {
             <a class="btn btn-info" role="button">수정</a>
         </div>
         <div class="col-auto">
-            <form id="delete-form" method="post">
+            <form id="delete-form" method="delete">
                 <input type="hidden" name="_method" value="delete"/>
                 <button id="delete-btn" type="submit" class="btn btn-danger">삭제</button>
             </form>
         </div>
-        </div>
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <h2 id = "cnt"></h2>
