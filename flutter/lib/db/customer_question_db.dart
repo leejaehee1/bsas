@@ -20,7 +20,7 @@ class CustomerDbHelper {
   }
 
 
-  //AddUser - Crud
+  //AddUser - Crud //image 추가해야함
   Future<CustomerQuestion> addQuestion(String title, String contents) async {
     final response = await http.post(
       Uri.parse('http://54.180.102.153:18080/api/recommendActivity'),
