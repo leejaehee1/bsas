@@ -89,4 +89,11 @@ CREATE TABLE `User` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='지인등록';
 
+CREATE TABLE `reply` (
+  `idx` INT NOT NULL AUTO_INCREMENT,
+  `board_idx` INT,
+  `reply_idx` INT,
+  `contents` TEXT NULL,
+  PRIMARY KEY (`idx`));
+
 insert into user values (null, name, phone, email, now(), null);
