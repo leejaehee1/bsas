@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:bsas/db/customer_question_db.dart';
-import 'package:bsas/db/user_db.dart';
+import 'package:dotted_border/dotted_border.dart';
+import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
 
 class AddQuestion extends StatefulWidget {
   @override
@@ -9,9 +11,10 @@ class AddQuestion extends StatefulWidget {
 }
 
 class _AddQuestionState extends State<AddQuestion> {
-
   String title = '';
   String contents = '';
+
+  File? selectedImage;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentsController = TextEditingController();
@@ -39,14 +42,16 @@ class _AddQuestionState extends State<AddQuestion> {
           ),
         ),
         validator: (input) => //유효성 검사
-        input!.trim().isEmpty ? text : null,
+            input!.trim().isEmpty ? text : null,
         onSaved: (input) => controller = input!,
         controller: editController,
       ),
     );
   }
+
   // contents 위젯
-  Widget _contentsInfo(String contents, dynamic controller, dynamic editController) {
+  Widget _contentsInfo(
+      String contents, dynamic controller, dynamic editController) {
     return Container(
       child: Padding(
         padding: EdgeInsets.all(10),
@@ -69,7 +74,7 @@ class _AddQuestionState extends State<AddQuestion> {
             ),
           ),
           validator: (input) => //유효성 검사
-          input!.trim().isEmpty ? contents : null,
+              input!.trim().isEmpty ? contents : null,
           onSaved: (input) => controller = input!,
           controller: editController,
         ),
@@ -87,7 +92,8 @@ class _AddQuestionState extends State<AddQuestion> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.white,
-        title: Text('문의',
+        title: Text(
+          '문의',
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w700,
@@ -100,47 +106,85 @@ class _AddQuestionState extends State<AddQuestion> {
         child: Column(
           children: [
             _titleInfo('제목을 입력해주세요', title, _titleController),
-            _contentsInfo('앱 사용에 관한 불편, 기능, 요청, 개선사항 등의 의견을 작성해주시면 확인하여 개선 및 답변드리겠습니다.',
-              contents, _contentsController),
+            _contentsInfo(
+                '앱 사용에 관한 불편, 기능, 요청, 개선사항 등의 의견을 작성해주시면 확인하여 개선 및 답변드리겠습니다.',
+                contents,
+                _contentsController),
             SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  width: 150,
-                  height: 50,
-                  child: RaisedButton(
-                    child: ListTile(
-                      leading: Icon(Icons.camera_alt_rounded, color: Colors.white,),
-                      title: Text("사진", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15), ), // text 수정 필요
-                    ),
-                      onPressed: (){}, // 갤러리로 이동
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    color: Color(0xFF4CC87B),
-                      ),
-                ),
-                SizedBox(
-                width: 150,
-                height: 50,
-                child: RaisedButton(onPressed: (){
-                  questionDbHelper.addQuestion(
-                      _titleController.text,
-                      _contentsController.text);
-                  Navigator.pop(context, true);
-                },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)
-                  ),
-                  color: Color(0xFF4CC87B),
-                child: Text('문의하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
+            ListTile(
+              leading: Text("사진업로드", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+              title: Text("(최대5장)", style: TextStyle(fontSize: 13, color: Colors.black26),),
+              trailing: IconButton(
+                icon: Icon(Icons.camera_alt_rounded, size: 30),
+                onPressed: getImage,
               ),
-        ]
-            )
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Container(
+                  height: 90,
+                  width: 100,
+                  child: FutureBuilder(
+                    future: _getImage(context), //index로 사진 가져와야함
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          return Text('Please wait');
+                        case ConnectionState.waiting:
+                          return Center(child: CircularProgressIndicator());
+                        default:
+                          if (snapshot.hasError)
+                            return Text('Error: ${snapshot.error}');
+                          else {
+                            return selectedImage != null
+                                ? Image.file(selectedImage!)
+                                : Center(
+                              child: Text("Please Get the Image"),
+                            );
+                          }
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              width: 300,
+              height: 50,
+              child: RaisedButton(onPressed: (){
+                questionDbHelper.addQuestion(
+                    _titleController.text,
+                    _contentsController.text);
+                Navigator.pop(context, true);
+              },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                color: Color(0xFF4CC87B),
+                child: Text('문의하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  //get image from camera
+  Future getImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      selectedImage = File(image!.path);
+    });
+    //return image;
+  }
+
+  //resize the image
+  Future<void> _getImage(BuildContext context) async {
+    if (selectedImage != null) {
+      var imageFile = selectedImage;
+    }
   }
 }
