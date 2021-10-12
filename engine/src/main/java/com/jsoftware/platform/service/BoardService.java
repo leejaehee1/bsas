@@ -35,14 +35,16 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateBoard(Board board) {
-        repository.updateBoard(board);
+    public Board updateBoard(int idx, Board boardEdit) {
+        Board board = repository.getBoardOne(idx);
+        board.update(boardEdit);
+        repository.updateBoard(idx, board);
+        return board;
     }
 
     @Transactional
-    public String deleteBoard(int idx) {
+    public void deleteBoard(int idx) {
         repository.deleteBoard(idx);
-        return "idx" +idx;
     }
 
     public void addReply(Reply reply) {
@@ -51,9 +53,6 @@ public class BoardService {
     public List<Reply> getReply(int boardIdx) {
         return repository.getReply(boardIdx);
     }
-
-
-
 
 
 //    @Cacheable(key = "#size", value = "getBoards")

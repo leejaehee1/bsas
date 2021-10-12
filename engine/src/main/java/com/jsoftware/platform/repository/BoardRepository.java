@@ -13,8 +13,8 @@ public interface BoardRepository {
     List<Board> getBoards();
     void addBoard(Board board);
     Board getBoardOne(int idx);
-    void updateBoard(Board board);
-    String deleteBoard(int idx);
+    void updateBoard(int idx, Board board);
+    void deleteBoard(int idx);
 
     public void addReply(Reply reply);
     public List<Reply> getReply(int boardIdx);

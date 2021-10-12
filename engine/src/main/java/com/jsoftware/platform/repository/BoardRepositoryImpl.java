@@ -37,15 +37,13 @@ public class BoardRepositoryImpl implements BoardRepository{
     }
 
     @Override
-    public void updateBoard(Board board) {
+    public void updateBoard(int idx, Board board) {
         sqlSessionTemplate.update("updateBoard", board);
     }
 
-
     @Override
-    public String deleteBoard(int idx) {
+    public void deleteBoard(int idx) {
         sqlSessionTemplate.delete("deleteBoard", idx);
-        return "idx" + idx;
     }
 
     public void addReply(Reply reply) {
