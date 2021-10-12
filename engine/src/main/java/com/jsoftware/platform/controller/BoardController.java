@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -102,14 +103,29 @@ public class BoardController {
         return "view";
     }
 
+    @GetMapping("/delete")
+    public String deleteBoard(@RequestParam("idx") int idx, Model model, RedirectAttributes redirect) throws Exception {
+        System.out.println("delete Board" + idx);
+        try {
+            service.deleteBoard(idx);
+            redirect.addFlashAttribute("msg", "삭제가 완료되었습니다!");
+        } catch (Exception exception) {
+            redirect.addFlashAttribute("msg", "오류가 발생했습니다.");
+        }
+        System.out.println(idx + "delete Board complete ****** ");
+        return "redirect:/board";
+    }
+
     // postman으로는 되나
     // html으로는 안됨 ㅠㅠ
-    @DeleteMapping("/view")
-    public void deleteBoard(@RequestParam("idx")int idx) {
+    /*@DeleteMapping("/deleteAction")
+    public String deleteBoard(@RequestParam("idx")int idx, RedirectAttributes attributes) throws Exception {
         System.out.println("delete Board" + idx);
         service.deleteBoard(idx);
         System.out.println(idx + "delete Board complete ****** ");
-    }
+        attributes.addFlashAttribute("result", "detete complete"+idx);
+        return "redirect:/board";
+    }*/
 
     // idx에 해당한 board를 수정하는 page
     @GetMapping("/edit")

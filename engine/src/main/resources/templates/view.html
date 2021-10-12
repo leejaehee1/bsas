@@ -34,6 +34,15 @@
     }
     return b;
 }
+
+function deleteConfirm() {
+    if (!confirm("삭제 하시겠습니까?")) {
+        return false;
+    } else {
+        location.href="/delete?idx="+IDX;
+    }
+}
+
 function drawReply(replys) {
         $("#cnt").text("등록된 댓글 - " + replys.length)
         var html = '';
@@ -79,12 +88,6 @@ function drawReply(replys) {
           drawReply(replys)
    }});
 
-  /* 삭제 버튼 */
-  $("#delete-btn").on("click", function(e){
-      form.attr("action", "/delete");
-      form.attr("method", "delete");
-      form.submit();
-  });
 
   </script>
 </head>
@@ -128,13 +131,13 @@ function drawReply(replys) {
     <div class="row mt-3">
         <div class="col-auto mr-auto"></div>
         <div class="col-auto">
-            <a class="btn btn-info" role="button">수정</a>
+            <a href="/board" class="btn btn-info" role="button">목록</a>
         </div>
         <div class="col-auto">
-            <form id="delete-form" method="delete">
-                <input type="hidden" name="idx" value="${idx}" onclick="del(${idx})"/>
-                <button id="delete_btn" type="submit" value="delete" class="btn btn-danger">삭제</button>
-            </form>
+            <a class="btn btn-success" role="button">수정</a>
+        </div>
+        <div class="col-auto">
+            <a href="javascript:void(0);" class="btn btn-danger" onclick="deleteConfirm();">삭제</a>
         </div>
     </div>
     <div class="row">
