@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:bsas/db/customer_question_db.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:dotted_decoration/dotted_decoration.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 
 class AddQuestion extends StatefulWidget {
   @override
@@ -146,7 +146,7 @@ class _AddQuestionState extends State<AddQuestion> {
                       }
                     },
                   ),
-                )
+                ),
               ],
             ),
             SizedBox(height: 20),
@@ -171,6 +171,7 @@ class _AddQuestionState extends State<AddQuestion> {
     );
   }
 
+
   //get image from camera
   Future getImage() async {
     var image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -186,5 +187,24 @@ class _AddQuestionState extends State<AddQuestion> {
     if (selectedImage != null) {
       var imageFile = selectedImage;
     }
+  }
+  onUploadImage() async {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse('http://54.180.102.153:18080/api/monthlyPick'),
+    );
+    Map<String, String> headers = {"Content-type": 'application/json; charset=UTF-8'};
+    request.files.add(
+      http.MultipartFile(
+        'image',
+        selectedImage!.readAsBytes().asStream(),
+        selectedImage!.lengthSync(),
+        filename: selectedImage!.path.split('/').last,
+      ),
+    );
+    request.headers.addAll(headers);
+    print("request: " + request.toString());
+    var res = await request.send();
+    http.Response response = await http.Response.fromStream(res);
   }
 }
