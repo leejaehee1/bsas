@@ -13,7 +13,7 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionPageState extends State<QuestionPage> {
-  late List list;
+  List? list;
 
   Future<List> getQuestionData() async {
     var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
