@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'package:bsas/db/customer_question_db.dart';
-import 'package:bsas/model/customer_question_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 
 class AddQuestion extends StatefulWidget {
+  const AddQuestion({Key? key}) : super(key: key);
+
   @override
   _AddQuestionState createState() => _AddQuestionState();
 }
@@ -26,17 +27,17 @@ class _AddQuestionState extends State<AddQuestion> {
   //title 위젯
   Widget _titleInfo(String text, dynamic controller, dynamic editController) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextFormField(
-        style: TextStyle(fontSize: 18.0),
+        style: const TextStyle(fontSize: 18.0),
         decoration: InputDecoration(
           labelText: text,
-          labelStyle: TextStyle(fontSize: 15.0),
+          labelStyle: const TextStyle(fontSize: 15.0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Color(0xFF43aa8b),
             ),
             borderRadius: BorderRadius.circular(10),
@@ -53,32 +54,30 @@ class _AddQuestionState extends State<AddQuestion> {
   // contents 위젯
   Widget _contentsInfo(
       String contents, dynamic controller, dynamic editController) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: TextFormField(
-          maxLines: 10,
-          style: TextStyle(fontSize: 18.0),
-          decoration: InputDecoration(
-            hintText: contents,
-            hintStyle: TextStyle(fontSize: 15),
-            // contentPadding: EdgeInsets.symmetric(vertical: 200),
-            labelStyle: TextStyle(fontSize: 13.0),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Color(0xFF43aa8b),
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        maxLines: 10,
+        style: const TextStyle(fontSize: 18.0),
+        decoration: InputDecoration(
+          hintText: contents,
+          hintStyle: const TextStyle(fontSize: 15),
+          // contentPadding: EdgeInsets.symmetric(vertical: 200),
+          labelStyle: const TextStyle(fontSize: 13.0),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          validator: (input) => //유효성 검사
-              input!.trim().isEmpty ? contents : null,
-          onSaved: (input) => controller = input!,
-          controller: editController,
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color(0xFF43aa8b),
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
+        validator: (input) => //유효성 검사
+            input!.trim().isEmpty ? contents : null,
+        onSaved: (input) => controller = input!,
+        controller: editController,
       ),
     );
   }
@@ -93,9 +92,9 @@ class _AddQuestionState extends State<AddQuestion> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           '문의',
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
@@ -111,19 +110,19 @@ class _AddQuestionState extends State<AddQuestion> {
                 '앱 사용에 관한 불편, 기능, 요청, 개선사항 등의 의견을 작성해주시면 확인하여 개선 및 답변드리겠습니다.',
                 contents,
                 _contentsController),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             ListTile(
-              leading: Text("사진업로드", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-              title: Text("(최대5장)", style: TextStyle(fontSize: 13, color: Colors.black26),),
+              leading: const Text("사진업로드", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+              title: const Text("(최대3장)", style: TextStyle(fontSize: 13, color: Colors.black26),),
               trailing: IconButton(
-                icon: Icon(Icons.camera_alt_rounded, size: 30),
+                icon: const Icon(Icons.camera_alt_rounded, size: 30),
                 onPressed: getImage,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
-                Container(
+                SizedBox(
                   height: 90,
                   width: 100,
                   child: FutureBuilder(
@@ -131,16 +130,16 @@ class _AddQuestionState extends State<AddQuestion> {
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
-                          return Text('Please wait');
+                          return const Text('Please wait');
                         case ConnectionState.waiting:
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         default:
-                          if (snapshot.hasError)
+                          if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
-                          else {
+                          } else {
                             return selectedImage != null
                                 ? Image.file(selectedImage!)
-                                : Center(
+                                : const Center(
                               child: Text("Please Get the Image"),
                             );
                           }
@@ -150,7 +149,7 @@ class _AddQuestionState extends State<AddQuestion> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: 300,
               height: 50,
@@ -162,8 +161,7 @@ class _AddQuestionState extends State<AddQuestion> {
                 );
                 Navigator.pop(context, true);
               },
-              //     (){
-              //   questionDbHelper.addQuestion(
+              //     (){ questionDbHelper.addQuestion(
               //       _titleController.text,
               //       _contentsController.text);
               //   Navigator.pop(context, true);
@@ -171,8 +169,8 @@ class _AddQuestionState extends State<AddQuestion> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)
                 ),
-                color: Color(0xFF4CC87B),
-                child: Text('문의하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
+                color: const Color(0xFF4CC87B),
+                child: const Text('문의하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
             ),
           ],
         ),
