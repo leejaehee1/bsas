@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bsas/db/customer_question_db.dart';
+import 'package:bsas/model/customer_question_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -153,12 +154,20 @@ class _AddQuestionState extends State<AddQuestion> {
             SizedBox(
               width: 300,
               height: 50,
-              child: RaisedButton(onPressed: (){
-                questionDbHelper.addQuestion(
-                    _titleController.text,
-                    _contentsController.text);
+              child: RaisedButton(onPressed:
+              (){
+                onUploadImage(
+                  _titleController.text,
+                  _contentsController.text
+                );
                 Navigator.pop(context, true);
               },
+              //     (){
+              //   questionDbHelper.addQuestion(
+              //       _titleController.text,
+              //       _contentsController.text);
+              //   Navigator.pop(context, true);
+              // },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)
                 ),
@@ -188,12 +197,15 @@ class _AddQuestionState extends State<AddQuestion> {
       var imageFile = selectedImage;
     }
   }
-  onUploadImage() async {
+  Future<void> onUploadImage(String title, String contents) async {
     var request = http.MultipartRequest(
       'POST',
       Uri.parse('http://54.180.102.153:18080/api/monthlyPick'),
     );
-    Map<String, String> headers = {"Content-type": 'application/json; charset=UTF-8'};
+    Map<String, String> headers = {"Content-type": "multipart/form-data"};
+    request.fields['title'] = title;
+    request.fields['contents'] = contents;
+
     request.files.add(
       http.MultipartFile(
         'image',
