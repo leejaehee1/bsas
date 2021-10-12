@@ -5,6 +5,7 @@ import com.jsoftware.platform.model.Reply;
 import com.jsoftware.platform.service.BoardService;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,8 +54,8 @@ public class BoardController {
             @RequestParam("contents")String contents) throws IllegalStateException, IOException {
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
-//        String basePath = rootPath + "/" + "single"; // 바탕화면/single
-        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
+        String basePath = rootPath + "/" + "single"; // 바탕화면/single
+//        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
 
         System.out.printf("****** file at Desktop");
 
@@ -76,13 +77,21 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    @GetMapping("/view")
+    /*@GetMapping("/view")
     public String view() {
         System.out.printf("****** Board detail");
         return "view";
+    }*/
+
+    // board detail (json)
+    @GetMapping("/boardView")
+    @ResponseBody
+    public Board boardList(@RequestParam("idx") int idx) {
+        System.out.printf("****** Board detail json idx :"+idx);
+        return service.getBoardOne(idx);
     }
 
-    /*// board detail for view
+    // board detail for view
     @GetMapping("/view")
     public String getBoardOne(@RequestParam("idx") int idx, Model model) {
         Board board = service.getBoardOne(idx);
@@ -91,29 +100,33 @@ public class BoardController {
 
         model.addAttribute("board", board);
         return "view";
-    }*/
-
-    // for board edit json
-    @GetMapping("/boardView")
-    @ResponseBody
-    public Board boardList(@RequestParam("idx") int idx) {
-        System.out.printf("****** Board detail json idx :"+idx);
-        return service.getBoardOne(idx);
     }
 
-    /*// http://localhost:18080/view?idx=4
-    @PutMapping("/boardView")
+    // postman으로는 되나
+    // html으로는 안됨 ㅠㅠ
+    @DeleteMapping("/view")
+    public void deleteBoard(@RequestParam("idx")int idx) {
+        System.out.println("delete Board" + idx);
+        service.deleteBoard(idx);
+        System.out.println(idx + "delete Board complete ****** ");
+    }
+
+    // idx에 해당한 board를 수정하는 page
+    @GetMapping("/edit")
+    public String getBoardEdit(@RequestParam("idx") int idx, Model model) {
+        Board board = service.getBoardOne(idx);
+        System.out.println("edit Board" + idx);
+
+        model.addAttribute("board", board);
+        model.addAttribute("is_update", true);
+        return "edit";
+    }
+
+    @PutMapping("/editAction")
     public Board updateBoard(@RequestParam("idx") int idx,
                               @RequestBody Board board) {
         return service.updateBoard(idx, board);
     }
-
-    @DeleteMapping("/view")
-    public void deleteBoard(@RequestParam("idx")int idx) {
-        System.out.println("delete Board" + idx);
-        service.getBoardOne(idx);
-        System.out.println(idx + "delete Board complete ****** ");
-    }*/
 
     @GetMapping("/replyList")
     @ResponseBody
