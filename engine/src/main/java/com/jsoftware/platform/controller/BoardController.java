@@ -127,18 +127,18 @@ public class BoardController {
         return "redirect:/board";
     }*/
 
-    // idx에 해당한 board를 수정하는 page
-    @GetMapping("/edit")
-    public String getBoardEdit(@RequestParam("idx") int idx, Model model) {
+    // 화면용
+    @GetMapping("/update")
+    public String getBoardUpdate(@RequestParam("idx") int idx, Model model) {
         Board board = service.getBoardOne(idx);
         System.out.println("edit Board" + idx);
 
         model.addAttribute("board", board);
-        model.addAttribute("is_update", true);
+//        model.addAttribute("is_update", true);
         return "edit";
     }
 
-    @PutMapping("/editAction")
+    @PutMapping("/updateAction")
     public Board updateBoard(@RequestParam("idx") int idx,
                               @RequestBody Board board) {
         return service.updateBoard(idx, board);

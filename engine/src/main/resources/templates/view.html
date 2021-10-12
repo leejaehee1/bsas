@@ -43,6 +43,14 @@ function deleteConfirm() {
     }
 }
 
+function updateConfirm() {
+    if (!confirm("수정하시겠습니까?")) {
+        return false;
+    } else {
+        location.href="/update?idx="+IDX;
+    }
+}
+
 function drawReply(replys) {
         $("#cnt").text("등록된 댓글 - " + replys.length)
         var html = '';
@@ -134,7 +142,7 @@ function drawReply(replys) {
             <a href="/board" class="btn btn-info" role="button">목록</a>
         </div>
         <div class="col-auto">
-            <a class="btn btn-success" role="button">수정</a>
+            <a href="javascript:void(0);" class="btn btn-success" onclick="updateConfirm();">수정</a>
         </div>
         <div class="col-auto">
             <a href="javascript:void(0);" class="btn btn-danger" onclick="deleteConfirm();">삭제</a>
