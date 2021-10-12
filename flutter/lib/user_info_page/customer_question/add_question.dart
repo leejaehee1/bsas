@@ -51,7 +51,7 @@ class _AddQuestionState extends State<AddQuestion> {
       child: Padding(
         padding: EdgeInsets.all(10),
         child: TextFormField(
-          maxLines: 18,
+          maxLines: 10,
           style: TextStyle(fontSize: 18.0),
           decoration: InputDecoration(
             hintText: contents,
@@ -102,21 +102,41 @@ class _AddQuestionState extends State<AddQuestion> {
             _titleInfo('제목을 입력해주세요', title, _titleController),
             _contentsInfo('앱 사용에 관한 불편, 기능, 요청, 개선사항 등의 의견을 작성해주시면 확인하여 개선 및 답변드리겠습니다.',
               contents, _contentsController),
-            SizedBox(height: 2),
-            SizedBox(
-              width: 300,
-              height: 50,
-              child: RaisedButton(onPressed: (){
-                questionDbHelper.addQuestion(
-                    _titleController.text,
-                    _contentsController.text);
-                Navigator.pop(context, true);
-              },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: RaisedButton(
+                    child: ListTile(
+                      leading: Icon(Icons.camera_alt_rounded, color: Colors.white,),
+                      title: Text("사진", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15), ), // text 수정 필요
+                    ),
+                      onPressed: (){}, // 갤러리로 이동
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    color: Color(0xFF4CC87B),
+                      ),
                 ),
-                color: Color(0xFF4CC87B),
-              child: Text('문의하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
+                SizedBox(
+                width: 150,
+                height: 50,
+                child: RaisedButton(onPressed: (){
+                  questionDbHelper.addQuestion(
+                      _titleController.text,
+                      _contentsController.text);
+                  Navigator.pop(context, true);
+                },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)
+                  ),
+                  color: Color(0xFF4CC87B),
+                child: Text('문의하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
+              ),
+        ]
             )
           ],
         ),
