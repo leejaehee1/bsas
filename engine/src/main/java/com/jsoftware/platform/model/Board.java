@@ -13,21 +13,36 @@ public class Board {
     private String title;
     private String contents;
     private String image;
+    private String filePath;
 
     public Board() {
         // TODO Auto-generated constructor stub
     }
 
-    public Board(int idx, String title, String contents, String image) {
+    public Board(int idx, String title, String contents, String image, String filePath) {
         super();
         this.idx = idx;
         this.title = title;
         this.contents = contents;
         this.image = image;
+        this.filePath = filePath;
     }
 
     @Override
     public String toString() {
-        return String.format("board[idx='%d', title='%s', contents='%s', image='%s']", idx, title, contents, image);
+        return "Board{" +
+                "idx=" + idx +
+                ", title='" + title + '\'' +
+                ", contents='" + contents + '\'' +
+                ", image='" + image + '\'' +
+                ", filePath='" + filePath + '\'' +
+                '}';
+    }
+
+    public void update(Board board) {
+        this.title = board.getTitle();
+        this.contents = board.getContents();
+        this.image = board.getImage();
+        this.filePath  = board.getFilePath();
     }
 }

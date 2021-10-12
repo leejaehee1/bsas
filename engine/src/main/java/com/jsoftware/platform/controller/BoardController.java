@@ -4,11 +4,9 @@ import com.jsoftware.platform.model.Board;
 import com.jsoftware.platform.model.Reply;
 import com.jsoftware.platform.service.BoardService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +27,7 @@ public class BoardController {
     // ui 화면으로 출력해냄
     @GetMapping("/board")
     public String board() {
-        System.out.printf("****** Board list");
+        System.out.printf("****** Board list html");
         return "board";
     }
 
@@ -37,7 +35,7 @@ public class BoardController {
     @GetMapping("/boardList")
     @ResponseBody
     public List<Board> getBoards(){
-        System.out.printf("****** Board list");
+        System.out.printf("****** Board list json");
         return service.getBoards();
     }
 
@@ -48,29 +46,15 @@ public class BoardController {
         return "write";
     }
 
-    /*// writeAction
-    @PostMapping("/writeAction")
-    public String writeAction(Board board) {
-        service.addBoard(board);
-        System.out.printf("****** Board write");
-        return "board";
-    }*/
-
     @PostMapping("/writeAction")
     public String writeAction(
             HttpServletRequest req, @RequestParam("file") MultipartFile file,
             @RequestParam("title")String title,
             @RequestParam("contents")String contents) throws IllegalStateException, IOException {
 
-        /*String PATH = req.getSession().getServletContext().getRealPath("/") + "resources/";
-
-        if (!file.getOriginalFilename().isEmpty()) {
-            file.transferTo(new File(PATH + file.getOriginalFilename()));
-        }*/
-
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
-        String basePath = rootPath + "/" + "single"; // 바탕화면/single
-//        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
+//        String basePath = rootPath + "/" + "single"; // 바탕화면/single
+        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
 
         System.out.printf("****** file at Desktop");
 
@@ -85,7 +69,7 @@ public class BoardController {
 
         System.out.printf("****** file upload");
 
-        service.addBoard(new Board(0, title, contents, file.getOriginalFilename()));
+        service.addBoard(new Board(0, title, contents, file.getOriginalFilename(), filePath));
 
         System.out.printf("****** add board");
 
@@ -98,32 +82,38 @@ public class BoardController {
         return "view";
     }
 
+    /*// board detail for view
+    @GetMapping("/view")
+    public String getBoardOne(@RequestParam("idx") int idx, Model model) {
+        Board board = service.getBoardOne(idx);
+
+        System.out.printf("****** Board detail idx :"+idx);
+
+        model.addAttribute("board", board);
+        return "view";
+    }*/
+
+    // for board edit json
     @GetMapping("/boardView")
     @ResponseBody
     public Board boardList(@RequestParam("idx") int idx) {
-        System.out.printf("****** Board detail");
+        System.out.printf("****** Board detail json idx :"+idx);
         return service.getBoardOne(idx);
     }
 
-    // http://localhost:18080/view?idx=4
-    @PutMapping("/update")
-    public String updateBoard(@RequestParam("idx") int idx,
+    /*// http://localhost:18080/view?idx=4
+    @PutMapping("/boardView")
+    public Board updateBoard(@RequestParam("idx") int idx,
                               @RequestBody Board board) {
-        System.out.printf("****** Board update 1-3");
-        service.getBoardOne(idx);
-        System.out.printf("****** Board update 2-3");
-        service.updateBoard(board);
-        System.out.printf("****** Board update 3-3");
-        return "board";
+        return service.updateBoard(idx, board);
     }
 
-    @DeleteMapping("/delete")
-    public String deleteBoard(@RequestParam("idx")int idx) {
+    @DeleteMapping("/view")
+    public void deleteBoard(@RequestParam("idx")int idx) {
         System.out.println("delete Board" + idx);
-        service.deleteBoard(idx);
+        service.getBoardOne(idx);
         System.out.println(idx + "delete Board complete ****** ");
-        return "board";
-    }
+    }*/
 
     @GetMapping("/replyList")
     @ResponseBody

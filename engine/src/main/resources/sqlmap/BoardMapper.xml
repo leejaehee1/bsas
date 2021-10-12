@@ -9,6 +9,7 @@
              , title
              , contents
              , image
+             , filePath
         FROM board
         WHERE idx = #{idx}
     </select>
@@ -18,21 +19,23 @@
              , title
              , contents
              , image
+             , filePath
         FROM board
         ORDER BY idx ASC
 <!--        DESC 내림차순, ASC 오름차순-->
     </select>
 
     <insert id="insertBoard" parameterType="com.jsoftware.platform.model.Board">
-        INSERT INTO board (title, contents, image)
-        VALUES (#{title}, #{contents}, #{image})
+        INSERT INTO board (title, contents, image, filePath)
+        VALUES (#{title}, #{contents}, #{image}, #{filePath})
     </insert>
 
     <update id="updateBoard" parameterType="com.jsoftware.platform.model.Board">
         UPDATE board
         set title    = #{title},
             contents = #{contents},
-            image = #{image}
+            image = #{image},
+            filePath = #{filePath}
         WHERE idx = #{idx}
     </update>
 
