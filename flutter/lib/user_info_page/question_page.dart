@@ -1,9 +1,9 @@
+import 'package:bsas/db/customer_question_db.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'customer_question/add_question.dart';
 import 'customer_question/question_detail.dart';
-
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({Key? key}) : super(key: key);
@@ -16,21 +16,21 @@ class _QuestionPageState extends State<QuestionPage> {
   List? list;
 
   Future<List> getQuestionData() async {
-    var response = await http.get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
+    var response = await http
+        .get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
     return json.decode(response.body);
   }
 
   _navigateAddQuestion(BuildContext context) async {
-    final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => AddQuestion()));
-    if(result) {
-      setState(() {
-
-      });
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (_) => const AddQuestion()));
+    if (result) {
+      setState(() {});
     }
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getQuestionData();
   }
@@ -44,11 +44,9 @@ class _QuestionPageState extends State<QuestionPage> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.white,
-        title: const Text('고객센터',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600
-          ),
+        title: const Text(
+          '고객센터',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         elevation: 0.5,
@@ -60,43 +58,63 @@ class _QuestionPageState extends State<QuestionPage> {
       ),
       body: FutureBuilder<List>(
         future: getQuestionData(),
-        builder: (context, snapshot){
+        builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData
-              ? QuestionList(
-            list: snapshot.data!,
-          )
+              ? _buildQuestion(
+                  list: snapshot.data!,
+                )
               : const Center(
-            child: CircularProgressIndicator(),
-          );
+                  child: CircularProgressIndicator(),
+                );
         },
       ),
     );
   }
 }
 
-class QuestionList extends StatelessWidget {
+class _buildQuestion extends StatefulWidget {
   final List list;
-  QuestionList({required this.list});
+
+  const _buildQuestion({required this.list});
+
+  @override
+  State<_buildQuestion> createState() => _buildQuestionState();
+}
+
+class _buildQuestionState extends State<_buildQuestion> {
+  CustomerDbHelper questionDbHelper = CustomerDbHelper();
+
+  _deleteQuestion(BuildContext context) async {
+    var result = await Navigator.pushReplacement(
+      //final
+      context,
+      MaterialPageRoute(builder: (context) => const QuestionPage()),
+    );
+    if (result) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: list == null ? 0 : list.length,
+      itemCount: widget.list.length,
       itemBuilder: (context, i) {
         return Column(
           children: [
             Container(
               padding: const EdgeInsets.all(10.0),
               child: GestureDetector(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => QuestionDetail(
-                      list: list,
-                      index: i,
-                    ))
-                ),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => QuestionDetail(
+                              list: widget.list,
+                              index: i,
+                            ))),
                 child: SizedBox(
-                  height: 100,
+                  height: 130,
                   child: Card(
                     color: Colors.white,
                     child: Column(
@@ -108,7 +126,7 @@ class QuestionList extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                list[i]['title'].toString(),
+                                widget.list[i]['title'].toString(),
                                 style: const TextStyle(
                                     fontSize: 20.0, color: Colors.black87),
                               ),
@@ -118,12 +136,45 @@ class QuestionList extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                list[i]['contents'].toString(),
+                                widget.list[i]['contents'].toString(),
                                 style: const TextStyle(
                                     fontSize: 20.0, color: Colors.black87),
-                              )
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text('경고'),
+                                            content: const Text('정말 삭제하시겠습니까?'),
+                                            actions: [
+                                              FlatButton(
+                                                  onPressed: () {
+                                                    questionDbHelper
+                                                        .deleteQuestion(widget
+                                                            .list[i]['id']
+                                                            .toString());
+
+                                                    _deleteQuestion(context);
+                                                  },
+                                                  child: const Text('네')),
+                                              FlatButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('취소'))
+                                            ],
+                                          );
+                                        });
+                                  },
+                                  child: const Text(
+                                    "삭제",
+                                    style: TextStyle(color: Colors.redAccent),
+                                  )),
                             ],
                           ),
                         ),
