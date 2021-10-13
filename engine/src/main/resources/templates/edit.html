@@ -36,7 +36,7 @@
 
     function _onSubmit() {
       if (!confirm("수정하시겠습니까?")) {
-        return ralse;
+        return false;
       }
     }
 
@@ -47,6 +47,13 @@
       location.href="/view?idx="+IDX;
       }
     }
+
+      $.ajax({url: "boardView?idx="+IDX, success: function(result){
+          $("#image").append('<img src="static/single/'+ result.image + '" style="width: 100%;">');
+<!--      $("#image").append('<img src="C:/Users/Sherry Yi/Desktop/single/'+result.image+'" style="width: 100%;">');-->
+          $("#title").text(result.title);
+          $("#contents").text(result.contents);
+   }});
 
     </script>
 
@@ -72,10 +79,10 @@
         <div class="col-sm-12">
             <h2>수정하기</h2>
             <form action="update" method = "POST" onsubmit="return _onSubmit()">
-                <input type="hidden" id="updateBoard" name="idx" value="${idx}"/>
+                <input type="hidden" id="idx" name="idx" value="${board.idx}"/>
                 <div class="form-group">
                     <label for="usr">제목:</label>
-                    <input type="text" class="form-control" id="title" name = "title" value="${board.title}" />
+                    <textarea class="form-control" id="title" name = "title">${board.title}</textarea>
                 </div>
                 <div class="form-group">
                     <input type="file" class="form-control-file border" name="file" value="${board.file}" />
