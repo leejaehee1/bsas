@@ -129,20 +129,27 @@ public class BoardController {
 
     // 화면용
     @GetMapping("/update")
-    public String getBoardUpdate(@RequestParam("idx") int idx, Model model) {
+    public void getBoardUpdate(@RequestParam("idx") int idx, Model model) throws Exception {
+        System.out.println("****** getting edit Board:" + idx);
         Board board = service.getBoardOne(idx);
-        System.out.println("edit Board" + idx);
-
+        System.out.println("edit Board:" + idx);
         model.addAttribute("board", board);
-//        model.addAttribute("is_update", true);
-        return "edit";
+//        return "edit";
     }
 
     // 실제 action
     @PostMapping("/update")
-    public Board updateBoard(@RequestParam("idx") int idx,
-                             @RequestBody Board board) {
-        return service.updateBoard(idx, board);
+    public String updateBoard(Board board) throws Exception {
+        System.out.println("****** starting edit Board");
+        service.updateBoard(board);
+        System.out.println("edit Board ing:" + board.getIdx());
+        /*try {
+            service.updateBoard(board);
+            System.out.println("edit Board ing" + board.getIdx());
+        } catch (Exception e) {
+            System.out.println("edit Board error" + board.getIdx());
+        }*/
+        return "redirect:/view?idx="+board.getIdx();
     }
 
     @GetMapping("/replyList")
