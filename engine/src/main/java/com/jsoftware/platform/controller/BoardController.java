@@ -17,6 +17,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.filechooser.FileSystemView;
 
+import lombok.var;
+
 @Controller
 public class BoardController {
 
@@ -55,8 +57,8 @@ public class BoardController {
             @RequestParam("contents")String contents) throws IllegalStateException, IOException {
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
-//        String basePath = rootPath + "/" + "single"; // 바탕화면/single
-        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
+        String basePath = rootPath + "/" + "single"; // 바탕화면/single
+//        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
 
         System.out.printf("****** file at Desktop");
 
@@ -116,40 +118,30 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    // postman으로는 되나
-    // html으로는 안됨 ㅠㅠ
-    /*@DeleteMapping("/deleteAction")
-    public String deleteBoard(@RequestParam("idx")int idx, RedirectAttributes attributes) throws Exception {
-        System.out.println("delete Board" + idx);
-        service.deleteBoard(idx);
-        System.out.println(idx + "delete Board complete ****** ");
-        attributes.addFlashAttribute("result", "detete complete"+idx);
-        return "redirect:/board";
-    }*/
-
     // 화면용
     @GetMapping("/update")
-    public void getBoardUpdate(@RequestParam("idx") int idx, Model model) throws Exception {
-        System.out.println("****** getting edit Board:" + idx);
-        Board board = service.getBoardOne(idx);
-        System.out.println("edit Board:" + idx);
-        model.addAttribute("board", board);
-//        return "edit";
+    public String getBoardUpdate(@RequestParam("idx") int idx, Model model) {
+        model.addAttribute("board", service.getBoardOne(idx));
+        System.out.println("****** getting update Board:" + idx);
+        model.addAttribute("boardUpdate", new Board());
+        System.out.println("****** update Board:" + idx);
+        return "update";
     }
 
     // 실제 action
-    @PostMapping("/update")
-    public String updateBoard(Board board) throws Exception {
-        System.out.println("****** starting edit Board");
+    @RequestMapping(value ="/updateAction", method = {RequestMethod.GET, RequestMethod.POST})
+    public String updateBoard(@RequestParam(value = "idx") int idx,
+                              @ModelAttribute("board") Board board,
+                              Model model) throws Exception {
+        // 컬럼 별 다 null으로 인식해서 가져왔지만 안됨 10/13
+        board.setTitle(board.getTitle());
+        board.setContents(board.getContents());
+        board.setImage(board.getImage());
+        board.setFilePath(board.getFilePath());
+        System.out.println("****** starting update Board:"+idx);
         service.updateBoard(board);
-        System.out.println("edit Board ing:" + board.getIdx());
-        /*try {
-            service.updateBoard(board);
-            System.out.println("edit Board ing" + board.getIdx());
-        } catch (Exception e) {
-            System.out.println("edit Board error" + board.getIdx());
-        }*/
-        return "redirect:/view?idx="+board.getIdx();
+        System.out.println("****** update Board ing:"+idx);
+        return "redirect:/view?idx="+idx;
     }
 
     @GetMapping("/replyList")

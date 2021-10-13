@@ -34,12 +34,19 @@
     return b;
 }
 
+    function _onSubmit(){
+      if(!confirm("수정하시겠습니까?")){
+        return false;
+      } else {
+        location.href="/updateAction?idx="+IDX;
+      }
+    }
 
     function updateConfirm() {
       if (!confirm("수정하시겠습니까?")) {
         return false;
       } else {
-      location.href="/view?idx="+IDX;
+      location.href="/updateAction?idx="+IDX;
       }
     }
 
@@ -59,7 +66,6 @@
    }});
 
     </script>
-
 </head>
 <body>
 
@@ -81,21 +87,22 @@
     <div class="row">
         <div class="col-sm-12">
             <h2>수정하기</h2>
-            <form action="update" method="POST" enctype="multipart/form-data" >
-                <input type="hidden" id="updateBoard" name="idx" value="${idx}"/>
+            <form action="updateAction" id="idx" name="idx" method="post" >
+<!--                  enctype="multipart/form-data" onsubmit="_onSubmit();">-->
+                <input type="hidden" name="idx" value="idx" />
                 <div class="form-group">
-                    <label for="usr">제목:</label>
+                    <label for="title">제목:</label>
                     <textarea class="form-control" id="title" name = "title">${board.title}</textarea>
                 </div>
                 <div class="form-group">
                     <input type="file" class="form-control-file border" name="file" value="${board.file}" />
                 </div>
                 <div class="form-group">
-                    <label for="comment">내용:</label>
+                    <label for="contents">내용:</label>
                     <textarea class="form-control" rows="5" id="contents" name = "contents">${board.contents}</textarea>
                 </div>
-                <button type="submit" class="btn btn-success">수정</button>
-<!--                <a href="javascript:void(0);" class="btn btn-success" onclick="updateConfirm();">수정</a>-->
+<!--                <button type="submit" class="btn btn-success">수정</button>-->
+                <a href="javascript:void(0);" class="btn btn-success" onclick="updateConfirm();">수정</a>
                 <a href="javascript:void(0);" class="btn btn-danger" onclick="cancelConfirm();">취소</a>
             </form>
         </div>
