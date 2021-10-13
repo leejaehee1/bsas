@@ -16,17 +16,6 @@ public interface BoardRepository {
     void updateBoard(int idx, Board board);
     void deleteBoard(int idx);
 
-    public void addReply(Reply reply);
-    public List<Reply> getReply(int boardIdx);
-
-//    Board selectBoardById(Board board);
-//
-//    List<Board> selectAllBoards();
-//
-//    void insertBoard(Board board);
-//
-//    void updateBoard(Board board);
-//
-//    void deleteBoard(Board board);
-
+    void addReply(Reply reply);
+    List<Reply> getReply(int boardIdx);
 }

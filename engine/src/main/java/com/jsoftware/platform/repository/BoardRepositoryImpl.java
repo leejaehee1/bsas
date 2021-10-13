@@ -71,30 +71,4 @@ public class BoardRepositoryImpl implements BoardRepository{
 //    public static int getDbCount() {
 //        return dbCount;
 //    }
-//
-//    @Override
-//    public Board selectBoardById(Board board) {
-////        return sqlSession.openSession().selectOne("selectProductById", product);
-//        return sqlSessionTemplate.selectOne("selectBoardById", board);
-//    }
-//
-//    @Override
-//    public List<Board> selectAllBoards() {
-//        return sqlSessionTemplate.selectList("selectAllBoards");
-//    }
-//
-//    @Override
-//    public void insertBoard(Board board) {
-//        sqlSessionTemplate.insert("insertBoard", board);
-//    }
-//
-//    @Override
-//    public void updateBoard(Board board) {
-//        sqlSessionTemplate.update("updateBoard", board);
-//    }
-//
-//    @Override
-//    public void deleteBoard(Board board) {
-//        sqlSessionTemplate.delete("deleteBoard", board);
-//    }
 }

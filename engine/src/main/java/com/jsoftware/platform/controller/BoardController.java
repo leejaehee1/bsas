@@ -55,8 +55,8 @@ public class BoardController {
             @RequestParam("contents")String contents) throws IllegalStateException, IOException {
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
-        String basePath = rootPath + "/" + "single"; // 바탕화면/single
-//        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
+//        String basePath = rootPath + "/" + "single"; // 바탕화면/single
+        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
 
         System.out.printf("****** file at Desktop");
 
@@ -138,7 +138,7 @@ public class BoardController {
         return "edit";
     }
 
-    @PutMapping("/updateAction")
+    @PostMapping("/update")
     public Board updateBoard(@RequestParam("idx") int idx,
                               @RequestBody Board board) {
         return service.updateBoard(idx, board);
