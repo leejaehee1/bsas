@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:bsas/db/customer_question_db.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 
 
 class AddQuestion extends StatefulWidget {
@@ -13,9 +17,9 @@ class AddQuestion extends StatefulWidget {
 }
 
 class _AddQuestionState extends State<AddQuestion> {
+
   String title = '';
   String contents = '';
-
   File? selectedImage;
 
   final TextEditingController _titleController = TextEditingController();
@@ -44,7 +48,7 @@ class _AddQuestionState extends State<AddQuestion> {
           ),
         ),
         validator: (input) => //유효성 검사
-            input!.trim().isEmpty ? text : null,
+        input!.trim().isEmpty ? text : null,
         onSaved: (input) => controller = input!,
         controller: editController,
       ),
@@ -52,8 +56,8 @@ class _AddQuestionState extends State<AddQuestion> {
   }
 
   // contents 위젯
-  Widget _contentsInfo(
-      String contents, dynamic controller, dynamic editController) {
+  Widget _contentsInfo(String contents, dynamic controller,
+      dynamic editController) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
@@ -75,7 +79,7 @@ class _AddQuestionState extends State<AddQuestion> {
           ),
         ),
         validator: (input) => //유효성 검사
-            input!.trim().isEmpty ? contents : null,
+        input!.trim().isEmpty ? contents : null,
         onSaved: (input) => controller = input!,
         controller: editController,
       ),
@@ -112,8 +116,10 @@ class _AddQuestionState extends State<AddQuestion> {
                 _contentsController),
             const SizedBox(height: 5),
             ListTile(
-              leading: const Text("사진업로드", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-              title: const Text("(최대3장)", style: TextStyle(fontSize: 13, color: Colors.black26),),
+              leading: const Text("사진업로드",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+              title: const Text("(최대3장)",
+                style: TextStyle(fontSize: 13, color: Colors.black26),),
               trailing: IconButton(
                 icon: const Icon(Icons.camera_alt_rounded, size: 30),
                 onPressed: getImage,
@@ -132,7 +138,8 @@ class _AddQuestionState extends State<AddQuestion> {
                         case ConnectionState.none:
                           return const Text('Please wait');
                         case ConnectionState.waiting:
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         default:
                           if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
@@ -153,24 +160,24 @@ class _AddQuestionState extends State<AddQuestion> {
             SizedBox(
               width: 300,
               height: 50,
-              child: RaisedButton(onPressed:
-              (){
-                onUploadImage(
-                  _titleController.text,
-                  _contentsController.text
-                );
-                Navigator.pop(context, true);
-              },
-              //     (){ questionDbHelper.addQuestion(
-              //       _titleController.text,
-              //       _contentsController.text);
-              //   Navigator.pop(context, true);
-              // },
+              child: RaisedButton(
+                onPressed: // 문의하기를 누르면 title, contents, image가 back으로 post 되어야함
+                    () {
+                  onUploadImage();
+                  Navigator.pop(context, true);
+                },
+                //     (){ questionDbHelper.addQuestion(
+                //       _titleController.text,
+                //       _contentsController.text);
+                //   Navigator.pop(context, true);
+                // },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)
                 ),
                 color: const Color(0xFF4CC87B),
-                child: const Text('문의하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),),
+                child: const Text('문의하기', style: TextStyle(fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),),),
             ),
           ],
         ),
@@ -179,7 +186,7 @@ class _AddQuestionState extends State<AddQuestion> {
   }
 
 
-  //get image from camera
+  //get image from gallery
   Future getImage() async {
     var image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -195,26 +202,37 @@ class _AddQuestionState extends State<AddQuestion> {
       var imageFile = selectedImage;
     }
   }
-  Future<void> onUploadImage(String title, String contents) async {
-    var request = http.MultipartRequest(
-      'POST',
-      Uri.parse('http://54.180.102.153:18080/api/monthlyPick'),
-    );
-    Map<String, String> headers = {"Content-type": "multipart/form-data"};
-    request.fields['title'] = title;
-    request.fields['contents'] = contents;
 
-    request.files.add(
-      http.MultipartFile(
-        'image',
-        selectedImage!.readAsBytes().asStream(),
-        selectedImage!.lengthSync(),
-        filename: selectedImage!.path.split('/').last,
-      ),
-    );
-    request.headers.addAll(headers);
-    print("request: " + request.toString());
-    var res = await request.send();
-    http.Response response = await http.Response.fromStream(res);
+  // upload image
+  Future<Map<String, dynamic>?> onUploadImage() async {
+    //string to uri
+    var uri = Uri.parse('http://54.180.102.153:18080/api/monthlyPick');
+
+    // create multipart request
+    var imageUploadRequest = http.MultipartRequest('POST', (uri));
+
+    Map<String, String> headers = {"Content-type": "multipart/form-data"};
+    imageUploadRequest.fields['title'] = title;
+    imageUploadRequest.fields['contents'] = contents;
+
+    // multipart that takes file
+    var multipartFile = http.MultipartFile(
+      'image', selectedImage!.readAsBytes().asStream(),
+      selectedImage!.lengthSync(), filename: selectedImage!
+        .path
+        .split('/')
+        .last);
+
+    // add file to multipart
+    imageUploadRequest.files.add(multipartFile);
+
+    // send
+    var response = await imageUploadRequest.send();
+    print(response.statusCode);
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
   }
 }
