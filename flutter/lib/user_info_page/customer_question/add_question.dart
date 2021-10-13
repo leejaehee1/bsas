@@ -1,12 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:bsas/db/customer_question_db.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
 
 
 class AddQuestion extends StatefulWidget {
@@ -22,6 +18,7 @@ class _AddQuestionState extends State<AddQuestion> {
   String contents = '';
   String uploadUrl = 'http://54.180.102.153:18080/api/monthlyPick';
   File? selectedImage;
+  // var resJson;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentsController = TextEditingController();
@@ -164,12 +161,7 @@ class _AddQuestionState extends State<AddQuestion> {
               child: RaisedButton(
                 onPressed: // 문의하기를 누르면 title, contents, image가 back으로 post 되어야함
                     () {
-                  onUploadImage(
-                    _titleController.text,
-                    _contentsController.text,
-                    selectedImage!.path,
-                    uploadUrl,
-                  );
+                  onUploadImage();
                   Navigator.pop(context, true);
                 },
                 //     (){ questionDbHelper.addQuestion(
@@ -209,40 +201,64 @@ class _AddQuestionState extends State<AddQuestion> {
     }
   }
 
-  // upload image
-  Future<Map<String, dynamic>?> onUploadImage(String title, String contents, filepath, url) async {
+  Future onUploadImage() async {
+    final uri = Uri.parse('http://54.180.102.153:18080/api/monthlyPick');
+    var request = http.MultipartRequest('POST', uri);
+    request.fields['title'] = _titleController.text;
+    request.fields['contents'] = _contentsController.text;
+    var multipartFile = await http.MultipartFile.fromPath('image', selectedImage!.path);
+    request.files.add(multipartFile);
+    var response = await request.send();
 
-    //string to uri
-    var uri = Uri.parse('http://54.180.102.153:18080/api/monthlyPick');
-
-    // create multipart request
-    var imageUploadRequest = http.MultipartRequest('POST', (uri));
-
-    //add fields
-
-    Map<String, String> headers = {"Content-type": "multipart/form-data"};
-    imageUploadRequest.fields['title'] = title;
-    imageUploadRequest.fields['contents'] = contents;
-
-    // multipart that takes file
-    var multipartFile = http.MultipartFile(
-      'image', selectedImage!.readAsBytes().asStream(),
-      selectedImage!.lengthSync(), filename: selectedImage!
-        .path
-        .split('/')
-        .last);
-
-    // add file to multipart
-    imageUploadRequest.files.add(multipartFile);
-
-    // send
-    var response = await imageUploadRequest.send();
-    print(response.statusCode);
-
-    // get the response from the server
-    // var responseData = await response.stream.toBytes();
-    // var responseString = String.fromCharCodes(responseData);
-    // print(responseString);
-    http.Response res = await http.Response.fromStream(response);
+    if(response.statusCode == 200) {
+      print('image Uploaded');
+    } else {
+      print('Image Not Uploaded');
+    }
   }
-}
+  }
+
+  // upload image
+  // Future<Map<String, dynamic>?> onUploadImage(String title, String contents, filepath, url) async {
+  //
+  //   //string to uri
+  //   var uri = Uri.parse('http://54.180.102.153:18080/api/monthlyPick');
+  //
+  //   // create multipart request
+  //   var imageUploadRequest = http.MultipartRequest('POST', (uri));
+  //
+  //   //add fields
+  //
+  //   Map<String, String> headers = {"Content-type": 'application/json; charset=UTF-8'};
+  //   imageUploadRequest.fields['title'] = title;
+  //   imageUploadRequest.fields['contents'] = contents;
+  //
+  //   // multipart that takes file
+  //   var multipartFile = http.MultipartFile(
+  //     'image', selectedImage!.readAsBytes().asStream(),
+  //     selectedImage!.lengthSync(), filename: selectedImage!
+  //       .path
+  //       .split('/')
+  //       .last);
+  //
+  //   // add file to multipart
+  //   imageUploadRequest.files.add(multipartFile);
+  //
+  //   imageUploadRequest.headers.addAll(headers);
+  //   print("request:" + imageUploadRequest.toString());
+  //   // send
+  //   var response = await imageUploadRequest.send();
+  //   print(response.statusCode);
+  //   if (response.statusCode ==200) print("uploaded");
+  //
+  //   // get the response from the server
+  //   // var responseData = await response.stream.toBytes();
+  //   // var responseString = String.fromCharCodes(responseData);
+  //   // print(responseString);
+  //   http.Response res = await http.Response.fromStream(response);
+  //   // setState(() {
+  //   //   resJson = jsonDecode(res.body);
+  //   // });
+  //
+  // }
+
