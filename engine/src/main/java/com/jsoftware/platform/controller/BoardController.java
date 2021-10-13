@@ -138,9 +138,10 @@ public class BoardController {
         return "edit";
     }
 
+    // 실제 action
     @PostMapping("/update")
     public Board updateBoard(@RequestParam("idx") int idx,
-                              @RequestBody Board board) {
+                             @RequestBody Board board) {
         return service.updateBoard(idx, board);
     }
 

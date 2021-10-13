@@ -54,7 +54,6 @@ public class BoardService {
         return repository.getReply(boardIdx);
     }
 
-
 //    @Cacheable(key = "#size", value = "getBoards")
 //    public List<Board> getBoards(String size) {
 //        return repository.createBySize(size);
