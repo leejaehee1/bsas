@@ -20,6 +20,7 @@ class _AddQuestionState extends State<AddQuestion> {
 
   String title = '';
   String contents = '';
+  String uploadUrl = 'http://54.180.102.153:18080/api/monthlyPick';
   File? selectedImage;
 
   final TextEditingController _titleController = TextEditingController();
@@ -163,7 +164,12 @@ class _AddQuestionState extends State<AddQuestion> {
               child: RaisedButton(
                 onPressed: // 문의하기를 누르면 title, contents, image가 back으로 post 되어야함
                     () {
-                  onUploadImage();
+                  onUploadImage(
+                    _titleController.text,
+                    _contentsController.text,
+                    selectedImage!.path,
+                    uploadUrl,
+                  );
                   Navigator.pop(context, true);
                 },
                 //     (){ questionDbHelper.addQuestion(
@@ -204,12 +210,15 @@ class _AddQuestionState extends State<AddQuestion> {
   }
 
   // upload image
-  Future<Map<String, dynamic>?> onUploadImage() async {
+  Future<Map<String, dynamic>?> onUploadImage(String title, String contents, filepath, url) async {
+
     //string to uri
     var uri = Uri.parse('http://54.180.102.153:18080/api/monthlyPick');
 
     // create multipart request
     var imageUploadRequest = http.MultipartRequest('POST', (uri));
+
+    //add fields
 
     Map<String, String> headers = {"Content-type": "multipart/form-data"};
     imageUploadRequest.fields['title'] = title;
@@ -230,9 +239,10 @@ class _AddQuestionState extends State<AddQuestion> {
     var response = await imageUploadRequest.send();
     print(response.statusCode);
 
-    // listen for response
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
+    // get the response from the server
+    // var responseData = await response.stream.toBytes();
+    // var responseString = String.fromCharCodes(responseData);
+    // print(responseString);
+    http.Response res = await http.Response.fromStream(response);
   }
 }
