@@ -35,11 +35,8 @@ public class BoardService {
     }
 
     @Transactional
-    public Board updateBoard(int idx, Board boardEdit) {
-        Board board = repository.getBoardOne(idx);
-        board.update(boardEdit);
-        repository.updateBoard(idx, board);
-        return board;
+    public void updateBoard(Board board) {
+        repository.updateBoard(board);
     }
 
     @Transactional

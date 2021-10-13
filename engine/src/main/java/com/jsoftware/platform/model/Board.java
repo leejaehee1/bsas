@@ -31,7 +31,7 @@ public class Board {
     @Override
     public String toString() {
         return "Board{" +
-                "idx=" + idx +
+                "idx=" + idx + '\'' +
                 ", title='" + title + '\'' +
                 ", contents='" + contents + '\'' +
                 ", image='" + image + '\'' +

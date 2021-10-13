@@ -13,7 +13,7 @@ public interface BoardRepository {
     List<Board> getBoards();
     void addBoard(Board board);
     Board getBoardOne(int idx);
-    void updateBoard(int idx, Board board);
+    void updateBoard(Board board);
     void deleteBoard(int idx);
 
     void addReply(Reply reply);

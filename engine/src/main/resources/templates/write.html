@@ -16,6 +16,18 @@
     background: #aaa;
   }
   </style>
+
+    <script>
+
+    function cancelConfirm() {
+      if (!confirm("글쓰기를 취소하시겠습니까?")) {
+        return false;
+    } else {
+      location.href="/board";
+      }
+    }
+
+    </script>
 </head>
 <body>
 
@@ -50,6 +62,7 @@
                     <textarea class="form-control" rows="5" id="contents" name = "contents"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">글쓰기</button>
+                <a href="javascript:void(0);" class="btn btn-danger" onclick="cancelConfirm();">취소</a>
             </form>
         </div>
     </div>
