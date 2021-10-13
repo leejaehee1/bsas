@@ -48,6 +48,12 @@ dependencies:
   multi_image_picker2:
   dotted_decoration:
   dotted_border:
+  mime:
+  http_parser:
+  intl_utils:
+
+
+
 
 
 
