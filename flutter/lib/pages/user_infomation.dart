@@ -1,8 +1,9 @@
 import 'package:bsas/user_info_page/activity_page.dart';
+import 'package:bsas/user_info_page/edit_profile/edit_profile.dart';
 import 'package:bsas/user_info_page/notice_page.dart';
 import 'package:bsas/user_info_page/question_page.dart';
 import 'package:bsas/user_info_page/setting_page.dart';
-import 'package:bsas/user_info_page/user_info_edit.dart';
+import 'package:bsas/user_info_page/edit_profile/user_info_edit.dart';
 import 'package:flutter/material.dart';
 
 class UserInformation extends StatefulWidget {
@@ -44,7 +45,8 @@ class _UserInformationState extends State<UserInformation> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => UserInfoEdit()));
+                                  builder: (_) => EditProfileDetail(
+                                  )));
                         },
                       )),
                   Row(
@@ -95,8 +97,8 @@ class _UserInformationState extends State<UserInformation> {
                     ListTile(
                         leading: _thirdText('설정')
                     ),
-                    _gestureDetector('앱설정', Icons.settings, SettingPage),
-                    _gestureDetector('알람설정', Icons.alarm_add_rounded, SettingPage),
+                    _gestureDetector('앱설정', Icons.settings, SettingPage()),
+                    _gestureDetector('알람설정', Icons.alarm_add_rounded, SettingPage()),
                   ],
                 ),
               ),
