@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../question_page.dart';
+
 
 class EditQuestion extends StatefulWidget {
 
@@ -39,6 +41,16 @@ class _EditQuestionState extends State<EditQuestion> {
     _idController = TextEditingController(
         text: widget.list[widget.index]['id'].toString());
     super.initState();
+  }
+
+  _navigateQuestionList(BuildContext context) async {
+    final result = await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => QuestionPage()));
+
+    if (result) {
+      setState(() {});
+    }
   }
 
   // 문의사항 입력 위젯 설정
@@ -186,7 +198,7 @@ class _EditQuestionState extends State<EditQuestion> {
                         _titleController.text,
                         _contentsController.text
                       );
-                  Navigator.pop(context, true);
+                      _navigateQuestionList(context);
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)
