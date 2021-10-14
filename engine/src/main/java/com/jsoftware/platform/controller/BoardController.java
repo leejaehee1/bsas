@@ -118,30 +118,43 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    // 화면용
+    // update 화면용
     @GetMapping("/update")
-    public String getBoardUpdate(@RequestParam("idx") int idx, Model model) {
-        model.addAttribute("board", service.getBoardOne(idx));
+    public String getBoardUpdate(@ModelAttribute("boardOne") Board boardOne,
+                                 @RequestParam("idx") int idx,
+                                 Model model) {
+        Board boardContents = service.getBoardOne(idx);
+        // model로 빼낸 boardContents를 update.html에서 사용할 것
+        model.addAttribute("boardOne", boardOne);
         System.out.println("****** getting update Board:" + idx);
-        model.addAttribute("boardUpdate", new Board());
-        System.out.println("****** update Board:" + idx);
         return "update";
     }
 
     // 실제 action
-    @RequestMapping(value ="/updateAction", method = {RequestMethod.GET, RequestMethod.POST})
-    public String updateBoard(@RequestParam(value = "idx") int idx,
-                              @ModelAttribute("board") Board board,
+    @RequestMapping(value ="/updateAction", method = {RequestMethod.POST})
+    public String updateAction(@ModelAttribute("boardOne") Board boardOne,
+                               HttpServletRequest httpServletRequest,
+                               RedirectAttributes redirectAttributes,
                               Model model) throws Exception {
-        // 컬럼 별 다 null으로 인식해서 가져왔지만 안됨 10/13
-        board.setTitle(board.getTitle());
-        board.setContents(board.getContents());
-        board.setImage(board.getImage());
-        board.setFilePath(board.getFilePath());
+        /*// 컬럼 별 다 null으로 인식해서 안됨 10/13
+        Board updateBoard = service.getBoardOne(idx);
+        updateBoard.setTitle(board.getTitle());
+        updateBoard.setContents(board.getContents());
+        updateBoard.setImage(board.getImage());
+        updateBoard.setFilePath(board.getFilePath());
         System.out.println("****** starting update Board:"+idx);
-        service.updateBoard(board);
-        System.out.println("****** update Board ing:"+idx);
-        return "redirect:/view?idx="+idx;
+        service.updateBoard(idx, updateBoard);
+        System.out.println("****** update Board ing:"+idx);*/
+
+        System.out.println("****** starting update Board:"+boardOne.getIdx());
+        try {
+            service.updateBoard(boardOne);
+            redirectAttributes.addFlashAttribute("redirect", boardOne.getIdx());
+            redirectAttributes.addFlashAttribute("msg", "수정이 완료되었습니다.");
+        } catch (Exception exception) {
+            redirectAttributes.addFlashAttribute("msg", "오류가 발생했습니다.");
+        }
+        return "redirect:/view?idx="+boardOne.getIdx();
     }
 
     @GetMapping("/replyList")
