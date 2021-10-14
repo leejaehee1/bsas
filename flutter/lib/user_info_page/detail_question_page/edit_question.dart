@@ -25,6 +25,7 @@ class _EditQuestionState extends State<EditQuestion> {
 
   TextEditingController _titleController = TextEditingController();
   TextEditingController _contentsController = TextEditingController();
+  TextEditingController _idController = TextEditingController();
 
 
   CustomerDbHelper questionDbHelper = CustomerDbHelper();
@@ -32,9 +33,11 @@ class _EditQuestionState extends State<EditQuestion> {
   @override
   void initState() {
     _titleController = TextEditingController(
-        text: widget.list[widget.index]['name'].toString());
+        text: widget.list[widget.index]['title'].toString());
     _contentsController = TextEditingController(
-        text: widget.list[widget.index]['phone'].toString());
+        text: widget.list[widget.index]['contents'].toString());
+    _idController = TextEditingController(
+        text: widget.list[widget.index]['id'].toString());
     super.initState();
   }
 
@@ -177,14 +180,14 @@ class _EditQuestionState extends State<EditQuestion> {
               child: RaisedButton(
                 onPressed: // 문의하기를 누르면 title, contents, image가 back으로 post 되어야함
                     () {
-                  onUploadImage();
+                  // onUploadImage();
+                      questionDbHelper.updateQuestion(
+                        _idController.text,
+                        _titleController.text,
+                        _contentsController.text
+                      );
                   Navigator.pop(context, true);
                 },
-                //     (){ questionDbHelper.EditQuestion(
-                //       _titleController.text,
-                //       _contentsController.text);
-                //   Navigator.pop(context, true);
-                // },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)
                 ),
