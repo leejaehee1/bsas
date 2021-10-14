@@ -31,10 +31,10 @@ class _AddQuestionState extends State<AddQuestion> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
-        style: const TextStyle(fontSize: 18.0),
+        style: const TextStyle(fontSize: 15.0),
         decoration: InputDecoration(
           labelText: text,
-          labelStyle: const TextStyle(fontSize: 15.0),
+          labelStyle: const TextStyle(fontSize: 15.0, color: Colors.grey),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -60,10 +60,10 @@ class _AddQuestionState extends State<AddQuestion> {
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         maxLines: 10,
-        style: const TextStyle(fontSize: 18.0),
+        style: const TextStyle(fontSize: 15.0),
         decoration: InputDecoration(
           hintText: contents,
-          hintStyle: const TextStyle(fontSize: 15),
+          hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
           // contentPadding: EdgeInsets.symmetric(vertical: 200),
           labelStyle: const TextStyle(fontSize: 13.0),
           border: OutlineInputBorder(
@@ -144,9 +144,14 @@ class _AddQuestionState extends State<AddQuestion> {
                           } else {
                             return selectedImage != null
                                 ? Image.file(selectedImage!)
-                                : const Center(
-                              child: Text("Please Get the Image"),
-                            );
+                                : Padding(
+                              padding: const EdgeInsets.all(10),
+                                  child: Row(
+                              children: const [
+                                  Text("Please Get \n the Image")
+                      ],
+                            ),
+                                );
                           }
                       }
                     },
