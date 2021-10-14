@@ -12,12 +12,17 @@ class _UserInfoEditState extends State<UserInfoEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF43aa8b),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.white,
         title: Text('프로필 편집',
           style: TextStyle(
-            color: Colors.white,
-          ),
+              color: Colors.black, fontWeight: FontWeight.w600),
         ),
+        centerTitle: true,
+        elevation: 0.5,
       ),
     );
   }

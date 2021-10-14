@@ -1,9 +1,10 @@
 import 'package:bsas/db/customer_question_db.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:convert';
-import 'customer_question/add_question.dart';
-import 'customer_question/question_detail.dart';
+import 'detail_question_page/add_question.dart';
+import 'detail_question_page/question_detail.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({Key? key}) : super(key: key);
@@ -15,11 +16,13 @@ class QuestionPage extends StatefulWidget {
 class _QuestionPageState extends State<QuestionPage> {
   List? list;
 
+  // 고객센터 -> 문의사항 데이터 불러오기
   Future<List> getQuestionData() async {
     var response = await http
         .get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
     return json.decode(response.body);
   }
+
 
   _navigateAddQuestion(BuildContext context) async {
     final result = await Navigator.push(
@@ -38,6 +41,7 @@ class _QuestionPageState extends State<QuestionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
@@ -56,35 +60,58 @@ class _QuestionPageState extends State<QuestionPage> {
         onPressed: () => _navigateAddQuestion(context),
         child: const Icon(Icons.add),
       ),
-      body: FutureBuilder<List>(
-        future: getQuestionData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
-          return snapshot.hasData
-              ? _buildQuestion(
-                  list: snapshot.data!,
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
-                );
-        },
-      ),
+      body: Column(children: [
+        Container(
+          child: const ListTile(
+            leading: Text(
+              "문의 내역",
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15), //greyColor Color(0xFFBDBDBD)
+            ),
+          ),
+          decoration: const BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(width: 1.0, color: Color(0xFFEEEEEE)))),
+        ),
+        SizedBox(
+          height: 550,
+          child: FutureBuilder<List>(
+            future: getQuestionData(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+              return snapshot.hasData
+                  ? _buildQuestion( //_buildQuestion class에서 각 데이터를 가져옴
+                      list: snapshot.data!,
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    );
+            },
+          ),
+        ),
+      ]),
     );
   }
 }
 
+// 문의사항 데이터를 get
 class _buildQuestion extends StatefulWidget {
   final List list;
 
-  const _buildQuestion({required this.list});
+  _buildQuestion({required this.list});
 
   @override
   State<_buildQuestion> createState() => _buildQuestionState();
 }
 
 class _buildQuestionState extends State<_buildQuestion> {
-  CustomerDbHelper questionDbHelper = CustomerDbHelper();
 
+  CustomerDbHelper questionDbHelper = CustomerDbHelper();
+  final dateTime = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+  // 문의사항 삭제
   _deleteQuestion(BuildContext context) async {
     var result = await Navigator.pushReplacement(
       //final
@@ -102,6 +129,7 @@ class _buildQuestionState extends State<_buildQuestion> {
       itemCount: widget.list.length,
       itemBuilder: (context, i) {
         return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               padding: const EdgeInsets.all(10.0),
@@ -113,9 +141,9 @@ class _buildQuestionState extends State<_buildQuestion> {
                               list: widget.list,
                               index: i,
                             ))),
-                child: SizedBox(
-                  height: 130,
+                child: SingleChildScrollView(
                   child: Card(
+                    elevation: 0.3,
                     color: Colors.white,
                     child: Column(
                       mainAxisSize: MainAxisSize.min, // add this
@@ -124,12 +152,19 @@ class _buildQuestionState extends State<_buildQuestion> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 widget.list[i]['title'].toString(),
                                 style: const TextStyle(
                                     fontSize: 20.0, color: Colors.black87),
                               ),
+                              Text(
+                                dateTime,
+                                style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600),
+                              )
                             ],
                           ),
                         ),
@@ -173,11 +208,34 @@ class _buildQuestionState extends State<_buildQuestion> {
                                   },
                                   child: const Text(
                                     "삭제",
-                                    style: TextStyle(color: Colors.redAccent),
+                                    style: TextStyle(
+                                        color: Colors.redAccent,
+                                        fontWeight: FontWeight.w600),
                                   )),
                             ],
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ExpansionTile(
+                              title: const Text(
+                                '답변',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color(0xFF0ab27d),
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    widget.list[i]['contents'].toString(), // 문의사항에 대한 답변 불러옴 -> 향후 답변 필드를 추가해야함 + 백에서도 추가 필요
+                                    style:
+                                    const TextStyle(fontSize: 20.0, color: Colors.black87),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                       ],
                     ),
                   ),
