@@ -15,7 +15,7 @@ class _EditProfileState extends State<EditProfileDetail> {
       appBar: AppBar(
         leading: Icon(Icons.arrow_back_ios_rounded),
         backgroundColor: Color(0xFF43aa8b),
-        title: Text('프로필 편집',
+        title: Text('내 정보',
           style: TextStyle(
             color: Colors.white,
           ),
