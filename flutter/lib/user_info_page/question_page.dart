@@ -19,7 +19,7 @@ class _QuestionPageState extends State<QuestionPage> {
   // 고객센터 -> 문의사항 데이터 불러오기
   Future<List> getQuestionData() async {
     var response = await http
-        .get(Uri.parse("http://54.180.102.153:18080/api/recommendActivity"));
+        .get(Uri.parse("http://54.180.102.153:18080/api/monthlyPick"));
     return json.decode(response.body);
   }
 
