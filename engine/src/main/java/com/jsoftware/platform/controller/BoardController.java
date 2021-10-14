@@ -57,8 +57,8 @@ public class BoardController {
             @RequestParam("contents")String contents) throws IllegalStateException, IOException {
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
-        String basePath = rootPath + "/" + "single"; // 바탕화면/single
-//        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
+//        String basePath = rootPath + "/" + "single"; // 바탕화면/single
+        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
 
         System.out.printf("****** file at Desktop");
 
@@ -134,7 +134,6 @@ public class BoardController {
     @RequestMapping(value ="/updateAction", method = {RequestMethod.POST})
     public String updateAction(@ModelAttribute("boardOne") Board boardOne,
                                HttpServletRequest httpServletRequest,
-                               RedirectAttributes redirectAttributes,
                               Model model) throws Exception {
         /*// 컬럼 별 다 null으로 인식해서 안됨 10/13
         Board updateBoard = service.getBoardOne(idx);
@@ -146,13 +145,12 @@ public class BoardController {
         service.updateBoard(idx, updateBoard);
         System.out.println("****** update Board ing:"+idx);*/
 
+        String brdno = httpServletRequest.getParameter("brdno");
         System.out.println("****** starting update Board:"+boardOne.getIdx());
         try {
             service.updateBoard(boardOne);
-            redirectAttributes.addFlashAttribute("redirect", boardOne.getIdx());
-            redirectAttributes.addFlashAttribute("msg", "수정이 완료되었습니다.");
         } catch (Exception exception) {
-            redirectAttributes.addFlashAttribute("msg", "오류가 발생했습니다.");
+            exception.printStackTrace();
         }
         return "redirect:/view?idx="+boardOne.getIdx();
     }
