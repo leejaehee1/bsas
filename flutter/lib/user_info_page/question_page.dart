@@ -62,7 +62,7 @@ class _QuestionPageState extends State<QuestionPage> {
       ),
       body: Column(children: [
         Container(
-          child: ListTile(
+          child: const ListTile(
             leading: Text(
               "문의 내역",
               style: TextStyle(
@@ -71,26 +71,24 @@ class _QuestionPageState extends State<QuestionPage> {
                   fontSize: 15), //greyColor Color(0xFFBDBDBD)
             ),
           ),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               border: Border(
                   bottom: BorderSide(width: 1.0, color: Color(0xFFEEEEEE)))),
         ),
         SizedBox(
           height: 550,
-          child: Container(
-            child: FutureBuilder<List>(
-              future: getQuestionData(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) print(snapshot.error);
-                return snapshot.hasData
-                    ? _buildQuestion( //_buildQuestion class에서 각 데이터를 가져옴
-                        list: snapshot.data!,
-                      )
-                    : const Center(
-                        child: CircularProgressIndicator(),
-                      );
-              },
-            ),
+          child: FutureBuilder<List>(
+            future: getQuestionData(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+              return snapshot.hasData
+                  ? _buildQuestion( //_buildQuestion class에서 각 데이터를 가져옴
+                      list: snapshot.data!,
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    );
+            },
           ),
         ),
       ]),
@@ -131,6 +129,7 @@ class _buildQuestionState extends State<_buildQuestion> {
       itemCount: widget.list.length,
       itemBuilder: (context, i) {
         return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               padding: const EdgeInsets.all(10.0),
@@ -142,8 +141,7 @@ class _buildQuestionState extends State<_buildQuestion> {
                               list: widget.list,
                               index: i,
                             ))),
-                child: SizedBox(
-                  height: 130,
+                child: SingleChildScrollView(
                   child: Card(
                     elevation: 0.3,
                     color: Colors.white,
@@ -163,7 +161,7 @@ class _buildQuestionState extends State<_buildQuestion> {
                               ),
                               Text(
                                 dateTime,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w600),
                               )
@@ -211,37 +209,39 @@ class _buildQuestionState extends State<_buildQuestion> {
                                   child: const Text(
                                     "삭제",
                                     style: TextStyle(
-                                        color: Color(0xFF0ab27d),
+                                        color: Colors.redAccent,
                                         fontWeight: FontWeight.w600),
                                   )),
                             ],
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ExpansionTile(
+                              title: const Text(
+                                '답변',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color(0xFF0ab27d),
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    widget.list[i]['contents'].toString(), // 문의사항에 대한 답변 불러옴 -> 향후 답변 필드를 추가해야함 + 백에서도 추가 필요
+                                    style:
+                                    const TextStyle(fontSize: 20.0, color: Colors.black87),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-            // 답변 상황 get 하기
-            ExpansionTile(
-              title: Text(
-                '답변',
-                style: TextStyle(
-                    fontSize: 15,
-                    color: Color(0xFF0ab27d),
-                    fontWeight: FontWeight.w600),
-              ),
-              children: [
-                ListTile(
-                  title: Text(
-                    widget.list[i]['contents'].toString(), // 문의사항에 대한 답변 불러옴 -> 향후 답변 필드를 추가해야함 + 백에서도 추가 필요
-                    style:
-                        const TextStyle(fontSize: 20.0, color: Colors.black87),
-                  ),
-                )
-              ],
-            )
           ],
         );
       },
