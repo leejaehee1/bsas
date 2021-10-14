@@ -17,9 +17,17 @@
   }
   </style>
 
-    <script>
+    <script type="text/javascript">
 
-    var IDX = getQueryStringObject().idx;
+<!--    http://localhost:18080/view?idx=0-->
+    const urlThis = new URL(window.location.href);
+    const urlThisIdx = urlThis.searchParams;
+
+    var IDX = document.write(urlThisIdx.get("idx"));
+
+
+
+    <!--var IDX = getQueryStringObject().idx;
 
     function getQueryStringObject() {
     var a = window.location.search.substr(1).split('&');
@@ -33,18 +41,7 @@
             b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
     }
     return b;
-    }
-
-
-
-
-    function updateConfirm() {
-      if (!confirm("수정하시겠습니까?")) {
-        return false;
-      } else {
-      location.href="/updateAction?idx="+IDX;
-      }
-    }
+    }-->
 
     function cancelConfirm() {
       if (!confirm("수정을 취소하시겠습니까?")) {
@@ -54,33 +51,13 @@
       }
     }
 
-    $.ajax({url: "boardView?idx="+IDX, success: function(result){
+  $.ajax({url: "boardView?idx="+IDX,
+          success: function(result){
           $("#image").append('<img src="static/single/'+ result.image + '" style="width: 100%;">');
-<!--      $("#image").append('<img src="C:/Users/Sherry Yi/Desktop/single/'+result.image+'" style="width: 100%;">');-->
+<!--            $("#image").append('<img src="C:\\Users\\Sherry Yi\\Desktop\\single\\'+result.image+'" style="width: 100%;">');-->
           $("#title").text(result.title);
           $("#contents").text(result.contents);
    }});
-
-   $("#updateBoard").click(function() {
-    var jsonData = JSON.stringify({
-        title: $("#title").val(),
-        contents: $("#contents").val()
-        });
-      $.ajax({
-        url: "/updateAction?idx="+IDX.val(),
-        method: "POST",
-        data: jsonData,
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-          alert("수정 성공!");
-          location.href = "/board";
-          },
-        error: function() {
-          alert("수정 실패!");
-        }
-      })
-    })
 
     function _onSubmit(){
       if(!confirm("수정하시겠습니까?")){
@@ -110,9 +87,9 @@
     <div class="row">
         <div class="col-sm-12">
             <h2>수정하기</h2>
-            <form role="form" action="updateAction" method="post" onsubmit="return _onSubmit();">
+            <form role="form" action="updateAction" method="post" onsubmit="return _onSubmit();" enctype="multipart/form-data">
 <!--                  enctype="multipart/form-data" onsubmit="_onSubmit();">-->
-                <input type="hidden" id="idx" />
+                <input type="hidden" name="_method" value="post" />
                 <div class="form-group">
                     <label for="title">제목:</label>
                     <textarea class="form-control" id="title" name = "title">${board.title}</textarea>
@@ -125,7 +102,6 @@
                     <textarea class="form-control" rows="5" id="contents" name = "contents">${board.contents}</textarea>
                 </div>
                 <button type="submit" class="btn btn-success">수정</button>
-<!--                <a href="javascript:void(0);" class="btn btn-success" onclick="updateConfirm();">수정</a>-->
                 <a href="javascript:void(0);" class="btn btn-danger" onclick="cancelConfirm();">취소</a>
             </form>
         </div>
