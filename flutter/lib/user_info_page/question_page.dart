@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'detail_question_page/add_question.dart';
-import 'detail_question_page/question_detail.dart';
+import 'detail_question_page/edit_question.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({Key? key}) : super(key: key);
@@ -137,7 +137,7 @@ class _buildQuestionState extends State<_buildQuestion> {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => QuestionDetail(
+                        builder: (context) => EditQuestion(
                               list: widget.list,
                               index: i,
                             ))),
