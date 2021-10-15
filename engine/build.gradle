@@ -50,6 +50,7 @@ dependencies {
 	implementation 'javax.servlet:jstl'
 
 	compile 'org.webjars:bootstrap:4.5.0'
+	compile 'org.springframework.boot:spring-boot-devtools'
 	compileOnly "org.springframework.boot:spring-boot-starter-actuator"
 	compileOnly 'org.projectlombok:lombok'
 	testCompileOnly 'org.projectlombok:lombok'
