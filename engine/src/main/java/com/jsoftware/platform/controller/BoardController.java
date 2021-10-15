@@ -7,6 +7,7 @@ import com.jsoftware.platform.service.BoardService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -115,49 +116,24 @@ public class BoardController {
 
     // update 화면용
     @GetMapping(value = "/update")
-    public String getBoardUpdate(Board board,
-                                 Model model) throws Exception {
+    public String getBoardUpdate(Board board) throws Exception {
         System.out.println("****** update Board view:" + board.getIdx());
 
         // model로 빼낸 boardContents를 update.html에서 사용할 것
-        model.addAttribute("update", service.getBoardOne(board.getIdx()));
+        service.getBoardOne(board.getIdx());
 
         System.out.println("****** getting update Board:" + board.getIdx());
         return "update";
     }
 
     // 실제 action
-    @PostMapping(value ="/updateAction", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String updateAction(Board board) throws Exception {
-
-        // 컬럼 별 다 null으로 인식해서 안됨 10/13
-        // 왜 board.getIdx()를 0으로 가져올까? ㅠㅠ 10/14 -> update.html IDX 문제 같다
-
-        service.getBoardOne(board.getIdx());
-        System.out.println("****** 1 starting update Board:"+board.getIdx());
+    @GetMapping(value = "/updateAction", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String updateBoard(@RequestParam("idx") Integer idx, Board board) throws Exception {
+        service.getBoardOne(idx);
+        System.out.println("****** 1 starting update Board:"+idx);
         service.updateBoard(board);
-        System.out.println("****** 2 starting update Board:"+board.getIdx());
-
-
-        /*Board board = service.getBoardOne(board.getIdx());
-        System.out.println("****** 3 starting update Board:"+board.getIdx());
-        board.setTitle(boardOne.getTitle());
-        System.out.println("****** 4 starting update Board:"+board.getIdx());
-        board.setContents(boardOne.getContents());
-        System.out.println("****** 5 starting update Board:"+board.getIdx());
-        board.setImage(boardOne.getImage());
-        System.out.println("****** 6 starting update Board:"+board.getIdx());
-        board.setFilePath(boardOne.getFilePath());
-
-        System.out.println("****** starting update Board:"+board.getIdx());*/
-
-        try {
-            service.updateBoard(board);
-            System.out.println("****** 3 complete update Board:"+board.getIdx());
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        return "redirect:/view?idx="+board.getIdx();
+        System.out.println("****** 2 starting update Board:"+idx);
+        return "redirect:board";
     }
 
     @GetMapping("/replyList")

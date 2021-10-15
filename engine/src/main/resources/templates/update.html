@@ -17,17 +17,9 @@
   }
   </style>
 
-    <script type="text/javascript">
+    <script>
 
-<!--    http://localhost:18080/view?idx=0-->
-    const urlThis = new URL(window.location.href);
-    const urlThisIdx = urlThis.searchParams;
-
-    var IDX = document.write(urlThisIdx.get("idx"));
-
-
-
-    <!--var IDX = getQueryStringObject().idx;
+    var IDX = getQueryStringObject().idx;
 
     function getQueryStringObject() {
     var a = window.location.search.substr(1).split('&');
@@ -41,7 +33,7 @@
             b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
     }
     return b;
-    }-->
+    }
 
     function cancelConfirm() {
       if (!confirm("수정을 취소하시겠습니까?")) {
@@ -51,7 +43,8 @@
       }
     }
 
-  $.ajax({url: "boardView?idx="+IDX,
+  $.ajax({
+          url: "boardView?idx="+IDX,
           success: function(result){
           $("#image").append('<img src="static/single/'+ result.image + '" style="width: 100%;">');
 <!--            $("#image").append('<img src="C:\\Users\\Sherry Yi\\Desktop\\single\\'+result.image+'" style="width: 100%;">');-->
@@ -64,6 +57,11 @@
         return false;
       }
     }
+
+    function _value(){
+    return IDX;
+    }
+
 
     </script>
 </head>
@@ -84,12 +82,11 @@
 </nav>
 
 <div class="container" style="margin-top:30px">
-    <div class="row">
+    <div class="wrapper">
         <div class="col-sm-12">
             <h2>수정하기</h2>
-            <form role="form" action="updateAction" method="post" onsubmit="return _onSubmit();" enctype="multipart/form-data">
-<!--                  enctype="multipart/form-data" onsubmit="_onSubmit();">-->
-                <input type="hidden" name="_method" value="post" />
+            <form role="form" action="/updateAction" method="GET" onsubmit="return _onSubmit();" enctype="multipart/form-data">
+                <input type="hidden" name="idx" value="return _value();"  />
                 <div class="form-group">
                     <label for="title">제목:</label>
                     <textarea class="form-control" id="title" name = "title">${board.title}</textarea>
