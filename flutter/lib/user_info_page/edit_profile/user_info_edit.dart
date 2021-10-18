@@ -2,6 +2,8 @@ import 'package:bsas/db/user_db.dart';
 import 'package:bsas/pages/user_infomation.dart';
 import 'package:flutter/material.dart';
 
+import 'edit_profile.dart';
+
 
 class UserInfoEdit extends StatefulWidget {
 
@@ -15,7 +17,6 @@ class UserInfoEdit extends StatefulWidget {
 }
 
 class _UserInfoEditState extends State<UserInfoEdit> {
-
 
   DBHelper databaseHelper = DBHelper();
   TextEditingController _nameController = TextEditingController();
@@ -32,7 +33,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
     _emailController = TextEditingController(
         text: widget.list[widget.index]['email'].toString());
     _idController = TextEditingController(
-        text: widget.list[widget.index]['email'].toString());
+        text: widget.list[widget.index]['id'].toString());
     super.initState();
   }
 
@@ -46,7 +47,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.white,
-        title: Text('프로필 편집',
+        title: Text('계정 변경',
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.w600),
         ),
@@ -55,10 +56,10 @@ class _UserInfoEditState extends State<UserInfoEdit> {
       ),
       body: Column(
         children: [
-          ListTile(
-          title: _title('닉네임'), // 로그인 기능 연동 후 닉네임 data 넣어야함
-          subtitle: _subtitle('이메일'), // 로그인 기능 연동 후 이메일 data 넣어야함
-        ),
+        //   ListTile(
+        //   title: _title('닉네임'), // 로그인 기능 연동 후 닉네임 data 넣어야함
+        //   subtitle: _subtitle('이메일'), // 로그인 기능 연동 후 이메일 data 넣어야함
+        // ),
           Form(
               child: ListView(
                 padding: const EdgeInsets.all(10),
@@ -98,7 +99,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
   _navigateUserInfoList(BuildContext context) async {
     final result = await Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => UserInformation()));
+        MaterialPageRoute(builder: (context) => EditProfileDetail()));
 
     if (result) {
       setState(() {});

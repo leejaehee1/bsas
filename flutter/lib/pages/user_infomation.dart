@@ -3,7 +3,6 @@ import 'package:bsas/user_info_page/edit_profile/edit_profile.dart';
 import 'package:bsas/user_info_page/notice_page.dart';
 import 'package:bsas/user_info_page/question_page.dart';
 import 'package:bsas/user_info_page/setting_page.dart';
-import 'package:bsas/user_info_page/edit_profile/user_info_edit.dart';
 import 'package:flutter/material.dart';
 
 class UserInformation extends StatefulWidget {
