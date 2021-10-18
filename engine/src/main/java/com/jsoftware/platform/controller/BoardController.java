@@ -59,8 +59,8 @@ public class BoardController {
             @RequestParam("contents")String contents) throws IllegalStateException, IOException {
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString(); // 바탕화면 주소
-//        String basePath = rootPath + "/" + "single"; // 바탕화면/single
-        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
+        String basePath = rootPath + "/" + "single"; // 바탕화면/single
+//        String basePath = rootPath + "/apps/bsas/engine/src/main/resources/static/" + "single"; // aws 서버 주소
 
         System.out.printf("****** file at Desktop");
 
@@ -116,23 +116,23 @@ public class BoardController {
 
     // update 화면용
     @GetMapping(value = "/update")
-    public String getBoardUpdate(Board board) throws Exception {
-        System.out.println("****** update Board view:" + board.getIdx());
+    public String updateboard(@RequestParam("idx") int idx, Model model) throws Exception {
+        System.out.println("****** update Board view:" + idx);
 
-        // model로 빼낸 boardContents를 update.html에서 사용할 것
-        service.getBoardOne(board.getIdx());
+        // model로 빼낸 data
+        Board data = service.getBoardOne(idx);
+        model.addAttribute("data", data);
 
-        System.out.println("****** getting update Board:" + board.getIdx());
+        System.out.println("****** getting update Board:" + idx);
         return "update";
     }
 
     // 실제 action
-    @GetMapping(value = "/updateAction", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String updateBoard(@RequestParam("idx") Integer idx, Board board) throws Exception {
-        service.getBoardOne(idx);
-        System.out.println("****** 1 starting update Board:"+idx);
-        service.updateBoard(board);
-        System.out.println("****** 2 starting update Board:"+idx);
+    @PostMapping(value = "/updateAction", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String updatesBoard(Board board) throws Exception {
+        System.out.println("****** 1 starting update Board:"+board.getIdx());
+        service.updatesBoard(board);
+        System.out.println("****** 2 starting update Board:"+board.getIdx());
         return "redirect:board";
     }
 
