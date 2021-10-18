@@ -37,8 +37,13 @@ public class BoardRepositoryImpl implements BoardRepository{
     }
 
     @Override
-    public void updateBoard(Board board) throws Exception {
-        sqlSessionTemplate.update("updateBoard", board);
+    public void updateBoard(int idx) throws Exception {
+        sqlSessionTemplate.update("updateBoard", idx);
+    }
+
+    @Override
+    public void updatesBoard(Board board) throws Exception {
+        sqlSessionTemplate.update("updatesBoard", board);
     }
 
     @Override

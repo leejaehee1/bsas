@@ -58,11 +58,6 @@
       }
     }
 
-    function _value(){
-    return IDX;
-    }
-
-
     </script>
 </head>
 <body>
@@ -85,8 +80,7 @@
     <div class="wrapper">
         <div class="col-sm-12">
             <h2>수정하기</h2>
-            <form role="form" action="/updateAction" method="GET" onsubmit="return _onSubmit();" enctype="multipart/form-data">
-                <input type="hidden" name="idx" value="return _value();"  />
+            <form action="/updateAction" method="POST" onsubmit="return _onSubmit();" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">제목:</label>
                     <textarea class="form-control" id="title" name = "title">${board.title}</textarea>
@@ -101,6 +95,7 @@
                 <button type="submit" class="btn btn-success">수정</button>
                 <a href="javascript:void(0);" class="btn btn-danger" onclick="cancelConfirm();">취소</a>
             </form>
+            <input type="hidden" name="idx" value="${board.idx}" />
         </div>
     </div>
 </div>
