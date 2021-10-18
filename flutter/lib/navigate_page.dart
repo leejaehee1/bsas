@@ -17,6 +17,9 @@ class _NavigatorPageState extends State<NavigatorPage>
     with SingleTickerProviderStateMixin {
   late TabController controller;
 
+  late List list;
+  late int index;
+
   @override
   void initState() {
     super.initState();

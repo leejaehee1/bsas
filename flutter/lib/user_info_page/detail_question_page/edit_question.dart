@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../question_page.dart';
+import 'question_page.dart';
 
 
 class EditQuestion extends StatefulWidget {

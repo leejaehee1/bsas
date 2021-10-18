@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'dart:convert';
-import 'detail_question_page/add_question.dart';
-import 'detail_question_page/edit_question.dart';
+import 'add_question.dart';
+import 'edit_question.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({Key? key}) : super(key: key);

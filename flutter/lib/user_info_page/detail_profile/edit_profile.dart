@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'package:bsas/user_info_page/edit_profile/user_info_edit.dart';
+import 'package:bsas/user_info_page/detail_profile/edit_user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import '../notice_page.dart';
 
 // 특정 user의 데이터를 가져와야 하므로 get -> put?
 class EditProfileDetail extends StatefulWidget {
@@ -12,6 +10,7 @@ class EditProfileDetail extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfileDetail> {
+
   Future<List> getData() async {
     var response =
         await http.get(Uri.parse("http://54.180.102.153:18080/api/users/"));
@@ -23,6 +22,7 @@ class _EditProfileState extends State<EditProfileDetail> {
     super.initState();
     this.getData();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _EditProfileState extends State<EditProfileDetail> {
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData
-              ? _buildQuestion(
+              ? _buildProfile(
                   //_buildQuestion class에서 각 데이터를 가져옴
                   list: snapshot.data!,
                 )
@@ -59,9 +59,10 @@ class _EditProfileState extends State<EditProfileDetail> {
   }
 }
 
-class _buildQuestion extends StatelessWidget {
+class _buildProfile extends StatelessWidget {
   final List list;
-  _buildQuestion({required this.list});
+  _buildProfile({required this.list});
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,15 +95,32 @@ class _buildQuestion extends StatelessWidget {
               ),
               trailing: IconButton(
                 icon: Icon(Icons.arrow_forward_ios_rounded),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) =>
-                          UserInfoEdit(list: list, index: index)));
+                onPressed: ()
+                {
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (_) => UserInfoEdit(list: list, index: index)));
+
                 },
               ),
             ),
+            // ListTile(
+            //   title: Text(
+            //     "탈퇴하기",
+            //     style: TextStyle(
+            //         color: Colors.black,
+            //         fontSize: 18,
+            //         fontWeight: FontWeight.w600),
+            //   ),
+            //   trailing: IconButton(
+            //     icon: Icon(Icons.arrow_forward_ios_rounded),
+            //     onPressed: () {
+            //       Navigator.pushReplacement(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (_) =>
+            //               DeleteProfile(index: index, list: list)));
+            //     },
+            //   ),
+            // ),
             _textField('로그아웃', UserInfoEdit(list: list, index: index)),
             _textField('탈퇴하기', UserInfoEdit(list: list, index: index)),
           ]);

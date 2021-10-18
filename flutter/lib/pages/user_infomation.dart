@@ -1,18 +1,43 @@
+import 'package:bsas/db/user_db.dart';
+import 'package:bsas/model/user_model.dart';
 import 'package:bsas/user_info_page/activity_page.dart';
-import 'package:bsas/user_info_page/edit_profile/edit_profile.dart';
+import 'package:bsas/user_info_page/detail_profile/edit_profile.dart';
 import 'package:bsas/user_info_page/notice_page.dart';
-import 'package:bsas/user_info_page/question_page.dart';
+import 'package:bsas/user_info_page/detail_question_page/question_page.dart';
 import 'package:bsas/user_info_page/setting_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class UserInformation extends StatefulWidget {
-  const UserInformation({Key? key}) : super(key: key);
 
   @override
   _UserInformationState createState() => _UserInformationState();
 }
 
 class _UserInformationState extends State<UserInformation> {
+
+  late List list;
+
+
+  Future<User> getUserData() async {
+    final response = await http.get(Uri.parse("http://54.180.102.153:18080/api/users/{7}"));
+    print('Response status: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      return User.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load user');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+
+  DBHelper databaseHelper = DBHelper();
 
   @override
   Widget build(BuildContext context) {
