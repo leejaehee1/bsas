@@ -35,8 +35,13 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateBoard(Board board) {
-        repository.updateBoard(board);
+    public void updateBoard(int idx) throws Exception {
+        repository.updateBoard(idx);
+    }
+
+    @Transactional
+    public void updatesBoard(Board board) throws Exception {
+        repository.updatesBoard(board);
     }
 
     @Transactional

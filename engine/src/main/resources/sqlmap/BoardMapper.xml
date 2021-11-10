@@ -39,6 +39,15 @@
         WHERE idx = #{idx}
     </update>
 
+    <update id="updatesBoard" parameterType="com.jsoftware.platform.model.Board">
+        UPDATE board
+        set title    = #{title},
+        contents = #{contents},
+        image = #{image},
+        filePath = #{filePath}
+        WHERE idx = #{idx}
+    </update>
+
     <delete id="deleteBoard" parameterType="com.jsoftware.platform.model.Board">
         DELETE
         FROM board

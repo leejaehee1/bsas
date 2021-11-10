@@ -13,7 +13,8 @@ public interface BoardRepository {
     List<Board> getBoards();
     void addBoard(Board board);
     Board getBoardOne(int idx);
-    void updateBoard(Board board);
+    void updateBoard(int idx) throws Exception;
+    void updatesBoard(Board board) throws Exception;
     void deleteBoard(int idx);
 
     void addReply(Reply reply);

@@ -4,26 +4,54 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'question_page.dart';
 
-class AddQuestion extends StatefulWidget {
-  const AddQuestion({Key? key}) : super(key: key);
+
+class EditQuestion extends StatefulWidget {
+
+  final List list;
+  final int index;
+
+  EditQuestion({required this.list, required this.index});
 
   @override
-  _AddQuestionState createState() => _AddQuestionState();
+  _EditQuestionState createState() => _EditQuestionState();
 }
 
-class _AddQuestionState extends State<AddQuestion> {
+class _EditQuestionState extends State<EditQuestion> {
 
   String title = '';
   String contents = '';
   String uploadUrl = 'http://54.180.102.153:18080/api/monthlyPick';
   File? selectedImage;
-  // var resJson;
 
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _contentsController = TextEditingController();
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _contentsController = TextEditingController();
+  TextEditingController _idController = TextEditingController();
+
 
   CustomerDbHelper questionDbHelper = CustomerDbHelper();
+
+  @override
+  void initState() {
+    _titleController = TextEditingController(
+        text: widget.list[widget.index]['title'].toString());
+    _contentsController = TextEditingController(
+        text: widget.list[widget.index]['contents'].toString());
+    _idController = TextEditingController(
+        text: widget.list[widget.index]['id'].toString());
+    super.initState();
+  }
+
+  _navigateQuestionList(BuildContext context) async {
+    final result = await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => QuestionPage()));
+
+    if (result) {
+      setState(() {});
+    }
+  }
 
   // 문의사항 입력 위젯 설정
   //title 위젯
@@ -31,10 +59,10 @@ class _AddQuestionState extends State<AddQuestion> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
-        style: const TextStyle(fontSize: 18.0),
+        style: const TextStyle(fontSize: 15.0),
         decoration: InputDecoration(
           labelText: text,
-          labelStyle: const TextStyle(fontSize: 15.0),
+          labelStyle: const TextStyle(fontSize: 15.0, color: Colors.grey),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -47,8 +75,7 @@ class _AddQuestionState extends State<AddQuestion> {
         ),
         validator: (input) => //유효성 검사
         input!.trim().isEmpty ? text : null,
-        onSaved: (input) => controller = input!,
-        controller: editController,
+        controller: _titleController,
       ),
     );
   }
@@ -60,10 +87,10 @@ class _AddQuestionState extends State<AddQuestion> {
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         maxLines: 10,
-        style: const TextStyle(fontSize: 18.0),
+        style: const TextStyle(fontSize: 15.0),
         decoration: InputDecoration(
           hintText: contents,
-          hintStyle: const TextStyle(fontSize: 15),
+          hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
           // contentPadding: EdgeInsets.symmetric(vertical: 200),
           labelStyle: const TextStyle(fontSize: 13.0),
           border: OutlineInputBorder(
@@ -78,8 +105,7 @@ class _AddQuestionState extends State<AddQuestion> {
         ),
         validator: (input) => //유효성 검사
         input!.trim().isEmpty ? contents : null,
-        onSaved: (input) => controller = input!,
-        controller: editController,
+        controller: _contentsController,
       ),
     );
   }
@@ -144,8 +170,13 @@ class _AddQuestionState extends State<AddQuestion> {
                           } else {
                             return selectedImage != null
                                 ? Image.file(selectedImage!)
-                                : const Center(
-                              child: Text("Please Get the Image"),
+                                : Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                children: const [
+                                  Text("Please Get \n the Image")
+                                ],
+                              ),
                             );
                           }
                       }
@@ -161,14 +192,14 @@ class _AddQuestionState extends State<AddQuestion> {
               child: RaisedButton(
                 onPressed: // 문의하기를 누르면 title, contents, image가 back으로 post 되어야함
                     () {
-                  onUploadImage();
-                  Navigator.pop(context, true);
+                  // onUploadImage();
+                      questionDbHelper.updateQuestion(
+                        _idController.text,
+                        _titleController.text,
+                        _contentsController.text
+                      );
+                      _navigateQuestionList(context);
                 },
-                //     (){ questionDbHelper.addQuestion(
-                //       _titleController.text,
-                //       _contentsController.text);
-                //   Navigator.pop(context, true);
-                // },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)
                 ),
@@ -203,9 +234,9 @@ class _AddQuestionState extends State<AddQuestion> {
 
   Future onUploadImage() async {
     final uri = Uri.parse('http://54.180.102.153:18080/api/monthlyPick');
-    var request = http.MultipartRequest('POST', uri);
-    request.fields['title'] = _titleController.text;
-    request.fields['contents'] = _contentsController.text;
+    var request = http.MultipartRequest('PUT', uri);
+    request.fields['title'] = _titleController.text.trim();
+    request.fields['contents'] = _contentsController.text.trim();
     var multipartFile = await http.MultipartFile.fromPath('image', selectedImage!.path);
     request.files.add(multipartFile);
     var response = await request.send();
@@ -216,49 +247,5 @@ class _AddQuestionState extends State<AddQuestion> {
       print('Image Not Uploaded');
     }
   }
-  }
-
-  // upload image
-  // Future<Map<String, dynamic>?> onUploadImage(String title, String contents, filepath, url) async {
-  //
-  //   //string to uri
-  //   var uri = Uri.parse('http://54.180.102.153:18080/api/monthlyPick');
-  //
-  //   // create multipart request
-  //   var imageUploadRequest = http.MultipartRequest('POST', (uri));
-  //
-  //   //add fields
-  //
-  //   Map<String, String> headers = {"Content-type": 'application/json; charset=UTF-8'};
-  //   imageUploadRequest.fields['title'] = title;
-  //   imageUploadRequest.fields['contents'] = contents;
-  //
-  //   // multipart that takes file
-  //   var multipartFile = http.MultipartFile(
-  //     'image', selectedImage!.readAsBytes().asStream(),
-  //     selectedImage!.lengthSync(), filename: selectedImage!
-  //       .path
-  //       .split('/')
-  //       .last);
-  //
-  //   // add file to multipart
-  //   imageUploadRequest.files.add(multipartFile);
-  //
-  //   imageUploadRequest.headers.addAll(headers);
-  //   print("request:" + imageUploadRequest.toString());
-  //   // send
-  //   var response = await imageUploadRequest.send();
-  //   print(response.statusCode);
-  //   if (response.statusCode ==200) print("uploaded");
-  //
-  //   // get the response from the server
-  //   // var responseData = await response.stream.toBytes();
-  //   // var responseString = String.fromCharCodes(responseData);
-  //   // print(responseString);
-  //   http.Response res = await http.Response.fromStream(response);
-  //   // setState(() {
-  //   //   resJson = jsonDecode(res.body);
-  //   // });
-  //
-  // }
+}
 

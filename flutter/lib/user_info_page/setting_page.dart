@@ -12,12 +12,17 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF43aa8b),
-        title: Text('설정',
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.white,
+        title: Text('앱 설정',
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.black, fontWeight: FontWeight.w600),
         ),
-        ),
+        centerTitle: true,
+        elevation: 0.5,
       ),
     );
   }

@@ -87,7 +87,7 @@ function drawReply(replys) {
 
   $.ajax({url: "boardView?idx="+IDX, success: function(result){
 <!--          $("#image").append('<img src="static/single/'+ result.image + '" style="width: 100%;">');-->
-          $("#image").append('<img src="C:/Users/Sherry Yi/Desktop/single/'+result.image+'" style="width: 100%;">');
+          $("#image").append('<img src="C:\\Users\\Sherry Yi\\Desktop\\single\\'+result.image+'" style="width: 100%;">');
           $("#title").text(result.title);
           $("#contents").text(result.contents);
    }});

@@ -4,8 +4,10 @@ import com.jsoftware.platform.model.Board;
 import com.jsoftware.platform.model.Reply;
 import com.jsoftware.platform.service.BoardService;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -84,12 +86,6 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    /*@GetMapping("/view")
-    public String view() {
-        System.out.printf("****** Board detail");
-        return "view";
-    }*/
-
     // board detail (json)
     @GetMapping("/boardView")
     @ResponseBody
@@ -122,30 +118,26 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    // 화면용
-    @GetMapping("/update")
-    public String getBoardUpdate(@RequestParam("idx") int idx, Model model) {
-        model.addAttribute("board", service.getBoardOne(idx));
+    // update 화면용
+    @GetMapping(value = "/update")
+    public String updateboard(@RequestParam("idx") int idx, Model model) throws Exception {
+        System.out.println("****** update Board view:" + idx);
+
+        // model로 빼낸 data
+        Board data = service.getBoardOne(idx);
+        model.addAttribute("data", data);
+
         System.out.println("****** getting update Board:" + idx);
-        model.addAttribute("boardUpdate", new Board());
-        System.out.println("****** update Board:" + idx);
         return "update";
     }
 
     // 실제 action
-    @RequestMapping(value ="/updateAction", method = {RequestMethod.GET, RequestMethod.POST})
-    public String updateBoard(@RequestParam(value = "idx") int idx,
-                              @ModelAttribute("board") Board board,
-                              Model model) throws Exception {
-        // 컬럼 별 다 null으로 인식해서 가져왔지만 안됨 10/13
-        board.setTitle(board.getTitle());
-        board.setContents(board.getContents());
-        board.setImage(board.getImage());
-        board.setFilePath(board.getFilePath());
-        System.out.println("****** starting update Board:"+idx);
-        service.updateBoard(board);
-        System.out.println("****** update Board ing:"+idx);
-        return "redirect:/view?idx="+idx;
+    @PostMapping(value = "/updateAction", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String updatesBoard(Board board) throws Exception {
+        System.out.println("****** 1 starting update Board:"+board.getIdx());
+        service.updatesBoard(board);
+        System.out.println("****** 2 starting update Board:"+board.getIdx());
+        return "redirect:board";
     }
 
     @GetMapping("/replyList")
