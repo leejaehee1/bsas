@@ -17,8 +17,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.filechooser.FileSystemView;
 
-import lombok.var;
-
 @Controller
 public class BoardController {
 
@@ -26,6 +24,12 @@ public class BoardController {
 
     public BoardController(BoardService service) {
         this.service = service;
+    }
+
+    @GetMapping("/pinksalt")
+    public String pinksaltApp(){
+        System.out.printf("****** pinksalt html");
+        return "mint.html";
     }
 
     // ui 화면으로 출력해냄

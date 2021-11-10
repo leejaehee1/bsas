@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sample page</title>
+    <script>
+        function changeColor() {
+            var colors = ["black", "red", "green"];
+            var randonNumber = Math.floor(Math.random() * 3);
+            var myDiv = document.getElementById("container_box");
+            myDiv.style.backgroundColor = colors[randonNumber];
+            try { colorChanged.postMessage(colors[randonNumber]); } catch (err) {}
+        }
+        function webToApp(msg) {
+            alert(msg);
+            try { webToAppChange.postMessage(msg); } catch (err) {}
+        }
+        function appToWeb(color) {
+            alert("aa");
+            var myDiv = document.getElementById("container_box");
+            myDiv.style.backgroundColor = color;
+        }
+</script>
+    <style type="text/css">
+    #btn_color {
+        display: block;
+        margin: auto;
+    }
+    #container_box {
+        height: 500px;
+        width: 150px;
+        border: 1px solid #000 ;
+        margin: 0 auto;
+    }
+</style>
 </head>
 <body>
-<h1>hello index</h1>
+<div id="container_box"></div> <br>
+    <button id="btn_color" onclick="changeColor()"> Change Color</button>
+    <button id="btn_webToApp" onclick="webToApp('웹페이지에서 앱 전달')">webToApp</button>
+    <button id="btn_appToWeb" onclick="appToWeb('black')">appToWeb</button>
 </body>
 </html>
